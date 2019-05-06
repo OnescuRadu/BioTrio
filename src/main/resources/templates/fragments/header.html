@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- Navigation -->
+<div th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <div class="container">
+
+            <a class="navbar-brand" th:href="@{/}"><b>BioTrio Cinema</b></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars custom-menu-icon"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/}"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/movies}"><i class="fas fa-film"></i> Movies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/about-us}"><i class="fas fa-user"></i> About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/contact}"><i class="fas fa-envelope"></i> Contact</a>
+                    </li>
+                </ul>
+
+                <form>
+                <div class="input-group">
+                    <input type="text" class="form-control search-text" id="" placeholder="Search..">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <span class="search-button"><i class="fas fa-search search-icon"></i>
+                                </span>
+                        </button>
+                    </span>
+                </div>
+                </form>
+
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/control-panel}"><i class="fas fa-cog"></i>
+                            <span class="d-lg-none">Control Panel</span></a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</div>
+</body>
+</html>

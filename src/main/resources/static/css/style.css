@@ -1,0 +1,533 @@
+@import url("https://fonts.googleapis.com/css?family=Arimo:400,700");
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+* {
+    -webkit-transition: 300ms;
+    transition: 300ms;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Change link color */
+a:hover {
+    color: #F4661F;
+}
+
+/*----------- START MOVIE CONTAINER ----------- */
+.container-movies {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    max-width: 100%;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+/* Movie card
+*/
+.movie-card {
+    background: #ffffff;
+    box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 315px;
+    margin: 2em;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.movie-header {
+    padding: 0;
+    margin: 0;
+    height: 367px;
+    width: 100%;
+    display: block;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.movieName {
+    background: url("http://henrycavill.org/images/Films/2013-Man-of-Steel/posters/3-Walmart-Superman-a.jpg");
+    background-size: cover;
+//background-position: 100% 100%;
+}
+
+.header-icon-container {
+    position: relative;
+}
+
+.header-icon {
+    width: 100%;
+    height: 367px;
+    line-height: 367px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0 auto;
+    color: #ffffff;
+    font-size: 54px;
+    text-shadow: 0px 0px 20px #6abcea, 0px 5px 20px #6ABCEA;
+    opacity: .85;
+}
+
+.header-icon:hover {
+    background: rgba(0, 0, 0, 0.15);
+    font-size: 74px;
+    text-shadow: 0px 0px 20px #6abcea, 0px 5px 30px #6ABCEA;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    opacity: 1;
+}
+
+.movie-card:hover {
+    -webkit-transform: scale(1.03);
+    transform: scale(1.03);
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.movie-content {
+    padding: 18px 18px 24px 18px;
+    margin: 0;
+}
+
+.movie-content-header,
+.movie-info {
+    display: table;
+    width: 100%;
+}
+
+.movie-title {
+    font-size: 24px;
+    margin: 0;
+    display: table-cell;
+}
+
+.movie-info {
+    margin-top: 1em;
+}
+
+.info-section {
+    display: table-cell;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.info-section:first-of-type {
+    text-align: left;
+}
+
+.info-section:last-of-type {
+    text-align: right;
+}
+
+.info-section label {
+    display: block;
+    color: rgba(0, 0, 0, 0.5);
+    margin-bottom: .5em;
+    font-size: 9px;
+}
+
+.info-section span {
+    font-weight: 700;
+    font-size: 11px;
+}
+
+@media screen and (max-width: 500px) {
+    .movie-card {
+        width: 95%;
+        max-width: 95%;
+        margin: 1em;
+        display: block;
+    }
+
+    .container-movies {
+        padding: 0;
+        margin: 0;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container-movies {
+        max-width: 1500px;
+    }
+}
+/*----------- END MOVIE CONTAINER ----------- */
+
+
+/*----------- START HEADER IMAGE ----------- */
+.masthead {
+    height: 100vh;
+    min-height: 500px;
+    background-image: url("../images/header.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-bottom: 5vh;
+}
+
+/*----------- END HEADER IMAGE ----------- */
+
+/*----------- START NAVBAR ----------- */
+.search-text,
+.input-group {
+    max-width: 280px;
+
+}
+@media (max-width: 991.98px) {
+
+    .nav-link{
+        text-align:center;
+    }in
+     search-text, .input-group {
+         margin-left:auto;
+         margin-right:auto;
+
+     }
+
+    .search-icon{
+        font-size: 25px;
+
+
+    }
+}
+.navbar-custom {
+    background-color:#F4661F;
+    border-bottom: 5px solid #CE561A;
+}
+/* change the search icon color */
+.search-icon
+{
+    color: rgba(255,255,255,.5);
+}
+/* change the search icon color on hover */
+.search-icon:hover
+{
+    color: #ffffff;
+}
+/* change the search input color */
+.search-text
+{
+    background-color: #ff6e26;
+    border: 1px solid rgba(255,255,255,.5);
+
+}
+.search-text::placeholder  {
+    color: rgba(255,255,255,.5);
+    opacity: 1;
+}
+.search-text:focus::placeholder  {
+    color: white;
+}
+/* change the search input color when selected */
+.search-text:focus
+{
+    background-color: rgba(255,255,255,.3);
+    outline: 0;
+    box-shadow: 0 0;
+    border: 0px;
+    color: white;
+}
+/* change the brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text  {
+    color: rgba(255,255,255,.8);
+}
+.navbar-custom .navbar-brand{
+    color: white;
+}
+
+.navbar-custom .navbar-brand:hover{
+    color: white;
+    text-shadow: 2px 2px 4px #722600;
+}
+/* change the link color */
+.navbar-custom .navbar-nav .nav-link {
+    color: rgba(255,255,255,.5);
+}
+/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: #ffffff;
+}
+
+/*----------- END NAVBAR ----------- */
+
+
+
+
+/*----------- START FOOTER ----------- */
+
+#myFooter {
+    margin-top: 5vh;
+    background-color: #F4661F;
+    color:white;
+}
+
+#myFooter .footer-copyright{
+    background-color: #CE561A;
+    padding-top:3px;
+    padding-bottom:3px;
+    text-align: center;
+}
+
+#myFooter .footer-copyright p{
+    margin:10px;
+    color: white;
+}
+
+#myFooter ul{
+    list-style-type: none;
+    padding-left: 0;
+    line-height: 1.7;
+
+}
+
+#myFooter h5{
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+#myFooter a{
+    color:rgba(255,255,255,.5);
+    text-decoration: none;
+}
+
+#myFooter a:hover, #myFooter a:focus{
+    text-decoration: none;
+    color:white;
+}
+
+#myFooter .myCols{
+    text-align: center;
+}
+
+#myFooter .social-networks{
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 38px;
+}
+
+#myFooter .social-networks a{
+    font-size: 32px;
+    margin-right: 5px;
+    margin-left: 5px;
+    color: #f9f9f9;
+    padding: 10px;
+    transition: 0.2s;
+}
+
+#myFooter .social-networks a:hover{
+    text-decoration: none;
+
+}
+
+#myFooter .facebook:hover{
+    color:#0077e2;
+}
+
+#myFooter .google:hover{
+    color:#ef1a1a;
+}
+
+#myFooter .twitter:hover{
+    color: #00aced;
+}
+
+@media screen and (max-width: 767px){
+    #myFooter {
+        text-align: center;
+    }
+}
+
+/*----------- END FOOTER ----------- */
+
+
+/*----------- START DIVIDER WITH ICON ----------- */
+hr.star-dark {
+    max-width: 22rem;
+    padding: 0;
+    text-align: center;
+    border: none;
+    border-top: .25rem solid;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem
+}
+
+hr.star-dark:after {
+    position: relative;
+    top: -.8em;
+    display: inline-block;
+    padding: 0 .25em;
+    font-family: 'Font Awesome\ 5 Free';
+    content: "\f008";
+    font-size: 2em;
+    font-weight: 900;
+}
+
+hr.star-dark {
+    border-color: #F4661F
+}
+
+hr.star-dark:after {
+    color: #F4661F;
+    background-color: white;
+}
+/*----------- END DIVIDER WITH ICON ----------- */
+
+/*----------- START MARGIN CLASSES ----------- */
+.add-margin-top{
+    margin-top: 5vh;
+}
+.add-margin-bottom{
+    margin-bottom: 5vh;
+}
+/*----------- END MARGIN CLASSES ----------- */
+
+@media (max-width: 576px) { .see-all-movies{
+    margin-top: 5vh;
+} }
+
+.navbar-toggler{
+    border: none;
+    outline: none;
+    color: white;
+}
+
+.custom-menu-icon{
+    color: rgba(255,255,255,.5);
+}
+
+.custom-menu-icon:hover{
+    color: white;
+}
+
+.motto {
+    text-shadow: 2px 2px 12px rgba(0, 0, 0, 1);
+}
+
+/*Buttons from index page*/
+.see-movies{
+    border-color: #F4661F;
+    color: #F4661F;
+}
+
+.see-movies:hover{
+    border-color: #F4661F;
+    background-color: #F4661F;
+    color: white;
+}
+
+/*Class for making any text orange*/
+.orange-text{
+    color: #F4661F;
+}
+
+/*----------- ABOUT PAGE ----------- */
+.about_img{
+    background-image: url("../images/002.jpg");
+}
+
+.faq-nav .nav-link1:hover {
+    background-color: #F4661F;
+    color: white;
+}
+
+.faq-nav .nav-link1.active {
+    background-color: #F4661F;
+    font-weight: 700;
+    color: white;
+}
+
+/*----------- FAQ PAGE ----------- */
+.faq_content{
+    margin-top: 3%;
+}
+
+.faq-nav {
+    flex-direction: column;
+    margin: 0 0 32px;
+    border-radius: 2px;
+}
+
+.faq-nav .nav-link1 {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 13px 16px;
+    background-color: #fff;
+    border: 0;
+    border: 1px solid #F4661F;
+    border-radius: 10px;
+    color: #F4661F;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+}
+
+.faq-nav .nav-link1 i.mdi {
+    margin-right: 5px;
+    font-size: 18px;
+    position: relative;
+}
+
+.tab-content {
+    box-shadow: 0 1px 5px rgba(85, 85, 85, 0.15);
+}
+
+.tab-content .card {
+    border-radius: 0;
+}
+
+.tab-content .card-header {
+    padding: 15px 16px;
+    border-radius: 0;
+    background-color: white;
+}
+
+.tab-content .card-header h5 {
+    margin: 0;
+}
+
+.tab-content .card-header h5 button {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    font-weight: 700;
+    color: #F4661F;
+    text-align: left;
+    white-space: normal;
+}
+
+.tab-content .card-header h5 button:hover, .tab-content .card-header h5 button:focus, .tab-content .card-header h5 button:active, .tab-content .card-header h5 button:hover:active {
+    text-decoration: none;
+}
+
+.tab-content .card-body p {
+    color: #616161;
+}
+
+.tab-content .card-body p:last-of-type {
+    margin: 0;
+}
+
+.accordion > .card:not(:first-child) {
+    border-top: 0;
+}
+
+.collapse.show .card-body {
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+}

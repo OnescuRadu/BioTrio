@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/latest/js/all.js" integrity="sha384-L469/ELG4Bg9sDQbl0hvjMq8pOcqFgkSpwhwnslzvVVGpDjYJ6wJJyYjvG3u8XW7"
+            crossorigin="anonymous"></script>
+
+    <!-- Custom CSS File -->
+    <link th:href="@{/css/style.css}" href="/static/css/faq_style.css" rel="stylesheet" type="text/css"/>
+
+    <!-- Page Title -->
+    <title>Bio Trio Cinema | About</title>
+</head>
+<body>
+<!--Insert header fragment-->
+<div th:insert="~{/fragments/header :: header}"></div>
+
+<div class="container">
+    <!--Section: Contact v.2-->
+    <section class="mb-4">
+        <!--Section heading-->
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="h1-responsive font-weight-bold text-center my-4">About us</h2>
+                    <!--Section description-->
+                    <p class="text-center w-responsive mx-auto mb-5">Well, it's all about the experience. This is a very important concept;
+                        the experience of going to a theater still is very unique regardless of the movie you're watching. This experience
+                        concept is what generate billions of revenue to various segments of the economy, including special restaurants,
+                        cafes, hotels, etc., and it's also the reason why people go to concerts instead of just watching videos and
+                        listening to the music; it's something people are willing to go out of their way to purchase.
+                    </p>
+                </div>
+
+                <div class="col-md-6">
+                    <img th:src="@{/images/002.jpg}"/>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="text-center">
+        <a href="/contact" style="border-radius: 5px;" class="btn btn-outline-warning  see-movies">Contact us</a>
+    </div>
+    <!--Section: Contact v.2-->
+</div>
+<!--Insert footer fragment-->
+<div th:insert="~{/fragments/footer :: footer}"></div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
