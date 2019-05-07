@@ -26,9 +26,16 @@ public class MoviePlanController {
 
 
     @GetMapping("/delete-movie-plan/{id}")
-    public String showMovie(@PathVariable("id") int id, Model model) throws Exception {
+    public String deleteMoviePlan(@PathVariable("id") int id) throws Exception {
         moviePlanRepo.deleteMoviePlan(id);
         return "/movie";
+    }
+
+    @GetMapping("/add-movie-plan")
+    public String addMoviePlan(Model model) throws Exception {
+        List<MoviePlan> moviePlanList = moviePlanRepo.findAllMoviePlan();
+        model.addAttribute("moviePlan", moviePlanList);
+        return "/plan-movie-page";
     }
 
 }
