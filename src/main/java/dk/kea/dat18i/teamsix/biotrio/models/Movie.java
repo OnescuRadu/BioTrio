@@ -1,10 +1,10 @@
 package dk.kea.dat18i.teamsix.biotrio;
 
 public class Movie {
-    int movie_id;
-    int movie_details_id;
-    boolean type;
-    boolean available;
+    private int movie_id;
+    private int movie_details_id;
+    private boolean type;
+    private boolean available;
 
     public Movie(int movie_id, int movie_details_id, boolean type, boolean available) {
         this.movie_id = movie_id;

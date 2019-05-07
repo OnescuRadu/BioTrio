@@ -1,11 +1,11 @@
-package dk.kea.dat18i.teamsix.biotrio;
+package dk.kea.dat18i.teamsix.biotrio.models;
 
 public class TeatherRoom {
-    int teather_room_id;
-    String name;
-    int rows_no;
-    int columns_no;
-    Boolean capability_3d;
+    private int teather_room_id;
+    private String name;
+    private int rows_no;
+    private int columns_no;
+    private Boolean capability_3d;
 
     public TeatherRoom(int teather_room_id, String name, int rows_no, int columns_no, Boolean capability_3d) {
         this.teather_room_id = teather_room_id;
@@ -13,6 +13,10 @@ public class TeatherRoom {
         this.rows_no = rows_no;
         this.columns_no = columns_no;
         this.capability_3d = capability_3d;
+    }
+
+    public TeatherRoom(){
+
     }
 
     public int getTeather_room_id() {

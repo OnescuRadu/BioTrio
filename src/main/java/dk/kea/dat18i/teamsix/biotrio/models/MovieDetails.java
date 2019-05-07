@@ -3,15 +3,15 @@ package dk.kea.dat18i.teamsix.biotrio;
 import java.time.LocalDate;
 
 public class MovieDetails {
-    int movie_details_id;
-    String name;
-    String genre;
-    LocalDate release_date;
-    int duration_minutes;
-    String description;
-    String language;
-    String poster;
-    String trailer;
+    private int movie_details_id;
+    private String name;
+    private String genre;
+    private LocalDate release_date;
+    private int duration_minutes;
+    private String description;
+    private String language;
+    private String poster;
+    private String trailer;
 
     public int getMovie_details_id() {
         return movie_details_id;

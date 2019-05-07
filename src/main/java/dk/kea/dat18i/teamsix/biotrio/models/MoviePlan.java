@@ -5,12 +5,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class MoviePlan {
-    int movie_plan_id;
-    int movie_id;
-    int teather_room_id;
-    LocalDate date;
-    LocalTime start_time;
-    double price;
+    private int movie_plan_id;
+    private int movie_id;
+    private int teather_room_id;
+    private LocalDate date;
+    private LocalTime start_time;
+    private double price;
 
     public MoviePlan(int movie_plan_id, int movie_id, int teather_room_id, LocalDate date, LocalTime start_time, double price) {
         this.movie_plan_id = movie_plan_id;

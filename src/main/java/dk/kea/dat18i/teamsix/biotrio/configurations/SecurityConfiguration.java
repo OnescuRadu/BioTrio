@@ -1,4 +1,4 @@
-package dk.kea.dat18i.teamsix.biotrio;
+package dk.kea.dat18i.teamsix.biotrio.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
