@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -12,7 +12,6 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/latest/js/all.js" integrity="sha384-L469/ELG4Bg9sDQbl0hvjMq8pOcqFgkSpwhwnslzvVVGpDjYJ6wJJyYjvG3u8XW7" crossorigin="anonymous"></script>
 
     <!-- Custom CSS File -->
     <link th:href="@{/css/style.css}" href="/static/css/style.css"  rel="stylesheet" type="text/css" />
@@ -40,13 +39,15 @@
 <!-- Latest Released Movies Title and Divider -->
 <h2 class="text-center orange-text">LATEST RELEASED MOVIES</h2>
 <hr class="star-dark mb-5">
+
+
 <!--start movie container-->
-<div class="container container-movies">
+<div class="container container-movies" th:each="movie, counter: ${movies}" th:if="${counter.index}<6">
     <!--movie-card-->
     <div class="movie-card">
-        <div class="movie-header movieName">
+        <div class="movie-header movieName" th:style="'background:url(/images/posters/' + ${movie.movieDetails.poster} + '); background-size: cover;'">
             <div class="header-icon-container">
-                <a href="#">
+                <a th:href="'/movie/' + ${movie.movie_id}">
                     <i class="material-icons header-icon"></i>
                 </a>
             </div>
@@ -55,28 +56,30 @@
         <div class="movie-content">
             <div class="movie-content-header">
                 <a href="#">
-                    <h3 class="movie-title">MOVIE TITLE</h3>
+                    <h3 class="movie-title">
+                        <span th:text="${movie.movieDetails.name}"></span>
+                    </h3>
                 </a>
             </div>
             <div class="movie-info">
                 <div class="info-section">
                     <label>Release Date</label>
-                    <span>Tue 4 July</span>
+                    <span th:text="${movie.movieDetails.release_date}"></span>
                 </div>
                 <!--date,time-->
                 <div class="info-section">
                     <label>Genre</label>
-                    <span>Action</span>
+                    <span th:text="${movie.movieDetails.genre}"></span>
                 </div>
                 <!--screen-->
                 <div class="info-section">
                     <label>Language</label>
-                    <span>EN</span>
+                    <span th:text="${movie.movieDetails.language}"></span>
                 </div>
                 <!--row-->
                 <div class="info-section">
                     <label>TYPE</label>
-                    <span>2D</span>
+                    <span th:text="${movie.type} ? '3D' : '2D'"></span>
                 </div>
                 <!--seat-->
             </div>
@@ -85,225 +88,11 @@
     </div>
     <!--movie-card-->
 
-    <!--movie-card-->
-    <div class="movie-card">
-        <div class="movie-header movieName">
-            <div class="header-icon-container">
-                <a href="#">
-                    <i class="material-icons header-icon"></i>
-                </a>
-            </div>
-        </div>
-        <!--movie-header-->
-        <div class="movie-content">
-            <div class="movie-content-header">
-                <a href="#">
-                    <h3 class="movie-title">MOVIE TITLE</h3>
-                </a>
-            </div>
-            <div class="movie-info">
-                <div class="info-section">
-                    <label>Release Date</label>
-                    <span>Tue 4 July</span>
-                </div>
-                <!--date,time-->
-                <div class="info-section">
-                    <label>Genre</label>
-                    <span>Action</span>
-                </div>
-                <!--screen-->
-                <div class="info-section">
-                    <label>Language</label>
-                    <span>EN</span>
-                </div>
-                <!--row-->
-                <div class="info-section">
-                    <label>TYPE</label>
-                    <span>2D</span>
-                </div>
-                <!--seat-->
-            </div>
-        </div>
-        <!--movie-content-->
-    </div>
-    <!--movie-card-->
-
-    <!--movie-card-->
-    <div class="movie-card">
-        <div class="movie-header movieName">
-            <div class="header-icon-container">
-                <a href="#">
-                    <i class="material-icons header-icon"></i>
-                </a>
-            </div>
-        </div>
-        <!--movie-header-->
-        <div class="movie-content">
-            <div class="movie-content-header">
-                <a href="#">
-                    <h3 class="movie-title">MOVIE TITLE</h3>
-                </a>
-            </div>
-            <div class="movie-info">
-                <div class="info-section">
-                    <label>Release Date</label>
-                    <span>Tue 4 July</span>
-                </div>
-                <!--date,time-->
-                <div class="info-section">
-                    <label>Genre</label>
-                    <span>Action</span>
-                </div>
-                <!--screen-->
-                <div class="info-section">
-                    <label>Language</label>
-                    <span>EN</span>
-                </div>
-                <!--row-->
-                <div class="info-section">
-                    <label>TYPE</label>
-                    <span>2D</span>
-                </div>
-                <!--seat-->
-            </div>
-        </div>
-        <!--movie-content-->
-    </div>
-    <!--movie-card-->
-
-    <!--movie-card-->
-    <div class="movie-card">
-        <div class="movie-header movieName">
-            <div class="header-icon-container">
-                <a href="#">
-                    <i class="material-icons header-icon"></i>
-                </a>
-            </div>
-        </div>
-        <!--movie-header-->
-        <div class="movie-content">
-            <div class="movie-content-header">
-                <a href="#">
-                    <h3 class="movie-title">MOVIE TITLE</h3>
-                </a>
-            </div>
-            <div class="movie-info">
-                <div class="info-section">
-                    <label>Release Date</label>
-                    <span>Tue 4 July</span>
-                </div>
-                <!--date,time-->
-                <div class="info-section">
-                    <label>Genre</label>
-                    <span>Action</span>
-                </div>
-                <!--screen-->
-                <div class="info-section">
-                    <label>Language</label>
-                    <span>EN</span>
-                </div>
-                <!--row-->
-                <div class="info-section">
-                    <label>TYPE</label>
-                    <span>2D</span>
-                </div>
-                <!--seat-->
-            </div>
-        </div>
-        <!--movie-content-->
-    </div>
-    <!--movie-card-->
-
-    <!--movie-card-->
-    <div class="movie-card">
-        <div class="movie-header movieName">
-            <div class="header-icon-container">
-                <a href="#">
-                    <i class="material-icons header-icon"></i>
-                </a>
-            </div>
-        </div>
-        <!--movie-header-->
-        <div class="movie-content">
-            <div class="movie-content-header">
-                <a href="#">
-                    <h3 class="movie-title">MOVIE TITLE</h3>
-                </a>
-            </div>
-            <div class="movie-info">
-                <div class="info-section">
-                    <label>Release Date</label>
-                    <span>Tue 4 July</span>
-                </div>
-                <!--date,time-->
-                <div class="info-section">
-                    <label>Genre</label>
-                    <span>Action</span>
-                </div>
-                <!--screen-->
-                <div class="info-section">
-                    <label>Language</label>
-                    <span>EN</span>
-                </div>
-                <!--row-->
-                <div class="info-section">
-                    <label>TYPE</label>
-                    <span>2D</span>
-                </div>
-                <!--seat-->
-            </div>
-        </div>
-        <!--movie-content-->
-    </div>
-    <!--movie-card-->
-
-    <!--movie-card-->
-    <div class="movie-card">
-        <div class="movie-header movieName">
-            <div class="header-icon-container">
-                <a href="#">
-                    <i class="material-icons header-icon"></i>
-                </a>
-            </div>
-        </div>
-        <!--movie-header-->
-        <div class="movie-content">
-            <div class="movie-content-header">
-                <a href="#">
-                    <h3 class="movie-title">MOVIE TITLE</h3>
-                </a>
-            </div>
-            <div class="movie-info">
-                <div class="info-section">
-                    <label>Release Date</label>
-                    <span>Tue 4 July</span>
-                </div>
-                <!--date,time-->
-                <div class="info-section">
-                    <label>Genre</label>
-                    <span>Action</span>
-                </div>
-                <!--screen-->
-                <div class="info-section">
-                    <label>Language</label>
-                    <span>EN</span>
-                </div>
-                <!--row-->
-                <div class="info-section">
-                    <label>TYPE</label>
-                    <span>2D</span>
-                </div>
-                <!--seat-->
-            </div>
-        </div>
-        <!--movie-content-->
-    </div>
-    <!--movie-card-->
 </div>
 <!--end movie container-->
 
 <div class="text-center">
-    <a href="#" style="border-radius: 5px;" class="btn btn-outline-warning  see-movies">See all movies</a>
+    <a th:href="@{/movies}" style="border-radius: 5px;" class="btn btn-outline-warning  see-movies">See all movies</a>
 </div>
 
 <!--Insert footer fragment-->

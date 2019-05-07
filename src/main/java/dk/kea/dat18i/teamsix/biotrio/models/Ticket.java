@@ -1,9 +1,9 @@
-package dk.kea.dat18i.teamsix.biotrio;
+package dk.kea.dat18i.teamsix.biotrio.models;
 
 public class Ticket {
-    int ticket_id;
-    String seat_number;
-    int booking_id;
+    private int ticket_id;
+    private String seat_number;
+    private int booking_id;
 
     public Ticket(int ticket_id, String seat_number, int booking_id) {
         this.ticket_id = ticket_id;

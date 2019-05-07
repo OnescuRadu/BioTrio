@@ -1,4 +1,4 @@
-package dk.kea.dat18i.teamsix.biotrio;
+package dk.kea.dat18i.teamsix.biotrio.configurations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -30,7 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index", "/movies", "/contact", "/about-us", "/faq", "/movie", "/css/**", "/images/**").permitAll()
+                .antMatchers("/", "/index", "/movies/**", "/contact", "/about-us", "/faq", "/movie/**", "/css/**", "/images/**").permitAll()
                 .antMatchers("/control-panel/**").hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
                 .permitAll();

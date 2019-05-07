@@ -1,26 +1,30 @@
-package dk.kea.dat18i.teamsix.biotrio;
+package dk.kea.dat18i.teamsix.biotrio.models;
 
-public class TeatherRoom {
-    int teather_room_id;
-    String name;
-    int rows_no;
-    int columns_no;
-    Boolean capability_3d;
+public class TheaterRoom {
+    private int theater_room_id;
+    private String name;
+    private int rows_no;
+    private int columns_no;
+    private Boolean capability_3d;
 
-    public TeatherRoom(int teather_room_id, String name, int rows_no, int columns_no, Boolean capability_3d) {
-        this.teather_room_id = teather_room_id;
+    public TheaterRoom(int theater_room_id, String name, int rows_no, int columns_no, Boolean capability_3d) {
+        this.theater_room_id = theater_room_id;
         this.name = name;
         this.rows_no = rows_no;
         this.columns_no = columns_no;
         this.capability_3d = capability_3d;
     }
 
-    public int getTeather_room_id() {
-        return teather_room_id;
+    public TheaterRoom(){
+
     }
 
-    public void setTeather_room_id(int teather_room_id) {
-        this.teather_room_id = teather_room_id;
+    public int getTheater_room_id() {
+        return theater_room_id;
+    }
+
+    public void setTheater_room_id(int theater_room_id) {
+        this.theater_room_id = theater_room_id;
     }
 
     public String getName() {
@@ -57,8 +61,8 @@ public class TeatherRoom {
 
     @Override
     public String toString() {
-        return "TeatherRoom{" +
-                "teather_room_id=" + teather_room_id +
+        return "TheaterRoom{" +
+                "theater_room_id=" + theater_room_id +
                 ", name='" + name + '\'' +
                 ", rows_no=" + rows_no +
                 ", columns_no=" + columns_no +

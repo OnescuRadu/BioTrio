@@ -60,9 +60,8 @@ a:hover {
 }
 
 .movieName {
-    background: url("http://henrycavill.org/images/Films/2013-Man-of-Steel/posters/3-Walmart-Superman-a.jpg");
     background-size: cover;
-//background-position: 100% 100%;
+    background-position: 100% 100%;
 }
 
 .header-icon-container {
@@ -436,10 +435,25 @@ hr.star-dark:after {
     color: #F4661F;
 }
 
+/*----------- CONTACT PAGE ----------- */
+.see-movies{
+    border-color: #F4661F;
+    color: #F4661F;
+}
+
+.see-movies:hover{
+    border-color: #F4661F;
+    background-color: #F4661F;
+    color: white;
+}
+
 /*----------- ABOUT PAGE ----------- */
 .about_img{
-    background-image: url("../images/002.jpg");
+    width: 100%;
+    margin-top: 1.5rem;
 }
+
+/*----------- FAQ PAGE ----------- */
 
 .faq-nav .nav-link1:hover {
     background-color: #F4661F;
@@ -451,8 +465,6 @@ hr.star-dark:after {
     font-weight: 700;
     color: white;
 }
-
-/*----------- FAQ PAGE ----------- */
 .faq_content{
     margin-top: 3%;
 }
@@ -530,4 +542,19 @@ hr.star-dark:after {
 
 .collapse.show .card-body {
     border-bottom: 1px solid rgba(0, 0, 0, .125);
+}
+
+/*----------- MOVIE PAGE ----------- */
+.movie_img{
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+/*----------- EMPLOYEE PAGE ----------- */
+.employee_btn{
+    margin-top: 1.5rem;
+}
+
+.employee_btn a{
+    margin-top: 1rem;
 }
