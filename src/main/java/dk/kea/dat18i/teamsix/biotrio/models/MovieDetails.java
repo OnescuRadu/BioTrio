@@ -1,4 +1,4 @@
-package dk.kea.dat18i.teamsix.biotrio;
+package dk.kea.dat18i.teamsix.biotrio.models;
 
 import java.time.LocalDate;
 
@@ -95,6 +95,10 @@ public class MovieDetails {
         this.language = language;
         this.poster = poster;
         this.trailer = trailer;
+
+    }
+
+    public MovieDetails() {
 
     }
 

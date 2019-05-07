@@ -1,4 +1,4 @@
-package dk.kea.dat18i.teamsix.biotrio;
+package dk.kea.dat18i.teamsix.biotrio.models;
 
 public class Ticket {
     private int ticket_id;

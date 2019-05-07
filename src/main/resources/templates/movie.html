@@ -24,6 +24,55 @@
 <!--Insert header fragment-->
 <div th:insert="~{/fragments/header :: header}"></div>
 
+<!--start movie container-->
+<div class="container container-movies" th:each="movie: ${movie}">
+    <!--movie-card-->
+    <div class="movie-card">
+        <div class="movie-header movieName" th:style="'background:url(/images/posters/' + ${movie.movieDetails.poster} + '); background-size: cover;'">
+            <div class="header-icon-container">
+                <a th:href="'/movie/' + ${movie.movie_id}">
+                    <i class="material-icons header-icon"></i>
+                </a>
+            </div>
+        </div>
+        <!--movie-header-->
+        <div class="movie-content">
+            <div class="movie-content-header">
+                <a href="#">
+                    <h3 class="movie-title">
+                        <span th:text="${movie.movieDetails.name}"></span>
+                    </h3>
+                </a>
+            </div>
+            <div class="movie-info">
+                <div class="info-section">
+                    <label>Release Date</label>
+                    <span th:text="${movie.movieDetails.release_date}"></span>
+                </div>
+                <!--date,time-->
+                <div class="info-section">
+                    <label>Genre</label>
+                    <span th:text="${movie.movieDetails.genre}"></span>
+                </div>
+                <!--screen-->
+                <div class="info-section">
+                    <label>Language</label>
+                    <span th:text="${movie.movieDetails.language}"></span>
+                </div>
+                <!--row-->
+                <div class="info-section">
+                    <label>TYPE</label>
+                    <span th:text="${movie.type} ? '3D' : '2D'"></span>
+                </div>
+                <!--seat-->
+            </div>
+        </div>
+        <!--movie-content-->
+    </div>
+    <!--movie-card-->
+
+</div>
+<!--end movie container-->
 
 <!--Insert footer fragment-->
 <div th:insert="~{/fragments/footer :: footer}"></div>

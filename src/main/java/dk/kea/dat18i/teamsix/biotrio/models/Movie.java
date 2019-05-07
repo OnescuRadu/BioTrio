@@ -1,16 +1,21 @@
-package dk.kea.dat18i.teamsix.biotrio;
+package dk.kea.dat18i.teamsix.biotrio.models;
 
 public class Movie {
     private int movie_id;
     private int movie_details_id;
+    private MovieDetails movieDetails;
     private boolean type;
     private boolean available;
 
-    public Movie(int movie_id, int movie_details_id, boolean type, boolean available) {
+    public Movie(int movie_id, int movie_details_id, MovieDetails movieDetails, boolean type, boolean available) {
         this.movie_id = movie_id;
         this.movie_details_id = movie_details_id;
+        this.movieDetails = movieDetails;
         this.type = type;
         this.available = available;
+    }
+
+    public Movie() {
     }
 
     public int getMovie_id() {
@@ -43,6 +48,14 @@ public class Movie {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public MovieDetails getMovieDetails() {
+        return movieDetails;
+    }
+
+    public void setMovieDetails(MovieDetails movieDetails) {
+        this.movieDetails = movieDetails;
     }
 
     @Override

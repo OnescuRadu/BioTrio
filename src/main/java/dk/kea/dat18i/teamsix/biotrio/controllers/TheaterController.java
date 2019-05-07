@@ -1,7 +1,7 @@
 package dk.kea.dat18i.teamsix.biotrio.controllers;
 
-import dk.kea.dat18i.teamsix.biotrio.models.TeatherRoom;
-import dk.kea.dat18i.teamsix.biotrio.repositories.TeatherRoomRepository;
+import dk.kea.dat18i.teamsix.biotrio.models.TheaterRoom;
+import dk.kea.dat18i.teamsix.biotrio.repositories.TheaterRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,22 +11,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 @Controller
-public class TeatherController {
+public class TheaterController {
 
     @Autowired
-    private TeatherRoomRepository teatherRepo;
+    private TheaterRoomRepository theaterRepo;
 
-    @GetMapping("/teather-room")
-    public String showAllTeatherRoom(Model model) throws Exception {
-        List<TeatherRoom> teatherRoomList = teatherRepo.findAllTeatherRoom();
-        model.addAttribute("teatherRoom", teatherRoomList);
-        return "/teather-room";
+    @GetMapping("/theater-room")
+    public String showAllTheaterRoom(Model model) throws Exception {
+        List<TheaterRoom> theaterRoomList = theaterRepo.findAllTheaterRoom();
+        model.addAttribute("theaterRoom", theaterRoomList);
+        return "/theater-room";
     }
 
 
-    @GetMapping("/delete-teather-room/{id}")
-    public String deleteTeatherRoom(@PathVariable("id") int id) throws Exception {
-        teatherRepo.deleteTeatherRoom(id);
+    @GetMapping("/delete-theater-room/{id}")
+    public String deleteTheaterRoom(@PathVariable("id") int id) throws Exception {
+        theaterRepo.deleteTheaterRoom(id);
         return "redirect:/index";
     }
 

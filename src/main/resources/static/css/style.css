@@ -60,9 +60,8 @@ a:hover {
 }
 
 .movieName {
-    background: url("http://henrycavill.org/images/Films/2013-Man-of-Steel/posters/3-Walmart-Superman-a.jpg");
     background-size: cover;
-//background-position: 100% 100%;
+    background-position: 100% 100%;
 }
 
 .header-icon-container {

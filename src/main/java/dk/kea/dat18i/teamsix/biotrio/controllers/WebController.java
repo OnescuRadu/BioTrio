@@ -1,29 +1,11 @@
-package dk.kea.dat18i.teamsix.biotrio;
+package dk.kea.dat18i.teamsix.biotrio.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+
 @Controller
 public class WebController {
-    @GetMapping("/")
-    public String showHome1(){
-        return "/index";
-    }
-
-    @GetMapping("/home")
-    public String showHome2(){
-        return "/index";
-    }
-
-    @GetMapping("/movie")
-    public String showMovie(){
-        return "/movie";
-    }
-
-    @GetMapping("/movies")
-    public String showAllMovie(){
-        return "/movie";
-    }
 
     @GetMapping("/about-us")
     public String showAboutUs(){
