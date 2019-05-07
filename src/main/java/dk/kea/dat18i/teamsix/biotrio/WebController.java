@@ -21,8 +21,8 @@ public class WebController {
     }
 
     @GetMapping("/movies")
-    public String showAllMovie(){
-        return "/movie";
+    public String showAllMovies(){
+        return "/movies";
     }
 
     @GetMapping("/about-us")
@@ -64,4 +64,13 @@ public class WebController {
     public String Error403(){
         return "403";
     }
+
+    @GetMapping("/plan-movie-page")
+    public String planMoviePage(){ return "plan-movie-page"; }
+
+    @GetMapping("/add-movie-page")
+    public String addMoviePage(){ return "add-movie-page"; }
+
+    @GetMapping("/employee")
+    public String employee(){ return "/employee"; }
 }

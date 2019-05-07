@@ -30,7 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index", "/movies", "/contact", "/about-us", "/faq", "/movie", "/css/**", "/images/**").permitAll()
+                .antMatchers("/", "/index", "/movies", "/contact", "/about-us", "/faq", "/movie", "/css/**", "/images/**", "/add-movie-page", "/plan-movie-page", "/employee").permitAll()
                 .antMatchers("/control-panel/**").hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
                 .permitAll();

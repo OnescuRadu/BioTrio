@@ -28,34 +28,27 @@
 
 <div class="container">
     <!--Section: Contact v.2-->
-    <section class="mb-4">
-        <!--Section heading-->
-        <div class="col-md-12">
-            <div class="row about_content">
-                <div class="col-md-6">
-                    <h2 class="h1-responsive font-weight-bold text-center my-4">About us</h2>
-                    <!--Section description-->
-                    <p class="text-center w-responsive mx-auto mb-5">Well, it's all about the experience. This is a very important concept;
-                        the experience of going to a theater still is very unique regardless of the movie you're watching. This experience
-                        concept is what generate billions of revenue to various segments of the economy, including special restaurants,
-                        cafes, hotels, etc., and it's also the reason why people go to concerts instead of just watching videos and
-                        listening to the music; it's something people are willing to go out of their way to purchase.
-                    </p>
 
-                </div>
-
-                <div class="col-md-6">
-                    <img class="about_img" th:src="@{/images/002.jpg}"/>
-                </div>
+    <div class="col-md-12 employee_btn">
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <a href="/add-movie-page" style="border-radius: 5px;" class="btn btn-outline-warning  see-movies">Add movie</a>
+            </div>
+            <div class="col-md-6 text-center">
+                <a href="/plan-movie-page" style="border-radius: 5px;" class="btn btn-outline-warning  see-movies">Plan movie</a>
             </div>
         </div>
-    </section>
 
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <a href="/movies" style="border-radius: 5px;" class="btn btn-outline-warning  see-movies">See all movie</a>
+            </div>
+            <div class="col-md-6 text-center">
+                <a href="/plan-movie-page" style="border-radius: 5px;" class="btn btn-outline-warning  see-movies">Delete movie</a>
+            </div>
+        </div>
 
-    <div class="text-center">
-        <a href="/contact" style="border-radius: 5px;" class="btn btn-outline-warning  see-movies">Contact us</a>
     </div>
-    <!--Section: Contact v.2-->
 </div>
 <!--Insert footer fragment-->
 <div th:insert="~{/fragments/footer :: footer}"></div>
