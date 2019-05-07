@@ -16,7 +16,7 @@ public class MovieRepository {
     @Autowired
     private JdbcTemplate jdbc;
 
-    public List<Movie> findAllMovies() throws Exception {
+    public List<Movie> findAllMovies() {
         String query = "SELECT movie_id, movie.movie_details_id, type, available, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
                 "FROM movie \n" +
                 "INNER JOIN movie_details \n" +
@@ -29,18 +29,29 @@ public class MovieRepository {
     }
 
 
-    public List<Movie> findMovie(int id) throws Exception {
+    public Movie findMovie(int id) {
         String query = "SELECT movie_id, movie.movie_details_id, type, available, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
                 "FROM movie \n" +
                 "INNER JOIN movie_details \n" +
                 "ON (movie.movie_details_id = movie_details.movie_details_id)\n" +
                 "WHERE movie_id = ? ;";
         SqlRowSet rs = jdbc.queryForRowSet(query, id);
-        List<Movie> movieList = new ArrayList<>();
-        return getMovieList(movieList, rs);
+        Movie movie = new Movie();
+        try {
+
+            while (rs.next()) {
+
+                getMovie(rs, movie);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return movie;
     }
 
-    public List<Movie> findMovieByGender(String gender) throws Exception {
+    public List<Movie> findMovieByGender(String gender) {
         String query = "SELECT movie_id, movie.movie_details_id, type, available, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
                 "FROM movie \n" +
                 "INNER JOIN movie_details \n" +
@@ -52,34 +63,36 @@ public class MovieRepository {
         return getMovieList(movieList, rs);
     }
 
+    private void getMovie(SqlRowSet rs, Movie movie) {
+        movie.setMovie_id(rs.getInt("movie_id"));
+        movie.setMovie_details_id(rs.getInt("movie_details_id"));
+        movie.setType(rs.getBoolean("type"));
+        movie.setAvailable(rs.getBoolean("available"));
+        MovieDetails movieDetails = new MovieDetails();
+        movieDetails.setMovie_details_id(rs.getInt("movie_details_id"));
+        movieDetails.setName(rs.getString("name"));
+        movieDetails.setGenre(rs.getString("genre"));
+        movieDetails.setRelease_date(rs.getDate("release_date").toLocalDate());
+        movieDetails.setDuration_minutes(rs.getInt("duration_minutes"));
+        movieDetails.setDescription(rs.getString("description"));
+        movieDetails.setLanguage(rs.getString("language"));
+        movieDetails.setPoster(rs.getString("poster"));
+        movieDetails.setTrailer(rs.getString("trailer"));
+
+        movie.setMovieDetails(movieDetails);
+    }
+
     private List<Movie> getMovieList(List<Movie> movieList, SqlRowSet rs) {
         try {
 
             while (rs.next()) {
                 Movie movie = new Movie();
-
-                movie.setMovie_id(rs.getInt("movie_id"));
-                movie.setMovie_details_id(rs.getInt("movie_details_id"));
-                movie.setType(rs.getBoolean("type"));
-                movie.setAvailable(rs.getBoolean("available"));
-                MovieDetails movieDetails = new MovieDetails();
-                movieDetails.setMovie_details_id(rs.getInt("movie_details_id"));
-                movieDetails.setName(rs.getString("name"));
-                movieDetails.setGenre(rs.getString("genre"));
-                movieDetails.setRelease_date(rs.getDate("release_date").toLocalDate());
-                movieDetails.setDuration_minutes(rs.getInt("duration_minutes"));
-                movieDetails.setDescription(rs.getString("description"));
-                movieDetails.setLanguage(rs.getString("language"));
-                movieDetails.setPoster(rs.getString("poster"));
-                movieDetails.setTrailer(rs.getString("trailer"));
-
-                movie.setMovieDetails(movieDetails);
-
+                getMovie(rs, movie);
                 movieList.add(movie);
             }
 
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return movieList;
     }

@@ -7,9 +7,7 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +27,7 @@ public class TheaterRoomRepository
     }
 
     public List<TheaterRoom> findTheaterRoom(int id) {
-        String query = "SELECT * FROM theater_room WHERE movie_id = ? ;";
+        String query = "SELECT * FROM theater_room WHERE theater_room_id = ? ;";
 
         SqlRowSet rs = jdbc.queryForRowSet(query, id);
         List<TheaterRoom> theaterRoomList = new ArrayList<>();
@@ -39,19 +37,15 @@ public class TheaterRoomRepository
 
     public void deleteTheaterRoom(int id)
     {
-        PreparedStatementCreator psc = new PreparedStatementCreator() {
-
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                PreparedStatement ps = connection.prepareStatement("DELETE from theater_room where theater_room_id = ?");
-                ps.setInt(1, id);
-                return ps;
-            }
+        PreparedStatementCreator psc = connection -> {
+            PreparedStatement ps = connection.prepareStatement("DELETE from theater_room where theater_room_id = ?");
+            ps.setInt(1, id);
+            return ps;
         };
         jdbc.update(psc);
     }
 
-    public List<TheaterRoom> getTheaterRoomList(List<TheaterRoom> theaterRoomList, SqlRowSet rs)
+    private List<TheaterRoom> getTheaterRoomList(List<TheaterRoom> theaterRoomList, SqlRowSet rs)
     {
         try {
 
@@ -70,7 +64,7 @@ public class TheaterRoomRepository
             }
 
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return theaterRoomList;
     }
