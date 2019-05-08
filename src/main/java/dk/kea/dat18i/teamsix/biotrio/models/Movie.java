@@ -42,6 +42,8 @@ public class Movie {
         this.type = type;
     }
 
+    public Boolean getType(){ return type; }
+
     public boolean isAvailable() {
         return available;
     }
@@ -57,6 +59,7 @@ public class Movie {
     public void setMovieDetails(MovieDetails movieDetails) {
         this.movieDetails = movieDetails;
     }
+
 
     @Override
     public String toString() {
