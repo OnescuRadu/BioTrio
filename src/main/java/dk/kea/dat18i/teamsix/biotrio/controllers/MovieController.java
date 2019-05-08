@@ -30,8 +30,8 @@ public class MovieController {
 
     @GetMapping("/movie/{id}")
     public String showMovie(@PathVariable("id") int id, Model model) throws Exception {
-        List<Movie> movieList = movieRepo.findMovie(id);
-        model.addAttribute("movie", movieList);
+        Movie movie = movieRepo.findMovie(id);
+        model.addAttribute("movie", movie);
         return "/movie";
     }
 

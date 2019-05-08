@@ -28,7 +28,7 @@
 <section class="mb-4">
     <!--Section heading-->
     <div class="col-md-12">
-        <h2 class="h1-responsive font-weight-bold text-center my-4">Movie Titile</h2>
+        <h2 class="h1-responsive font-weight-bold text-center my-4" th:text="${movie.movieDetails.name}">Movie Titile</h2>
         <div class="row">
 
             <div class="col-md-6">
@@ -39,11 +39,7 @@
             <div class="col-md-6">
                 <h2 class="h1-responsive font-weight-bold text-center my-4">Description</h2>
                 <!--Section description-->
-                <p class="text-center w-responsive mx-auto mb-5">After the devastating events of Avengers:
-                    Infinity War (2018), the universe is in ruins. With the help of remaining allies,
-                    the Avengers assemble once more in order to
-                    undo Thanos' actions and restore order to the universe.
-                </p>
+                <p class="text-center w-responsive mx-auto mb-5" th:text="${movie.movieDetails.description}">Movie Description</p>
             </div>
 
         </div>
@@ -56,30 +52,31 @@
         </div>
         <div class="col-md-12">
             <div class="movie-info">
+                <!--release date-->
                 <div class="info-section" style="text-align: center">
                     <label>Release Date</label>
-                    <span>Tue 4 July</span>
+                    <span th:text="${movie.movieDetails.release_date}"></span>
                 </div>
-                <!--date,time-->
+                <!--genre-->
                 <div class="info-section">
                     <label>Genre</label>
-                    <span>Action</span>
+                    <span th:text="${movie.movieDetails.genre}"></span>
                 </div>
-                <!--screen-->
+                <!--language-->
                 <div class="info-section">
                     <label>Language</label>
-                    <span>EN</span>
+                    <span th:text="${movie.movieDetails.language}"></span>
                 </div>
-                <!--row-->
+                <!--duration_minutes-->
                 <div class="info-section">
                     <label>Duration</label>
-                    <span>241 min</span>
+                    <span th:text="${movie.movieDetails.duration_minutes}"></span>
                 </div>
+                <!--type-->
                 <div class="info-section">
                     <label>TYPE</label>
-                    <span>2D</span>
+                    <span th:text="${movie.type} ? '3D' : '2D'"></span>
                 </div>
-                <!--seat-->
             </div>
         </div>
     </div>
