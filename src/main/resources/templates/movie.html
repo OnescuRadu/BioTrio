@@ -31,9 +31,10 @@
         <h2 class="h1-responsive font-weight-bold text-center my-4" th:text="${movie.movieDetails.name}">Movie Titile</h2>
         <div class="row">
 
-            <div class="col-md-6">
-                <img class="movie_img" th:src="@{/images/002.jpg}">
-                <div class="movie_img"></div>
+            <div class="col-md-6 align-items-center" >
+                <div class="testradu" style="text-align: center">
+                <img class="movie_img" th:src="@{${'/images/posters/' + movie.movieDetails.poster}}" title="Movie Poster" style="width: 75%"/>
+                </div>
             </div>
 
             <div class="col-md-6">

@@ -42,6 +42,11 @@ public class WebController {
         return "admin";
     }
 
+    @GetMapping("/employee")
+    public String employee(){
+        return "employee";
+    }
+
     @GetMapping("/403")
     public String Error403(){
         return "403";

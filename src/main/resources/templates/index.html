@@ -42,9 +42,9 @@
 
 
 <!--start movie container-->
-<div class="container container-movies" th:each="movie, counter: ${movies}" th:if="${counter.index}<6">
+<div class="container container-movies">
     <!--movie-card-->
-    <div class="movie-card">
+    <div class="movie-card" th:each="movie, counter: ${movies}" th:if="${counter.index}<6">
         <div class="movie-header movieName" th:style="'background:url(/images/posters/' + ${movie.movieDetails.poster} + '); background-size: cover;'">
             <div class="header-icon-container">
                 <a th:href="'/movie/' + ${movie.movie_id}">

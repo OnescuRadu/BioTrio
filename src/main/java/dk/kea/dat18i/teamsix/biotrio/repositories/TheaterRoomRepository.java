@@ -1,5 +1,7 @@
 package dk.kea.dat18i.teamsix.biotrio.repositories;
 
+import dk.kea.dat18i.teamsix.biotrio.models.Movie;
+import dk.kea.dat18i.teamsix.biotrio.models.MovieDetails;
 import dk.kea.dat18i.teamsix.biotrio.models.TheaterRoom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -45,21 +47,21 @@ public class TheaterRoomRepository
         jdbc.update(psc);
     }
 
-    private List<TheaterRoom> getTheaterRoomList(List<TheaterRoom> theaterRoomList, SqlRowSet rs)
-    {
+    private void getTheaterRoom(SqlRowSet rs, TheaterRoom theaterRoom) {
+
+        theaterRoom.setTheater_room_id(rs.getInt("theater_room_id"));
+        theaterRoom.setName(rs.getString("name"));
+        theaterRoom.setRows_no(rs.getInt("rows_no"));
+        theaterRoom.setColumns_no(rs.getInt("columns_no"));
+        theaterRoom.setCapability_3d(rs.getBoolean("3d_capability"));
+
+    }
+
+    private List<TheaterRoom> getTheaterRoomList(List<TheaterRoom> theaterRoomList, SqlRowSet rs) {
         try {
-
             while (rs.next()) {
-
                 TheaterRoom theaterRoom = new TheaterRoom();
-
-
-                theaterRoom.setTheater_room_id(rs.getInt("theater_room_id"));
-                theaterRoom.setName(rs.getString("name"));
-                theaterRoom.setRows_no(rs.getInt("rows_no"));
-                theaterRoom.setColumns_no(rs.getInt("columns_no"));
-                theaterRoom.setCapability_3d(rs.getBoolean("3d_capability"));
-
+                getTheaterRoom(rs, theaterRoom);
                 theaterRoomList.add(theaterRoom);
             }
 

@@ -25,7 +25,7 @@ public class MovieController {
 
     @GetMapping("/movies")
     public String showAllMovie(){
-        return "/movie";
+        return "/movies";
     }
 
     @GetMapping("/movie/{id}")

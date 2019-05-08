@@ -4,9 +4,11 @@ import dk.kea.dat18i.teamsix.biotrio.models.Movie;
 import dk.kea.dat18i.teamsix.biotrio.models.MovieDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +41,7 @@ public class MovieRepository {
         Movie movie = new Movie();
         try {
 
-            while (rs.next()) {
+            while (rs.first()) {
 
                 getMovie(rs, movie);
 
@@ -61,6 +63,16 @@ public class MovieRepository {
         SqlRowSet rs = jdbc.queryForRowSet(query, gender);
         List<Movie> movieList = new ArrayList<>();
         return getMovieList(movieList, rs);
+    }
+
+    public void deleteMovie(int id)
+    {
+        PreparedStatementCreator psc = connection -> {
+            PreparedStatement ps = connection.prepareStatement("DELETE from movie where movie_id = ?");
+            ps.setInt(1, id);
+            return ps;
+        };
+        jdbc.update(psc);
     }
 
     private void getMovie(SqlRowSet rs, Movie movie) {
