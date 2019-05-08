@@ -17,7 +17,7 @@ a {
 
 /* Change link color */
 a:hover {
-    color: #F4661F;
+    color: #641F3E;
 }
 
 /*----------- START MOVIE CONTAINER ----------- */
@@ -202,8 +202,8 @@ a:hover {
     }
 }
 .navbar-custom {
-    background-color:#F4661F;
-    border-bottom: 5px solid #CE561A;
+    background-color:#641F3E;
+
 }
 /* change the search icon color */
 .search-icon
@@ -218,7 +218,7 @@ a:hover {
 /* change the search input color */
 .search-text
 {
-    background-color: #ff6e26;
+    background-color: #451E3D;
     border: 1px solid rgba(255,255,255,.5);
 
 }
@@ -270,12 +270,12 @@ a:hover {
 
 #myFooter {
     margin-top: 5vh;
-    background-color: #F4661F;
+    background-color: #451E3D;
     color:white;
 }
 
 #myFooter .footer-copyright{
-    background-color: #CE561A;
+    background-color: #641F3E;
     padding-top:3px;
     padding-bottom:3px;
     text-align: center;
@@ -378,11 +378,11 @@ hr.star-dark:after {
 }
 
 hr.star-dark {
-    border-color: #F4661F
+    border-color: #641F3E
 }
 
 hr.star-dark:after {
-    color: #F4661F;
+    color: #641F3E;
     background-color: white;
 }
 /*----------- END DIVIDER WITH ICON ----------- */
@@ -395,10 +395,6 @@ hr.star-dark:after {
     margin-bottom: 5vh;
 }
 /*----------- END MARGIN CLASSES ----------- */
-
-@media (max-width: 576px) { .see-all-movies{
-    margin-top: 5vh;
-} }
 
 .navbar-toggler{
     border: none;
@@ -419,31 +415,31 @@ hr.star-dark:after {
 }
 
 /*Buttons from index page*/
-.see-movies{
-    border-color: #F4661F;
-    color: #F4661F;
+.empty-button{
+    border-color: #641F3E;
+    color: #641F3E;
 }
 
-.see-movies:hover{
-    border-color: #F4661F;
-    background-color: #F4661F;
+.empty-button:hover{
+    border-color: #641F3E;
+    background-color: #641F3E;
     color: white;
 }
 
 /*Class for making any text orange*/
 .orange-text{
-    color: #F4661F;
+    color: #641F3E;
 }
 
 /*----------- CONTACT PAGE ----------- */
 .see-movies{
-    border-color: #F4661F;
-    color: #F4661F;
+    border-color: #FFFFFF;
+    color: #FFFFFF;
 }
 
 .see-movies:hover{
-    border-color: #F4661F;
-    background-color: #F4661F;
+    border-color: #641F3E;
+    background-color: #641F3E;
     color: white;
 }
 
@@ -456,12 +452,12 @@ hr.star-dark:after {
 /*----------- FAQ PAGE ----------- */
 
 .faq-nav .nav-link1:hover {
-    background-color: #F4661F;
+    background-color: #641F3E;
     color: white;
 }
 
 .faq-nav .nav-link1.active {
-    background-color: #F4661F;
+    background-color: #641F3E;
     font-weight: 700;
     color: white;
 }
@@ -482,9 +478,9 @@ hr.star-dark:after {
     padding: 13px 16px;
     background-color: #fff;
     border: 0;
-    border: 1px solid #F4661F;
+    border: 1px solid #641F3E;
     border-radius: 10px;
-    color: #F4661F;
+    color: #641F3E;
     transition: background-color 0.2s ease;
     text-decoration: none;
 }
@@ -519,7 +515,7 @@ hr.star-dark:after {
     padding: 0;
     border: 0;
     font-weight: 700;
-    color: #F4661F;
+    color: #641F3E;
     text-align: left;
     white-space: normal;
 }
@@ -557,4 +553,40 @@ hr.star-dark:after {
 
 .employee_btn a{
     margin-top: 1rem;
+}
+
+
+/*----------- EMPLOYEE PAGE ----------- */
+.box{
+    padding:60px 0px;
+}
+
+.box-part{
+    background:#FFF;
+    border-radius:10px;
+    padding:60px 10px;
+    margin:30px 0px;
+}
+
+.box-part:hover{
+    background:#641F3E;
+}
+
+.box-part:hover .fas ,
+.box-part:hover .title ,
+.box-part:hover .text ,
+.box-part:hover a{
+    color:#FFF;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
+}
+
+.box .text{
+    margin:20px 0px;
+}
+
+.box .fas{
+    color:#641F3E;
 }
