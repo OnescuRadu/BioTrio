@@ -42,5 +42,11 @@ public class MovieController {
         return "/movies";
     }
 
+    @GetMapping("/add-movie-page")
+    public String addMovie()
+    {
+        return "/add-movie-page";
+    }
+
 
 }
