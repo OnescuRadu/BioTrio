@@ -65,6 +65,17 @@ public class MovieRepository {
         return getMovieList(movieList, rs);
     }
 
+    public List<Movie> findMovieByName(String name) {
+        String query = "SELECT movie_id, movie.movie_details_id, type, available, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
+                "FROM movie \n" +
+                "INNER JOIN movie_details \n" +
+                "ON (movie.movie_details_id = movie_details.movie_details_id)\n" +
+                "WHERE (movie_details.name) LIKE ?;";
+        SqlRowSet rs = jdbc.queryForRowSet(query, "%" + name + "%");
+        List<Movie> movieList = new ArrayList<>();
+        return getMovieList(movieList, rs);
+    }
+
     public void deleteMovie(int id)
     {
         PreparedStatementCreator psc = connection -> {

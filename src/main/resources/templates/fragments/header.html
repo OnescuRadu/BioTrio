@@ -29,9 +29,9 @@
                     </li>
                 </ul>
 
-                <form>
+                <form th:action="@{/search-movie-post}" method="post">
                 <div class="input-group">
-                    <input type="text" class="form-control search-text" id="" placeholder="Search..">
+                    <input type="text" class="form-control search-text" name="searchString" placeholder="Search movie..">
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="submit">
                             <span class="search-button"><i class="fas fa-search search-icon"></i>
