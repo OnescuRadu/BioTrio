@@ -556,7 +556,7 @@ hr.star-dark:after {
 }
 
 
-/*----------- EMPLOYEE PAGE ----------- */
+/*----------- Control Panel Box ----------- */
 .box{
     padding:60px 0px;
 }
@@ -590,3 +590,5 @@ hr.star-dark:after {
 .box .fas{
     color:#641F3E;
 }
+
+/*----------- Search Function Text ----------- */

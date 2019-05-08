@@ -41,7 +41,7 @@ public class MovieRepository {
         Movie movie = new Movie();
         try {
 
-            while (rs.first()) {
+            if (rs.first()) {
 
                 getMovie(rs, movie);
 
