@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-public class TheaterController {
+public class TheaterRommController {
 
     @Autowired
     private TheaterRoomRepository theaterRepo;
@@ -36,7 +36,7 @@ public class TheaterController {
         return "/add-theater-room";
     }
 
-    @PostMapping("'/save-theater'")
+    @PostMapping("/add-theater-room/save")
     public String saveTheaterRoom(@ModelAttribute TheaterRoom theaterRoom)
     {
         theaterRepo.insertTheaterRoom(theaterRoom);
@@ -52,11 +52,11 @@ public class TheaterController {
         return "/edit-theater-room";
     }
 
-    @PostMapping("/edit-theater-room/update")
+    @PostMapping("/edit-theater-room/save")
     public String editCarInfo(@ModelAttribute TheaterRoom theaterRoom)
     {
         theaterRepo.editTheaterRoom(theaterRoom);
-        return "redirect:/cars";
+        return "redirect:/theater-room";
     }
 
 }

@@ -25,7 +25,7 @@
 <!--Insert header fragment-->
 <div th:insert="~{/fragments/header :: header}"></div>
 
-<table class="table table-hover table-dark">
+<table class="table table-hover table-dark align-center" style="text-align: center">
     <thead>
     <tr>
         <th scope="col">Name</th>
@@ -43,7 +43,7 @@
         <td th:text="${theaterRoom.name}"></td>
         <td th:text="${theaterRoom.rows_no}"></td>
         <td th:text="${theaterRoom.columns_no}"></td>
-        <td th:text="${theaterRoom.capability_3d}"></td>
+        <td th:text="${theaterRoom.capability_3d} ? 'Yes' : 'No'"></td>
         <td>
             <!-- Button edit -->
             <a th:href="'/edit-theater-room/' + ${theaterRoom.theater_room_id}" class="btn btn-primary edit-delete">Edit</a>
