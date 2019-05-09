@@ -1,14 +1,10 @@
 package dk.kea.dat18i.teamsix.biotrio.models;
 
-import java.util.List;
-
 public class User {
     private int user_id;
     private String username;
     private String password;
     private Boolean enabled;
-    private List<UserRole> UserRoles;
-    //TODO
 
     public User(int user_id, String username, String password, Boolean enabled) {
         this.user_id = user_id;
