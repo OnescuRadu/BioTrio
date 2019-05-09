@@ -2,6 +2,7 @@ package dk.kea.dat18i.teamsix.biotrio.repositories;
 
 import dk.kea.dat18i.teamsix.biotrio.models.Movie;
 import dk.kea.dat18i.teamsix.biotrio.models.MovieDetails;
+import dk.kea.dat18i.teamsix.biotrio.models.TheaterRoom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -14,10 +15,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@Repository("Movie")
 public class MovieRepository {
 
 
@@ -25,7 +27,93 @@ public class MovieRepository {
     private static JdbcTemplate jdbc;
 
     public List<Movie> findAllMovies() {
-        String query = "SELECT movie_id, movie.movie_details_id, type, available, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
+        SqlRowSet rs = jdbc.queryForRowSet("select * from movie;");
+        List<Movie> movieList = new ArrayList<>();
+        while (rs.next()) {
+            Movie movie = new Movie();
+            movie.setMovie_id(rs.getInt("movie_id"));
+            movie.setMovie_details_id(rs.getInt("movie_details_id"));
+            movie.setType(rs.getBoolean("type"));
+
+            //MovieDetails movieDetails = new MovieDetails(1,"nume", "genre", LocalDate.of(1999,04,20), 1, "description", "language", "poster", "trailer");
+
+
+            //movie.setMovieDetails(movieDetails);
+            movieList.add(movie);
+        }
+        return movieList;
+    }
+
+    /*private void getMovie(SqlRowSet rs, Movie movie) {
+
+        movie.setMovie_id(rs.getInt("movie_id"));
+        movie.setMovie_details_id(rs.getInt("movie_details_id"));
+        movie.setType(rs.getBoolean("type"));
+
+        MovieDetails movieDetails = new MovieDetails();
+        movieDetails.setMovie_details_id(rs.getInt("movie_details_id"));
+        movieDetails.setName(rs.getString("name"));
+        movieDetails.setGenre(rs.getString("genre"));
+        movieDetails.setRelease_date(rs.getDate("release_date").toLocalDate());
+        movieDetails.setDuration_minutes(rs.getInt("duration_minutes"));
+        movieDetails.setDescription(rs.getString("description"));
+        movieDetails.setLanguage(rs.getString("language"));
+        movieDetails.setPoster(rs.getString("poster"));
+        movieDetails.setTrailer(rs.getString("trailer"));
+
+
+        movie.setMovieDetails(movieDetails);
+        System.out.println(movie);
+
+    }
+
+    private List<Movie> getMovieList(List<Movie> movieList, SqlRowSet rs) {
+        try {
+            while (rs.next()) {
+                Movie movie = new Movie();
+                getMovie(rs, movie);
+                movieList.add(movie);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return movieList;
+    }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*public List<Movie> findAllMovies() {
+        String query = "SELECT movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
                 "FROM movie \n" +
                 "INNER JOIN movie_details \n" +
                 "ON (movie.movie_details_id = movie_details.movie_details_id)\n" +
@@ -33,12 +121,43 @@ public class MovieRepository {
 
         List<Movie> movieList = new ArrayList<>();
         SqlRowSet rs = jdbc.queryForRowSet(query);
-        return getMovieList(movieList, rs);
+
+        try {
+
+            if (rs.next()) {
+                Movie movie = new Movie();
+                movie.setMovie_id(rs.getInt("movie_id"));
+                movie.setMovie_details_id(rs.getInt("movie_details_id"));
+                movie.setType(rs.getBoolean("type"));
+
+
+                MovieDetails movieDetails = new MovieDetails();
+
+                movieDetails.setMovie_details_id(rs.getInt("movie_details_id"));
+                movieDetails.setName(rs.getString("name"));
+                movieDetails.setGenre(rs.getString("genre"));
+                movieDetails.setRelease_date(rs.getDate("release_date").toLocalDate());
+                movieDetails.setDuration_minutes(rs.getInt("duration_minutes"));
+                movieDetails.setDescription(rs.getString("description"));
+                movieDetails.setLanguage(rs.getString("language"));
+                movieDetails.setPoster(rs.getString("poster"));
+                movieDetails.setTrailer(rs.getString("trailer"));
+
+                movie.setMovieDetails(movieDetails);
+
+                movieList.add(movie);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return movieList;
     }
 
 
     public Movie findMovie(int id) {
-        String query = "SELECT movie_id, movie.movie_details_id, type, available, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
+        String query = "SELECT movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
                 "FROM movie \n" +
                 "INNER JOIN movie_details \n" +
                 "ON (movie.movie_details_id = movie_details.movie_details_id)\n" +
@@ -59,7 +178,7 @@ public class MovieRepository {
         return movie;
     }
 
-    public static Movie saveMovie(Movie movie){
+    public Movie saveMovie(Movie movie){
 
         java.sql.Date date = new java.sql.Date(0000-00-00);
         PreparedStatementCreator psc_movie_details = new PreparedStatementCreator() {
@@ -100,7 +219,7 @@ public class MovieRepository {
     }
 
     public List<Movie> findMovieByGender(String gender) {
-        String query = "SELECT movie_id, movie.movie_details_id, type, available, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
+        String query = "SELECT movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
                 "FROM movie \n" +
                 "INNER JOIN movie_details \n" +
                 "ON (movie.movie_details_id = movie_details.movie_details_id)\n" +
@@ -112,7 +231,7 @@ public class MovieRepository {
     }
 
     public List<Movie> findMovieByName(String name) {
-        String query = "SELECT movie_id, movie.movie_details_id, type, available, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
+        String query = "SELECT movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
                 "FROM movie \n" +
                 "INNER JOIN movie_details \n" +
                 "ON (movie.movie_details_id = movie_details.movie_details_id)\n" +
@@ -136,7 +255,8 @@ public class MovieRepository {
         movie.setMovie_id(rs.getInt("movie_id"));
         movie.setMovie_details_id(rs.getInt("movie_details_id"));
         movie.setType(rs.getBoolean("type"));
-        movie.setAvailable(rs.getBoolean("available"));
+
+
         MovieDetails movieDetails = new MovieDetails();
         movieDetails.setMovie_details_id(rs.getInt("movie_details_id"));
         movieDetails.setName(rs.getString("name"));
@@ -153,7 +273,6 @@ public class MovieRepository {
 
     private List<Movie> getMovieList(List<Movie> movieList, SqlRowSet rs) {
         try {
-
             while (rs.next()) {
                 Movie movie = new Movie();
                 getMovie(rs, movie);
@@ -164,6 +283,6 @@ public class MovieRepository {
             e.printStackTrace();
         }
         return movieList;
-    }
+    }*/
 
 }

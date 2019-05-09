@@ -20,7 +20,7 @@ public class MovieController {
     private MovieRepository movieRepo;
 
     @GetMapping({"/","/index"})
-    public String showHome(Model model) throws Exception {
+    public String showHome(Model model) {
         List<Movie> movieList = movieRepo.findAllMovies();
         model.addAttribute("movies", movieList);
         return "/index";
@@ -31,7 +31,7 @@ public class MovieController {
         return "/movies";
     }
 
-    @GetMapping("/movie/{id}")
+    /*@GetMapping("/movie/{id}")
     public String showMovie(@PathVariable("id") int id, Model model) throws Exception {
         Movie movie = movieRepo.findMovie(id);
         model.addAttribute("movie", movie);
@@ -55,6 +55,6 @@ public class MovieController {
     public String saveMovie(@ModelAttribute Movie movie){
         Movie movieInserted = movieRepo.saveMovie(movie);
         return "redirect:/add-movie-page";
-    }
+    }*/
 
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -26,6 +26,17 @@
 <!--Insert header fragment-->
 <div th:insert="~{/fragments/header :: header}"></div>
 
+<div sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
+    This content is only shown to users and admins.
+</div>
+
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    This content is only shown to administrators.
+</div>
+
+<div sec:authorize="hasRole('ROLE_USER')">
+    This content is only shown to users.
+</div>
 <!-- Page content here -->
 <div class="container">
     <div class="box">

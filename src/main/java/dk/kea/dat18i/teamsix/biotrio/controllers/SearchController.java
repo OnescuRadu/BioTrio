@@ -16,13 +16,13 @@ public class SearchController {
     @Autowired
     private MovieRepository movieRepo;
 
-    @GetMapping("/search-movie:{search}")
+/*    @GetMapping("/search-movie:{search}")
     public String showAllTheaterRoom(@PathVariable("search") String search, Model model) throws Exception {
         List<Movie> movieList = movieRepo.findMovieByName(search);
         model.addAttribute("movies", movieList);
         model.addAttribute("searchtext", search);
         return "/search";
-    }
+    }*/
 
     @RequestMapping("/search-movie-post")
         public String searchMovie(@RequestParam String searchString) throws UnsupportedEncodingException {
