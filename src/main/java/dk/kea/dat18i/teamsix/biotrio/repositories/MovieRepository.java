@@ -164,4 +164,39 @@ public class MovieRepository {
         return movieList;
     }
 
+    public void updateMovie(Movie movie){
+//        jdbc.update("UPDATE movie SET " +
+//                "movie_id='" + movie.getMovie_id() + "', " +
+//                "movie_details_id='" + movie.getMovieDetails().getMovie_details_id() + "', " +
+//                "WHERE id=" + movie.getMovie_id());
+
+        PreparedStatementCreator psc = connection -> {
+            //PreparedStatement ps = connection.prepareStatement("UPDATE movie_details SET (name, genre, release_date, duration_minutes, description, language, poster, trailer)VALUES( ?, ?, ?, ?, ?, ?, ?, ?) WHERE movie_details_id = ?");
+            PreparedStatement ps = connection.prepareStatement("UPDATE movie_details SET name = ?, genre = ?, release_date = ?, duration_minutes= ?, description = ?, language = ?, poster = ?, trailer = ? WHERE movie_details_id = ?");
+            ps.setString(1, movie.getMovieDetails().getName());
+            ps.setString(2, movie.getMovieDetails().getGenre());
+            ps.setDate(3, java.sql.Date.valueOf(movie.getMovieDetails().getRelease_date()));
+            ps.setInt(4, movie.getMovieDetails().getDuration_minutes());
+            ps.setString(5, movie.getMovieDetails().getDescription());
+            ps.setString(6, movie.getMovieDetails().getLanguage());
+            ps.setString(7, movie.getMovieDetails().getPoster());
+            ps.setString(8, movie.getMovieDetails().getTrailer());
+            ps.setInt(9, movie.getMovieDetails().getMovie_details_id());
+            return ps;
+        };
+
+        jdbc.update(psc);
+
+//        jdbc.update("UPDATE movie_details SET " +
+//                "name='" + movie.getMovieDetails().getName() + "', " +
+//                "genre='" + movie.getMovieDetails().getGenre() + "', " +
+//                "release_date='" + movie.getMovieDetails().getRelease_date() + "' " +
+//                "duration_minutes='" + movie.getMovieDetails().getDuration_minutes() + "', " +
+//                "descrption='" + movie.getMovieDetails().getDescription() + "', " +
+//                "language='" + movie.getMovieDetails().getLanguage() + "', " +
+//                "poster='" + movie.getMovieDetails().getPoster() + "', " +
+//                "trailer='" + movie.getMovieDetails().getTrailer() + "', " +
+//                "WHERE movie_details_id=" + movie.getMovieDetails().getMovie_details_id());
+    }
+
 }

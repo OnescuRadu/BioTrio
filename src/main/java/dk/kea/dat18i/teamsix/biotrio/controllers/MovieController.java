@@ -17,7 +17,7 @@ public class MovieController {
     @Autowired
     private MovieRepository movieRepo;
 
-    @GetMapping({"/","/index"})
+    @GetMapping({"/", "/index"})
     public String showHome(Model model) throws Exception {
         List<Movie> movieList = movieRepo.findAllMovies();
         model.addAttribute("movies", movieList);
@@ -25,7 +25,7 @@ public class MovieController {
     }
 
     @GetMapping("/movies")
-    public String showAllMovie(){
+    public String showAllMovie() {
         return "movies";
     }
 
@@ -50,10 +50,51 @@ public class MovieController {
     }
 
     @PostMapping("/save-movie")
-    public String saveMovie(@ModelAttribute Movie movie, @RequestParam("release-date") String releaseDate){
+    public String saveMovie(@ModelAttribute Movie movie, @RequestParam("release-date") String releaseDate) {
         movie.getMovieDetails().setRelease_date(LocalDate.parse(releaseDate));
         Movie movieInserted = movieRepo.saveMovie(movie);
-        return "redirect:/add-movie-page";
+        return "redirect:/see-all-movies";
+    }
+
+    @GetMapping("/see-all-movies")
+    public String showAllMovieCP(Model m) {
+        List<Movie> movies = movieRepo.findAllMovies();
+        m.addAttribute("movie", movies);
+        return "see-movies";
+    }
+
+    @GetMapping("/delete-movies")
+    public String deleteMoviesCP(Model m) {
+        List<Movie> movies = movieRepo.findAllMovies();
+        m.addAttribute("movie", movies);
+        return "delete-movie";
+    }
+
+    @GetMapping("/delete-movie/{id}")
+    public String deleteMovie(@PathVariable("id") int id) {
+        movieRepo.deleteMovie(id);
+        return "redirect:/delete-movies";
+    }
+
+    @GetMapping("/edit-all-movies")
+    public String editAllMovies(Model m) {
+        List<Movie> movies = movieRepo.findAllMovies();
+        m.addAttribute("movie", movies);
+        return "edit-all-movies";
+    }
+
+    @GetMapping("/edit-movie/{id}")
+    public String editMovie(Model m, @PathVariable("id") int id) {
+        Movie movieToEdit = movieRepo.findMovie(id);
+        m.addAttribute("movieForm", movieToEdit);
+        return "/edit-movie-page";
+    }
+
+    @PostMapping("update-movie")
+    public String saveEditMovie(@ModelAttribute Movie movie, @RequestParam("release-date") String releaseDate){
+        movie.getMovieDetails().setRelease_date(LocalDate.parse(releaseDate));
+        movieRepo.updateMovie(movie);
+        return "redirect:/edit-all-movies";
     }
 
 }
