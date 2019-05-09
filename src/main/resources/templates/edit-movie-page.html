@@ -20,7 +20,7 @@
     <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css"/>
 
     <!-- Page Title -->
-    <title>Bio Trio Cinema | Add Movie</title>
+    <title>Bio Trio Cinema | Edit Movie</title>
 </head>
 <body>
 <!--Insert header fragment-->
@@ -31,12 +31,12 @@
     <section class="mb-4">
 
         <!--Section heading-->
-        <h2 class="h1-responsive font-weight-bold text-center my-4">Add movie</h2>
+        <h2 class="h1-responsive font-weight-bold text-center my-4">Edit movie</h2>
         <div class="row contact_form">
 
             <!--Grid column-->
             <div class="col-md-12 mb-md-0 mb-5">
-                <form th:action="@{'/save-movie'}" method="post" th:object="${movieForm}">
+                <form th:action="@{'/update-movie'}" method="post" th:object="${movieForm}">
 
                     <!--Grid row-->
                     <div class="row">
@@ -144,7 +144,10 @@
 
                     <div class="text-center">
                         <button type="submit" class="empty-button btn btn-outline-warning">
-                            Save
+                            Edit
+                        </button>
+                        <button type="reset" class="empty-button btn btn-outline-warning">
+                            Reset
                         </button>
                     </div>
                 </form>
@@ -167,7 +170,7 @@
         crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<script>var dateControl = document.querySelector('input[type="date_time"]');
+<script>var dateControl = document.querySelector('input[type="date"]');
 dateControl.value = '2017-06-01';</script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>

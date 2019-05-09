@@ -20,7 +20,7 @@
     <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css"/>
 
     <!-- Page Title -->
-    <title>Bio Trio Cinema | Delete Movie</title>
+    <title>Bio Trio Cinema | Edit Movie</title>
 </head>
 <body>
 <!--Insert header fragment-->
@@ -31,7 +31,7 @@
     <section class="mb-4">
 
         <!--Section heading-->
-        <h2 class="h1-responsive font-weight-bold text-center my-4">See movies</h2>
+        <h2 class="h1-responsive font-weight-bold text-center my-4">Edit movies</h2>
         <div class="row contact_form">
 
             <!--Grid column-->
@@ -63,7 +63,7 @@
                         <td th:text="${movie.movieDetails.duration_minutes}">Duration minutes</td>
                         <td th:text="${movie.movieDetails.description}">Description</td>
                         <td th:text="${movie.movieDetails.language}">Language</td>
-                        <td><a class="btn btn-danger" th:href="@{'/delete-movie/' + ${movie.movie_id}}">Delete</a></td>
+                        <td><a class="btn btn-success" th:href="@{'/edit-movie/' + ${movie.movie_id}}">Edit</a></td>
                     </tr>
 
                     </tbody>
