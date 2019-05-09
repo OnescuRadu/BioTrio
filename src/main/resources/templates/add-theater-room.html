@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/latest/js/all.js" integrity="sha384-L469/ELG4Bg9sDQbl0hvjMq8pOcqFgkSpwhwnslzvVVGpDjYJ6wJJyYjvG3u8XW7" crossorigin="anonymous"></script>
+
+    <!-- Custom CSS File -->
+    <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css" />
+
+    <!-- Page Title -->
+    <title>Bio Trio Cinema | Search</title>
+</head>
+<body>
+
+<div class="container">
+    <form class="text-center border border-light p-5" method="post" action="/save-theater" th:object="${newTheaterRoom}">
+        <h5 class="card-header bg-primary white-text text-center py-4" style="color:white">
+            <strong>Add Car</strong>
+        </h5>
+        <br>
+
+        <!-- Registration -->
+        <input type="hidden" id="id" th:field="${newTheaterRoom.theater_room_id}" name="id">
+        <label>Registration</label>
+        <input type="text" id="reg" name="reg" th:field="${newTheaterRoom.name}" class="form-control mb-4">
+
+        <!-- Brand -->
+        <label>Brand</label>
+        <input type="text" id="brand" name="brand" th:field="${newTheaterRoom.rows_no}" class="form-control mb-4">
+
+        <!-- Color -->
+        <label>Color</label>
+        <input type="text" id="color" name="color" th:field="${newTheaterRoom.columns_no}" class="form-control mb-4">
+
+        <!-- Speed -->
+        <label>Speed</label>
+        <input type="text" id="speed" name="maxSpeed" th:field="${newTheaterRoom.capability_3d}" class="form-control mb-4">
+
+        <!-- Send button -->
+        <button type="submit" class="btn btn-success btn-rounded btn-block z-depth-0 my-4 waves-effect" style="font-weight: bold">Submit</button>
+        <button type="reset" class="btn btn-danger btn-rounded btn-block z-depth-0 my-4 waves-effect" style="font-weight: bold">Cancel</button>
+    </form>
+</div>
+
+<!--Insert footer fragment-->
+<div th:insert="~{/fragments/footer :: footer}"></div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

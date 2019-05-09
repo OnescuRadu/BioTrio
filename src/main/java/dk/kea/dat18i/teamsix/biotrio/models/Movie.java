@@ -5,14 +5,14 @@ public class Movie {
     private int movie_details_id;
     private MovieDetails movieDetails;
     private boolean type;
-    private boolean available;
+//    private boolean available;
 
     public Movie(int movie_id, int movie_details_id, MovieDetails movieDetails, boolean type, boolean available) {
         this.movie_id = movie_id;
         this.movie_details_id = movie_details_id;
         this.movieDetails = movieDetails;
         this.type = type;
-        this.available = available;
+//        this.available = available;
     }
 
     public Movie() {
@@ -43,14 +43,14 @@ public class Movie {
     }
 
     public Boolean getType(){ return type; }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
+//
+//    public boolean isAvailable() {
+//        return available;
+//    }
+//
+//    public void setAvailable(boolean available) {
+//        this.available = available;
+//    }
 
     public MovieDetails getMovieDetails() {
         return movieDetails;
@@ -67,7 +67,7 @@ public class Movie {
                 "movie_id=" + movie_id +
                 ", movie_details_id=" + movie_details_id +
                 ", type=" + type +
-                ", available=" + available +
+//                ", available=" + available +
                 '}';
     }
 }
