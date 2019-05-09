@@ -31,11 +31,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index", "/movies/**", "/contact", "/about-us", "/faq", "/movie/**", "/css/**", "/images/**").permitAll()
+//                .antMatchers("/", "/index", "/movies/**", "/contact", "/about-us", "/faq", "/movie/**", "/css/**", "/images/**", "/save-movie/**").permitAll()
+                .antMatchers("/**").permitAll()
                 .antMatchers("/control-panel/**").hasAnyRole("ADMIN", "USER")
-                //.antMatchers("/**").permitAll()
                 .anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
                 .permitAll();
         http.exceptionHandling().accessDeniedPage("/403");

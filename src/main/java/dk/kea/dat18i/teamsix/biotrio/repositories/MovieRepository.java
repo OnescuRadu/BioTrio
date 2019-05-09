@@ -22,10 +22,10 @@ public class MovieRepository {
 
 
     @Autowired
-    private static JdbcTemplate jdbc;
+    private JdbcTemplate jdbc;
 
     public List<Movie> findAllMovies() {
-        String query = "SELECT movie_id, movie.movie_details_id, type, available, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
+        String query = "SELECT movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
                 "FROM movie \n" +
                 "INNER JOIN movie_details \n" +
                 "ON (movie.movie_details_id = movie_details.movie_details_id)\n" +
@@ -38,7 +38,7 @@ public class MovieRepository {
 
 
     public Movie findMovie(int id) {
-        String query = "SELECT movie_id, movie.movie_details_id, type, available, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
+        String query = "SELECT movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
                 "FROM movie \n" +
                 "INNER JOIN movie_details \n" +
                 "ON (movie.movie_details_id = movie_details.movie_details_id)\n" +
@@ -59,13 +59,12 @@ public class MovieRepository {
         return movie;
     }
 
-    public static Movie saveMovie(Movie movie){
+    public Movie saveMovie(Movie movie){
 
-        java.sql.Date date = new java.sql.Date(0000-00-00);
         PreparedStatementCreator psc_movie_details = new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                PreparedStatement ps = connection.prepareStatement("INSERT INTO movie_details VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?)", new String[]{"movie_details_id"});
+                PreparedStatement ps = connection.prepareStatement("INSERT INTO movie_details (description, genre, language, name, poster, trailer, duration_minutes, release_date)VALUES( ?, ?, ?, ?, ?, ?, ?, ?)", new String[]{"movie_details_id"});
                 ps.setString(1, movie.getMovieDetails().getDescription());
                 ps.setString(2, movie.getMovieDetails().getGenre());
                 ps.setString(3, movie.getMovieDetails().getLanguage());
@@ -73,7 +72,7 @@ public class MovieRepository {
                 ps.setString(5,movie.getMovieDetails().getPoster());
                 ps.setString(6,movie.getMovieDetails().getTrailer());
                 ps.setInt(7, movie.getMovieDetails().getDuration_minutes());
-                ps.setDate(8, date.valueOf(movie.getMovieDetails().getRelease_date()));
+                ps.setDate(8, java.sql.Date.valueOf(movie.getMovieDetails().getRelease_date()));
                 return ps;
             }
         };
@@ -85,10 +84,9 @@ public class MovieRepository {
         PreparedStatementCreator psc_movie = new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                PreparedStatement ps = connection.prepareStatement("INSERT INTO movie VALUES (NULL, ?, ?, ?, default)", new String[]{"movie_id"});
+                PreparedStatement ps = connection.prepareStatement("INSERT INTO movie VALUES (NULL, ?, ?)", new String[]{"movie_id"});
                 ps.setInt(1, movie.getMovieDetails().getMovie_details_id());
-                ps.setObject(2, movie.getMovieDetails());
-                ps.setBoolean(3, movie.getType());
+                ps.setBoolean(2, movie.getType());
                 return ps;
             }
         };
@@ -100,7 +98,7 @@ public class MovieRepository {
     }
 
     public List<Movie> findMovieByGender(String gender) {
-        String query = "SELECT movie_id, movie.movie_details_id, type, available, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
+        String query = "SELECT movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
                 "FROM movie \n" +
                 "INNER JOIN movie_details \n" +
                 "ON (movie.movie_details_id = movie_details.movie_details_id)\n" +
@@ -112,7 +110,7 @@ public class MovieRepository {
     }
 
     public List<Movie> findMovieByName(String name) {
-        String query = "SELECT movie_id, movie.movie_details_id, type, available, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
+        String query = "SELECT movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
                 "FROM movie \n" +
                 "INNER JOIN movie_details \n" +
                 "ON (movie.movie_details_id = movie_details.movie_details_id)\n" +
@@ -136,7 +134,7 @@ public class MovieRepository {
         movie.setMovie_id(rs.getInt("movie_id"));
         movie.setMovie_details_id(rs.getInt("movie_details_id"));
         movie.setType(rs.getBoolean("type"));
-        movie.setAvailable(rs.getBoolean("available"));
+//        movie.setAvailable(rs.getBoolean("available"));
         MovieDetails movieDetails = new MovieDetails();
         movieDetails.setMovie_details_id(rs.getInt("movie_details_id"));
         movieDetails.setName(rs.getString("name"));
