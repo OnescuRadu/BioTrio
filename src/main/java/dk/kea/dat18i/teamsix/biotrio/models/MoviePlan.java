@@ -1,31 +1,40 @@
 package dk.kea.dat18i.teamsix.biotrio.models;
 
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class MoviePlan {
     private int movie_plan_id;
     private int movie_id;
+    private Movie movie;
     private int theater_room_id;
-    private LocalDate date;
-    private LocalTime start_time;
-    private double price;
     private TheaterRoom theaterRoom;
+    private LocalDateTime date_time;
+    private double price;
 
-    public MoviePlan(int movie_plan_id, int movie_id, int theater_room_id, LocalDate date, LocalTime start_time, double price, TheaterRoom theaterRoom) {
+    public MoviePlan(int movie_plan_id, int movie_id, Movie movie, int theater_room_id, TheaterRoom theaterRoom, LocalDateTime date_time, double price) {
         this.movie_plan_id = movie_plan_id;
         this.movie_id = movie_id;
+        this.movie = movie;
         this.theater_room_id = theater_room_id;
-        this.date = date;
-        this.start_time = start_time;
-        this.price = price;
         this.theaterRoom = theaterRoom;
+        this.date_time = date_time;
+        this.price = price;
     }
 
     public MoviePlan(){
 
     }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+
 
     public int getMovie_plan_id() {
         return movie_plan_id;
@@ -51,20 +60,12 @@ public class MoviePlan {
         this.theater_room_id = theater_room_id;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDateTime getDate_time() {
+        return date_time;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public LocalTime getStart_time() {
-        return start_time;
-    }
-
-    public void setStart_time(LocalTime start_time) {
-        this.start_time = start_time;
+    public void setDate_time(LocalDateTime date_time) {
+        this.date_time = date_time;
     }
 
     public double getPrice() {
@@ -88,9 +89,10 @@ public class MoviePlan {
         return "MoviePlan{" +
                 "movie_plan_id=" + movie_plan_id +
                 ", movie_id=" + movie_id +
+                ", movie=" + movie +
                 ", theater_room_id=" + theater_room_id +
-                ", date=" + date +
-                ", start_time=" + start_time +
+                ", theaterRoom=" + theaterRoom +
+                ", date_time=" + date_time +
                 ", price=" + price +
                 '}';
     }

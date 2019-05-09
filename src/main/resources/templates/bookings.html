@@ -18,63 +18,44 @@
     <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css" />
 
     <!-- Page Title -->
-    <title>Bio Trio Cinema | Search</title>
+    <title>Bio Trio Cinema | Bookings</title>
 </head>
 <body>
 
 <!--Insert header fragment-->
 <div th:insert="~{/fragments/header :: header}"></div>
-<h4 align="center" class="search-result-text">Search results for '<span th:text="${searchtext}">Searched Text</span>'.</h4>
-<!--start movie container-->
-<div class="container container-movies">
+<table class="table table-hover table-dark align-center" style="text-align: center">
+    <thead>
+    <tr>
+        <th scope="col">Confirmation Code</th>
+        <th scope="col">Movie Name</th>
+        <th scope="col">Date</th>
+        <th scope="col">Time</th>
+        <th scope="col">Phone Number</th>
+        <th scope="col">Email</th>
+        <th scope="col">Price</th>
+        <th scope="col">Paid</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="booking: ${bookings}">
+        <td th:text="${booking.confirmation_code}"></td>
+        <td th:text="${booking.movie_plan_id}"></td>
+        <td th:text="${booking.phone_number}"></td>
+        <td th:text="${booking.email}"></td>
+        <td th:text="${booking.paid} ? 'Yes' : 'No'"></td>
+        <td>
+            <!-- Button edit -->
+            <a th:href="'/edit-booking/' + ${booking.booking_id}" class="btn btn-primary edit-delete">Edit</a>
+            <!-- Button delete -->
+            <a th:href="'/delete-booking/' + ${theaterRoom.booking_id}" class="btn btn-danger edit-delete">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
 
-    <!--movie-card-->
-    <div class="movie-card" th:each="movie:${movies}">
-        <div class="movie-header movieName" th:style="'background:url(/images/posters/' + ${movie.movieDetails.poster} + '); background-size: cover;'">
-            <div class="header-icon-container">
-                <a th:href="'/movie/' + ${movie.movie_id}">
-                    <i class="material-icons header-icon"></i>
-                </a>
-            </div>
-        </div>
-        <!--movie-header-->
-        <div class="movie-content">
-            <div class="movie-content-header">
-                <a href="#">
-                    <h3 class="movie-title">
-                        <span th:text="${movie.movieDetails.name}"></span>
-                    </h3>
-                </a>
-            </div>
-            <div class="movie-info">
-                <div class="info-section">
-                    <label>Release Date</label>
-                    <span th:text="${movie.movieDetails.release_date}"></span>
-                </div>
-                <!--date_time,time-->
-                <div class="info-section">
-                    <label>Genre</label>
-                    <span th:text="${movie.movieDetails.genre}"></span>
-                </div>
-                <!--screen-->
-                <div class="info-section">
-                    <label>Language</label>
-                    <span th:text="${movie.movieDetails.language}"></span>
-                </div>
-                <!--row-->
-                <div class="info-section">
-                    <label>TYPE</label>
-                    <span th:text="${movie.type} ? '3D' : '2D'"></span>
-                </div>
-                <!--seat-->
-            </div>
-        </div>
-        <!--movie-content-->
-    </div>
-    <!--movie-card-->
 
-</div>
-<!--end movie container-->
+
 
 
 <!--Insert footer fragment-->

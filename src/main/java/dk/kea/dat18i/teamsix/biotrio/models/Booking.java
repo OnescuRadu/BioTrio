@@ -3,18 +3,24 @@ package dk.kea.dat18i.teamsix.biotrio.models;
 public class Booking {
     private int booking_id;
     private int movie_plan_id;
+    private MoviePlan moviePlan;
     private String phone_number;
     private String email;
     private String confirmation_code;
     private Boolean paid;
 
-    public Booking(int booking_id, int movie_plan_id, String phone_number, String email, String confirmation_code, Boolean paid) {
+    public Booking(int booking_id, int movie_plan_id, MoviePlan moviePlan, String phone_number, String email, String confirmation_code, Boolean paid) {
         this.booking_id = booking_id;
         this.movie_plan_id = movie_plan_id;
+        this.moviePlan = moviePlan;
         this.phone_number = phone_number;
         this.email = email;
         this.confirmation_code = confirmation_code;
         this.paid = paid;
+    }
+
+    public Booking()
+    {
     }
 
     public int getBooking_id() {
@@ -31,6 +37,14 @@ public class Booking {
 
     public void setMovie_plan_id(int movie_plan_id) {
         this.movie_plan_id = movie_plan_id;
+    }
+
+    public MoviePlan getMoviePlan() {
+        return moviePlan;
+    }
+
+    public void setMoviePlan(MoviePlan moviePlan) {
+        this.moviePlan = moviePlan;
     }
 
     public String getPhone_number() {
@@ -70,6 +84,7 @@ public class Booking {
         return "Booking{" +
                 "booking_id=" + booking_id +
                 ", movie_plan_id=" + movie_plan_id +
+                ", moviePlan=" + moviePlan +
                 ", phone_number='" + phone_number + '\'' +
                 ", email='" + email + '\'' +
                 ", confirmation_code='" + confirmation_code + '\'' +

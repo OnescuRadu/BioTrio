@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -25,7 +25,17 @@
 <body>
 <!--Insert header fragment-->
 <div th:insert="~{/fragments/header :: header}"></div>
+<div sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
+    This content is only shown to users and admins.
+</div>
 
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    This content is only shown to administrators.
+</div>
+
+<div sec:authorize="hasRole('ROLE_USER')">
+    This content is only shown to users.
+</div>
 <!-- Page content here -->
 <div class="container">
     <div class="box">
@@ -33,9 +43,7 @@
             <div class="row">
 
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-
                     <div class="box-part text-center">
-
                         <i class="fas fa-film fa-2x" aria-hidden="true"></i>
 
                         <div class="title">
@@ -47,6 +55,21 @@
                             <a th:href="@{/add-movie-page}">Add Movie</a>
                             <a th:href="@{/}">Delete Movie</a>
                             <a th:href="@{/}">Edit Movie</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="box-part text-center">
+                        <i class="fas fa-film fa-2x" aria-hidden="true"></i>
+
+                        <div class="title">
+                            <h3>Theater Rooms</h3>
+                        </div>
+                        <hr>
+                        <div class="manage-btn">
+                            <a th:href="@{/theater-room}">See Theater Rooms</a>
+                            <a th:href="@{/add-theater-room}">Add Theater Room</a>
                         </div>
                     </div>
                 </div>
