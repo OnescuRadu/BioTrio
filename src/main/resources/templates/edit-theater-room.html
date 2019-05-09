@@ -23,28 +23,28 @@
 <body>
 
 <div class="container">
-    <form class="text-center border border-light p-5" method="post" action="/edit-theater-room/update" th:object="${editedTheaterRoom}">
+    <form class="text-center border border-light p-5" method="post" action="/edit-theater-room/save" th:object="${editedTheaterRoom}">
         <h5 class="card-header bg-primary white-text text-center py-4" style="color:white">
-            <strong>Add Car</strong>
+            <strong>Edit Theater Room</strong>
         </h5>
         <br>
 
         <!-- Registration -->
-        <input type="hidden" id="id" th:value="${editedTheaterRoom.theater_room_id}" name="id">
-        <label>Registration</label>
-        <input type="text" id="reg" name="reg" th:value="${editedTheaterRoom.name}" class="form-control mb-4">
+        <input type="hidden" id="id" th:field="${editedTheaterRoom.theater_room_id}" name="id">
+        <label>Name</label>
+        <input type="text" id="name" name="name" th:field="${editedTheaterRoom.name}" class="form-control mb-4">
 
         <!-- Brand -->
-        <label>Brand</label>
-        <input type="text" id="brand" name="brand" th:value="${editedTheaterRoom.rows_no}" class="form-control mb-4">
+        <label>Number of rows</label>
+        <input type="text" id="rows_no" name="rows_no" th:field="${editedTheaterRoom.rows_no}" class="form-control mb-4">
 
         <!-- Color -->
-        <label>Color</label>
-        <input type="text" id="color" name="color" th:value="${editedTheaterRoom.columns_no}" class="form-control mb-4">
+        <label>Number of columns</label>
+        <input type="text" id="columns_no" name="columns_no" th:field="${editedTheaterRoom.columns_no}" class="form-control mb-4">
 
         <!-- Speed -->
-        <label>Speed</label>
-        <input type="text" id="speed" name="maxSpeed" th:value="${editedTheaterRoom.capability_3d}"class="form-control mb-4">
+        <label>3D Capability</label>
+        <input type="checkbox" id="capability_3d" name="capability_3d" th:field="${editedTheaterRoom.capability_3d}" class="form-control mb-4">
 
         <!-- Send button -->
         <button type="submit" class="btn btn-success btn-rounded btn-block z-depth-0 my-4 waves-effect" style="font-weight: bold">Submit</button>

@@ -1,13 +1,9 @@
 package dk.kea.dat18i.teamsix.biotrio.repositories;
 
-import dk.kea.dat18i.teamsix.biotrio.models.Movie;
-import dk.kea.dat18i.teamsix.biotrio.models.MovieDetails;
 import dk.kea.dat18i.teamsix.biotrio.models.TheaterRoom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
@@ -77,8 +73,7 @@ public class TheaterRoomRepository
             }
         };
 
-        KeyHolder id = new GeneratedKeyHolder();
-        jdbc.update(psc, id);
+        jdbc.update(psc);
         return "redirect:/theater-room";
     }
 
@@ -93,7 +88,7 @@ public class TheaterRoomRepository
                 ps.setInt(2, theaterRoom.getRows_no());
                 ps.setInt(3, theaterRoom.getColumns_no());
                 ps.setBoolean(4, theaterRoom.getCapability_3d());
-                ps.setInt(4, theaterRoom.getTheater_room_id());
+                ps.setInt(5, theaterRoom.getTheater_room_id());
                 return ps;
             }
         };
