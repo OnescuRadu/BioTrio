@@ -268,10 +268,18 @@ a:hover {
 
 /*----------- START FOOTER ----------- */
 
+.page-container{
+    position: relative;
+    min-height: 500vh;
+}
+
 #myFooter {
     margin-top: 5vh;
     background-color: #451E3D;
     color:white;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 #myFooter .footer-copyright{

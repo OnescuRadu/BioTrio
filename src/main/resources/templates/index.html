@@ -24,7 +24,7 @@
 <div th:insert="~{/fragments/header :: header}"></div>
 
 <!-- Full Page Image Header with Vertically Centered Content -->
-
+<div class="page-container">
 <div class="masthead">
     <div class="container h-100" style="color: white">
         <div class="row h-100 align-items-center">
@@ -42,7 +42,7 @@
 
 
 <!--start movie container-->
-<div class="container container-movies">
+<div class="container container-movies" style="padding-bottom: 15rem">
     <!--movie-card-->
     <div class="movie-card" th:each="movie, counter: ${movies}" th:if="${counter.index}<6">
         <div class="movie-header movieName" th:style="'background:url(/images/posters/' + ${movie.movieDetails.poster} + '); background-size: cover;'">
@@ -97,7 +97,7 @@
 
 <!--Insert footer fragment-->
 <div th:insert="~{/fragments/footer :: footer}"></div>
-
+</div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
