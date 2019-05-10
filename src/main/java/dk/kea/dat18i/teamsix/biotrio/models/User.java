@@ -4,17 +4,27 @@ public class User {
     private int user_id;
     private String username;
     private String password;
-    private Boolean enabled;
+    private String role;
+    private Boolean enabled = true;
 
-    public User(int user_id, String username, String password, Boolean enabled) {
+    public User(int user_id, String username, String password, String role, Boolean enabled) {
         this.user_id = user_id;
         this.username = username;
         this.password = password;
+        this.role = role;
         this.enabled = enabled;
     }
 
     public User(){
 
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public int getUser_id() {
@@ -55,6 +65,7 @@ public class User {
                 "user_id=" + user_id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
                 ", enabled=" + enabled +
                 '}';
     }

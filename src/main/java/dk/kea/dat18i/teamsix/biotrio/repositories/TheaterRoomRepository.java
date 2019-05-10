@@ -1,7 +1,5 @@
 package dk.kea.dat18i.teamsix.biotrio.repositories;
 
-import dk.kea.dat18i.teamsix.biotrio.models.Movie;
-import dk.kea.dat18i.teamsix.biotrio.models.MovieDetails;
 import dk.kea.dat18i.teamsix.biotrio.models.TheaterRoom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,7 +7,9 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,13 +28,24 @@ public class TheaterRoomRepository
         return getTheaterRoomList(theaterRoomList, rs);
     }
 
-    public List<TheaterRoom> findTheaterRoom(int id) {
+    public TheaterRoom findTheaterRoom(int id) {
         String query = "SELECT * FROM theater_room WHERE theater_room_id = ? ;";
 
         SqlRowSet rs = jdbc.queryForRowSet(query, id);
-        List<TheaterRoom> theaterRoomList = new ArrayList<>();
+        TheaterRoom theaterRoom = new TheaterRoom();
 
-        return getTheaterRoomList(theaterRoomList, rs);
+        try {
+
+            if (rs.first()) {
+
+                getTheaterRoom(rs, theaterRoom);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return theaterRoom;
     }
 
     public void deleteTheaterRoom(int id)
@@ -44,6 +55,44 @@ public class TheaterRoomRepository
             ps.setInt(1, id);
             return ps;
         };
+        jdbc.update(psc);
+    }
+
+    public String insertTheaterRoom(TheaterRoom theaterRoom)
+    {
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
+
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement("INSERT INTO theater_room values(null, ?, ?, ?, ?)");
+                ps.setString(1, theaterRoom.getName());
+                ps.setInt(2, theaterRoom.getRows_no());
+                ps.setInt(3, theaterRoom.getColumns_no());
+                ps.setBoolean(4, theaterRoom.getCapability_3d());
+                return ps;
+            }
+        };
+
+        jdbc.update(psc);
+        return "redirect:/theater-room";
+    }
+
+    public void editTheaterRoom(TheaterRoom theaterRoom)
+    {
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
+
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement("UPDATE theater_room set name = ? , rows_no = ? , columns_no = ?, `3d_capability` = ? WHERE theater_room_id = ?");
+                ps.setString(1, theaterRoom.getName());
+                ps.setInt(2, theaterRoom.getRows_no());
+                ps.setInt(3, theaterRoom.getColumns_no());
+                ps.setBoolean(4, theaterRoom.getCapability_3d());
+                ps.setInt(5, theaterRoom.getTheater_room_id());
+                return ps;
+            }
+        };
+
         jdbc.update(psc);
     }
 
@@ -70,4 +119,6 @@ public class TheaterRoomRepository
         }
         return theaterRoomList;
     }
+
+
 }

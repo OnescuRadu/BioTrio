@@ -19,6 +19,8 @@ public class MoviePlanRepository {
     private JdbcTemplate jdbc;
 
     public MoviePlan findMoviePlan(int id) {
+        //TODO
+        //INNER JOIN WITH movie
         String query = "SELECT movie_plan_id, movie_id, movie_plan.theater_room_id, date, start_time, price, name, rows_no, columns_no, 3d_capability\n" +
                 "FROM movie_plan \n" +
                 "INNER JOIN theater_room \n" +
@@ -29,7 +31,7 @@ public class MoviePlanRepository {
         try {
 
             if (rs.first()) {
-                getMovie(rs, moviePlan);
+                getMoviePlan(rs, moviePlan);
             }
 
         } catch (Exception e) {
@@ -60,23 +62,20 @@ public class MoviePlanRepository {
         jdbc.update(psc);
     }
 
-    private void getMovie(SqlRowSet rs, MoviePlan moviePlan) {
-        TheaterRoom theaterRoom = new TheaterRoom();
+    private void getMoviePlan(SqlRowSet rs, MoviePlan moviePlan) {
 
         moviePlan.setMovie_plan_id(rs.getInt("movie_plan_id"));
         moviePlan.setMovie_id(rs.getInt("movie_id"));
         moviePlan.setTheater_room_id(rs.getInt("theater_room_id"));
-        moviePlan.setDate(rs.getDate("date").toLocalDate());
-        moviePlan.setStart_time(rs.getTime("start_time").toLocalTime());
+        moviePlan.setDate_time(rs.getTimestamp("date").toLocalDateTime());
         moviePlan.setPrice(rs.getDouble("price"));
 
-        theaterRoom.setTheater_room_id(rs.getInt("theater_room_id"));
-        theaterRoom.setName(rs.getString("name"));
-        theaterRoom.setRows_no(rs.getInt("rows_no"));
-        theaterRoom.setColumns_no(rs.getInt("columns_no"));
-        theaterRoom.setCapability_3d(rs.getBoolean("3d_capability"));
+        //TODO
+        //inner join with movie
+        //set everything into Movie object
+        //set everything into theater room object
+        //set Movie and Theater room into moviePlan
 
-        moviePlan.setTheaterRoom(theaterRoom);
     }
 
     private List<MoviePlan> getMoviePlanList(List<MoviePlan> moviePlanList, SqlRowSet rs) {
@@ -84,7 +83,7 @@ public class MoviePlanRepository {
 
             while (rs.next()) {
                 MoviePlan moviePlan = new MoviePlan();
-                getMovie(rs, moviePlan);
+                getMoviePlan(rs, moviePlan);
 
                 moviePlanList.add(moviePlan);
             }

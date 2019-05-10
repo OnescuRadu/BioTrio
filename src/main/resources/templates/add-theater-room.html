@@ -23,29 +23,28 @@
 <body>
 
 <div class="container">
-    <form class="text-center border border-light p-5" method="post" action="/edit-user/save" th:object="${editedUser}">
+    <form class="text-center border border-light p-5" method="post" action="/add-theater-room/save" th:object="${newTheaterRoom}">
         <h5 class="card-header bg-primary white-text text-center py-4" style="color:white">
-            <strong>Edit User</strong>
+            <strong>Add Theater Room</strong>
         </h5>
         <br>
 
+        <!-- ID -->
+        <input type="hidden" id="id" th:field="${newTheaterRoom.theater_room_id}" name="id">
+        <label>Name</label>
+        <input type="text" id="reg" name="name" th:field="${newTheaterRoom.name}" class="form-control mb-4">
 
-        <input type="hidden" id="id" th:field="${editedUser.user_id}" name="id">
-        <!-- Username -->
-        <label>Username</label>
-        <input type="text" id="username" name="name" th:field="${editedUser.username}" class="form-control mb-4">
+        <!-- No Rows -->
+        <label>Number of rows</label>
+        <input type="text" id="brand" name="rows_no" th:field="${newTheaterRoom.rows_no}" class="form-control mb-4">
 
-        <!-- Role -->
-        <label>Role</label>
-        <select th:field="${editedUser.role}" class="form-control mb-4">
-            <option value="ROLE_ADMIN"> ADMIN </option>
-            <option value="ROLE_USER"> USER </option>
-        </select>
+        <!-- No Cols -->
+        <label>Number of columns</label>
+        <input type="text" id="color" name="cols_no" th:field="${newTheaterRoom.columns_no}" class="form-control mb-4">
 
-
-        <!-- Enabled -->
-        <label>Enabled</label>
-        <input type="checkbox" id="enabled" name="capability_3d" th:field="${editedUser.enabled}" class="form-control mb-4">
+        <!-- Speed -->
+        <label>3D Capability</label>
+        <input type="checkbox" id="checkbox" name="capability_3d" th:field="${newTheaterRoom.capability_3d}" class="form-control mb-4">
 
         <!-- Send button -->
         <button type="submit" class="btn btn-success btn-rounded btn-block z-depth-0 my-4 waves-effect" style="font-weight: bold">Submit</button>

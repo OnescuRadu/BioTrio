@@ -22,36 +22,38 @@
 </head>
 <body>
 
-<div class="container">
-    <form class="text-center border border-light p-5" method="post" action="/edit-user/save" th:object="${editedUser}">
-        <h5 class="card-header bg-primary white-text text-center py-4" style="color:white">
-            <strong>Edit User</strong>
-        </h5>
-        <br>
+<!--Insert header fragment-->
+<div th:insert="~{/fragments/header :: header}"></div>
 
+<table class="table table-hover table-dark align-center" style="text-align: center">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Number of Rows</th>
+        <th scope="col">Number of Columns</th>
+        <th scope="col">3D</th>
+        <th scope="col">
+            <!-- Button edit -->
+            <a th:href="'/add-theater-room/'" class="btn btn-success add">Add</a>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="theaterRoom: ${theaterRooms}">
+        <td th:text="${theaterRoom.name}"></td>
+        <td th:text="${theaterRoom.rows_no}"></td>
+        <td th:text="${theaterRoom.columns_no}"></td>
+        <td th:text="${theaterRoom.capability_3d} ? 'Yes' : 'No'"></td>
+        <td>
+            <!-- Button edit -->
+            <a th:href="'/edit-theater-room/' + ${theaterRoom.theater_room_id}" class="btn btn-primary edit-delete">Edit</a>
+            <!-- Button delete -->
+            <a th:href="'/delete-theater-room/' + ${theaterRoom.theater_room_id}" class="btn btn-danger edit-delete">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
 
-        <input type="hidden" id="id" th:field="${editedUser.user_id}" name="id">
-        <!-- Username -->
-        <label>Username</label>
-        <input type="text" id="username" name="name" th:field="${editedUser.username}" class="form-control mb-4">
-
-        <!-- Role -->
-        <label>Role</label>
-        <select th:field="${editedUser.role}" class="form-control mb-4">
-            <option value="ROLE_ADMIN"> ADMIN </option>
-            <option value="ROLE_USER"> USER </option>
-        </select>
-
-
-        <!-- Enabled -->
-        <label>Enabled</label>
-        <input type="checkbox" id="enabled" name="capability_3d" th:field="${editedUser.enabled}" class="form-control mb-4">
-
-        <!-- Send button -->
-        <button type="submit" class="btn btn-success btn-rounded btn-block z-depth-0 my-4 waves-effect" style="font-weight: bold">Submit</button>
-        <button type="reset" class="btn btn-danger btn-rounded btn-block z-depth-0 my-4 waves-effect" style="font-weight: bold">Cancel</button>
-    </form>
-</div>
 
 <!--Insert footer fragment-->
 <div th:insert="~{/fragments/footer :: footer}"></div>
