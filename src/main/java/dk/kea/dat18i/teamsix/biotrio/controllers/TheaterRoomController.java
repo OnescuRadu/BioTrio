@@ -45,7 +45,7 @@ public class TheaterRoomController {
 
 
     @GetMapping("/edit-theater-room/{id}")
-    public String editCar(@PathVariable("id") int id, Model model)
+    public String editTheaterRoom(@PathVariable("id") int id, Model model)
     {
         TheaterRoom theaterRoom = theaterRepo.findTheaterRoom(id);
         model.addAttribute("editedTheaterRoom", theaterRoom);
@@ -53,7 +53,7 @@ public class TheaterRoomController {
     }
 
     @PostMapping("/edit-theater-room/save")
-    public String editCarInfo(@ModelAttribute TheaterRoom theaterRoom)
+    public String saveEditedTheaterRoom(@ModelAttribute TheaterRoom theaterRoom)
     {
         theaterRepo.editTheaterRoom(theaterRoom);
         return "redirect:/theater-room";

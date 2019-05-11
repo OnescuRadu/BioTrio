@@ -22,21 +22,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         auth.jdbcAuthentication().dataSource(dataSource)
                 .passwordEncoder(passwordEncoder())
                 .usersByUsernameQuery("select username,password, enabled from user where username=?")
-                .authoritiesByUsernameQuery("select username, role from user\n" +
-                        "INNER JOIN user_role\n" +
-                        "ON (user.user_id = user_role.user_id)\n" +
-                        "where username = ?");
+                .authoritiesByUsernameQuery("select username, role from user where username = ?");
 
     }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http
                 .authorizeRequests()
-//                .antMatchers("/", "/index", "/movies/**", "/contact", "/about-us", "/faq", "/movie/**", "/css/**", "/images/**", "/save-movie/**").permitAll()
+/*                .antMatchers("/", "/index", "/movies/**", "/contact", "/about-us", "/faq", "/movie/**", "/css/**", "/images/**", "/save-movie/**").permitAll()
+                .antMatchers("/control-panel/**").hasAnyRole("ADMIN", "USER")*/
                 .antMatchers("/**").permitAll()
-                .antMatchers("/control-panel/**").hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
                 .permitAll();
         http.exceptionHandling().accessDeniedPage("/403");

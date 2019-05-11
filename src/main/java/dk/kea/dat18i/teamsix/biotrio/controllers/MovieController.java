@@ -18,15 +18,17 @@ public class MovieController {
     private MovieRepository movieRepo;
 
     @GetMapping({"/", "/index"})
-    public String showHome(Model model) throws Exception {
+    public String showHome(Model model) {
         List<Movie> movieList = movieRepo.findAllMovies();
         model.addAttribute("movies", movieList);
         return "index";
     }
 
     @GetMapping("/movies")
-    public String showAllMovie() {
-        return "movies";
+    public String showAllMovie(Model model) {
+        List<Movie> movieList = movieRepo.findAllMovies();
+        model.addAttribute("movies", movieList);
+        return "/movies";
     }
 
     @GetMapping("/movie/{id}")
