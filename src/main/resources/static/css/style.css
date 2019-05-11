@@ -671,12 +671,8 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
-/*----------- SEE MOVIE PAGE ----------- */
-/*.see-movie-page-poster{*/
-    /*width: 100%;*/
-    /*height: 250px;*/
-/*}*/
-.movieName i{
+/*----------- EDIT ALL MOVIES PAGE ----------- */
+.edit-movie-poster{
     width: 11rem;
     height: 18rem;
 }
