@@ -65,7 +65,7 @@
                         <td th:text="${movie.movieDetails.duration_minutes}">Duration minutes</td>
                         <td th:text="${movie.movieDetails.description}">Description</td>
                         <td th:text="${movie.movieDetails.language}">Language</td>
-                        <td><a class="btn btn-success" th:href="@{'/edit-movie/' + ${movie.movie_id}}">Edit</a></td>
+                        <td><a class="btn btn-outline-warning  empty-button" th:href="@{'/edit-movie/' + ${movie.movie_id}}">Edit</a></td>
                     </tr>
 
                     </tbody>
