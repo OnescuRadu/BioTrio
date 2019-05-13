@@ -1,6 +1,8 @@
 package dk.kea.dat18i.teamsix.biotrio.models;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDateTime;
 
 public class MoviePlan {
@@ -9,6 +11,7 @@ public class MoviePlan {
     private Movie movie;
     private int theater_room_id;
     private TheaterRoom theaterRoom;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime date_time;
     private double price;
 
