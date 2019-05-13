@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -52,8 +51,12 @@ public class MovieController {
     }
 
     @PostMapping("/save-movie")
-    public String saveMovie(@ModelAttribute Movie movie, @RequestParam("release-date") String releaseDate) {
+    public String saveMovie(@ModelAttribute Movie movie, @RequestParam("release-date") String releaseDate, @ModelAttribute("a") String type) {
         movie.getMovieDetails().setRelease_date(LocalDate.parse(releaseDate));
+        if(type.isEmpty())
+            movie.setType(false);
+        else
+            movie.setType(true);
         Movie movieInserted = movieRepo.saveMovie(movie);
         return "redirect:/see-all-movies";
     }
@@ -75,7 +78,7 @@ public class MovieController {
     @GetMapping("/delete-movie/{id}")
     public String deleteMovie(@PathVariable("id") int id) {
         movieRepo.deleteMovie(id);
-        return "redirect:/delete-movies";
+        return "redirect:/see-all-movies";
     }
 
     @GetMapping("/edit-all-movies")
@@ -96,7 +99,7 @@ public class MovieController {
     public String saveEditMovie(@ModelAttribute Movie movie, @RequestParam("release-date") String releaseDate){
         movie.getMovieDetails().setRelease_date(LocalDate.parse(releaseDate));
         movieRepo.updateMovie(movie);
-        return "redirect:/edit-all-movies";
+        return "redirect:/see-all-movies";
     }
 
 }

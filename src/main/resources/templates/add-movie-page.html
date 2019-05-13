@@ -69,7 +69,7 @@
                         <div class="col-md-6" style="margin-bottom: 2%">
                             <div class="md-form mb-0">
                                 <label for="release-date1" class="">Release date</label>
-                                <input name="release-date" class="form-control" id="release-date1" type="date" value="2017-06-01">
+                                <input name="release-date" class="form-control" id="release-date1" type="date">
                             </div>
                         </div>
                         <!--Grid column-->
@@ -135,8 +135,10 @@
                         <div class="col-md-6" style="margin-bottom: 2%">
                             <!--<label for="checkbox">3D:</label>-->
                             <h6>3D:</h6>
-                            <label class="switch">
-                                <input th:field="${movieForm.type}" type="checkbox" id="checkbox">
+
+                            <label class="switch" for="enabled">
+                                <!--<input th:="${movieForm.type}" type="checkbox">-->
+                                <input type="checkbox" id="enabled" name="a" value="3D" class="form-control mb-4 switch">
                                 <span class="slider round"></span>
                             </label>
                         </div>
@@ -167,8 +169,8 @@
         crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<script>var dateControl = document.querySelector('input[type="date_time"]');
-dateControl.value = '2017-06-01';</script>
+<script>var dateControl = document.querySelector('input[type="date"]');
+dateControl.value = date.now;</script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
