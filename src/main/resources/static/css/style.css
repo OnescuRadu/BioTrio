@@ -268,10 +268,18 @@ a:hover {
 
 /*----------- START FOOTER ----------- */
 
+.page-container{
+    position: relative;
+    min-height: 50vh;
+}
+
 #myFooter {
     margin-top: 5vh;
     background-color: #451E3D;
     color:white;
+    /*position: absolute;*/
+    bottom: 0;
+    width: 100%;
 }
 
 #myFooter .footer-copyright{
@@ -546,6 +554,10 @@ hr.star-dark:after {
     margin-top: 1.5rem;
 }
 
+.col-name{
+    text-align: center;
+}
+
 /*----------- EMPLOYEE PAGE ----------- */
 .employee_btn{
     margin-top: 1.5rem;
@@ -557,9 +569,9 @@ hr.star-dark:after {
 
 
 /*----------- CONTROL PANEL PAGE ----------- */
-.box{
-    padding:60px 0px;
-}
+/*.box{*/
+    /*padding:60px 0px;*/
+/*}*/
 
 .box-part{
     background:#FFF;
@@ -672,7 +684,7 @@ input:checked + .slider:before {
 }
 
 /*----------- EDIT ALL MOVIES PAGE ----------- */
-.edit-movie-poster{
+.see-movie-page-poster{
     width: 11rem;
     height: 18rem;
 }

@@ -25,8 +25,7 @@
 <body>
 <!--Insert header fragment-->
 <div th:insert="~{/fragments/header :: header}"></div>
-
-<div class="container">
+<div class="container-fluid">
     <!--Section: Contact v.2-->
     <section class="mb-4">
 
@@ -39,13 +38,18 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th scope="col">Poster</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Genre</th>
-                        <th scope="col">Release date</th>
-                        <th scope="col">Duration minutes</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Language</th>
+                        <th class="col-name" scope="col">Poster</th>
+                        <th class="col-name"scope="col">Name</th>
+                        <th class="col-name"scope="col">Genre</th>
+                        <th class="col-name"scope="col">Release date</th>
+                        <th class="col-name"scope="col">Duration minutes</th>
+                        <th class="col-name"scope="col">Description</th>
+                        <th class="col-name"scope="col">Language</th>
+                        <th class="col-name"scope="col">Type</th>
+                        <th class="col-name"scope="col">
+                            <!-- Button edit -->
+                            <a th:href="'/add-movie-page/'" class= "empty-button btn add">Add</a>
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -53,16 +57,23 @@
                         <td>
                             <div class="movieName" th:style="'background:url(/images/posters/' + ${movie.movieDetails.poster} + ')'">
                                 <!--<a th:href="'/movie/' + ${movie.movie_id}">-->
-                                    <i class="material-icons see-movie-page-poster"></i>
+                                <i class="material-icons see-movie-page-poster"></i>
                                 <!--</a>-->
                             </div>
                         </td>
-                        <td th:text="${movie.movieDetails.name}">Name</td>
-                        <td th:text="${movie.movieDetails.genre}">Genre</td>
-                        <td th:text="${movie.movieDetails.release_date}">Release date</td>
-                        <td th:text="${movie.movieDetails.duration_minutes}">Duration minutes</td>
-                        <td th:text="${movie.movieDetails.description}">Description</td>
-                        <td th:text="${movie.movieDetails.language}">Language</td>
+                        <td class="col-name" th:text="${movie.movieDetails.name}">Name</td>
+                        <td class="col-name" th:text="${movie.movieDetails.genre}">Genre</td>
+                        <td class="col-name" th:text="${movie.movieDetails.release_date}">Release date</td>
+                        <td class="col-name" th:text="${movie.movieDetails.duration_minutes}">Duration minutes</td>
+                        <td class="col-name" th:text="${movie.movieDetails.description}">Description</td>
+                        <td class="col-name" th:text="${movie.movieDetails.language}">Language</td>
+                        <td class="col-name" th:text="${movie.type} ? '3D' : '2D'">Type</td>
+                        <td>
+                            <a class="btn btn-outline-warning  empty-button" th:href="@{'/edit-movie/' + ${movie.movie_id}}">Edit</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" th:href="@{'/delete-movie/' + ${movie.movie_id}}">Delete</a>
+                        </td>
                     </tr>
 
                     </tbody>
@@ -76,7 +87,6 @@
 </div>
 <!--Insert footer fragment-->
 <div th:insert="~{/fragments/footer :: footer}"></div>
-
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
