@@ -165,11 +165,6 @@ public class MovieRepository {
     }
 
     public void updateMovie(Movie movie){
-//        jdbc.update("UPDATE movie SET " +
-//                "movie_id='" + movie.getMovie_id() + "', " +
-//                "movie_details_id='" + movie.getMovieDetails().getMovie_details_id() + "', " +
-//                "WHERE id=" + movie.getMovie_id());
-
         PreparedStatementCreator psc = connection -> {
             //PreparedStatement ps = connection.prepareStatement("UPDATE movie_details SET (name, genre, release_date, duration_minutes, description, language, poster, trailer)VALUES( ?, ?, ?, ?, ?, ?, ?, ?) WHERE movie_details_id = ?");
             PreparedStatement ps = connection.prepareStatement("UPDATE movie_details SET name = ?, genre = ?, release_date = ?, duration_minutes= ?, description = ?, language = ?, poster = ?, trailer = ? WHERE movie_details_id = ?");
@@ -187,6 +182,14 @@ public class MovieRepository {
 
         jdbc.update(psc);
 
+        PreparedStatementCreator pscc = connection -> {
+            PreparedStatement ps = connection.prepareStatement("UPDATE movie SET type = ?  WHERE movie_id = ?");
+            ps.setBoolean(1,movie.getType());
+            ps.setInt(2, movie.getMovie_id());
+            return ps;
+        };
+
+        jdbc.update(pscc);
 //        jdbc.update("UPDATE movie_details SET " +
 //                "name='" + movie.getMovieDetails().getName() + "', " +
 //                "genre='" + movie.getMovieDetails().getGenre() + "', " +

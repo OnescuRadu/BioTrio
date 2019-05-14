@@ -104,8 +104,12 @@ public class MovieController {
     }
 
     @PostMapping("update-movie")
-    public String saveEditMovie(@ModelAttribute Movie movie, @RequestParam("release-date") String releaseDate){
+    public String saveEditMovie(@ModelAttribute Movie movie, @RequestParam("release-date") String releaseDate, @ModelAttribute("a") String type){
         movie.getMovieDetails().setRelease_date(LocalDate.parse(releaseDate));
+        if(type.isEmpty())
+            movie.setType(false);
+        else
+            movie.setType(true);
         movieRepo.updateMovie(movie);
         return "redirect:/see-all-movies";
     }

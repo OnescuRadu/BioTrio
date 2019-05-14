@@ -100,8 +100,8 @@
                         <!--Grid column-->
                         <div class="col-md-6" style="margin-bottom: 2%">
                             <div class="md-form mb-0">
-                                <label for="descripton" class="">Description</label>
-                                <input th:field="${movieForm.movieDetails.description}" type="text" id="descripton" name="name" class="form-control">
+                                <label for="poster" class="">Poster</label>
+                                <input th:field="${movieForm.movieDetails.poster}" type="text" id="poster" name="name" class="form-control">
                             </div>
                         </div>
                         <!--Grid column-->
@@ -123,16 +123,6 @@
 
                         <!--Grid column-->
                         <div class="col-md-6" style="margin-bottom: 2%">
-                            <div class="md-form mb-0">
-                                <label for="poster" class="">Poster</label>
-                                <input th:field="${movieForm.movieDetails.poster}" type="text" id="poster" name="name" class="form-control">
-                            </div>
-                        </div>
-                        <!--Grid column-->
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6" style="margin-bottom: 2%">
                             <!--<label for="checkbox">3D:</label>-->
                             <h6>3D:</h6>
 
@@ -141,6 +131,18 @@
                                 <input type="checkbox" id="enabled" name="a" value="3D" class="form-control mb-4 switch">
                                 <span class="slider round"></span>
                             </label>
+                        </div>
+                        <!--Grid column-->
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12" style="margin-bottom: 2%">
+                            <div class="md-form mb-0">
+                                <label for="descripton" class="">Description</label>
+                                <!--<input th:field="*{movieForm.movieDetails.description}" type="text" id="descripton" name="name" class="form-control">-->
+                                <textarea th:field="${movieForm.movieDetails.description}" id="descripton" rows="5" cols="80" class="form-control" th:for="myForm"></textarea>
+                            </div>
                         </div>
                     </div>
 
