@@ -1,4 +1,5 @@
 package dk.kea.dat18i.teamsix.biotrio.models;
+
 public class Booking {
     private int booking_id;
     private int movie_plan_id;
@@ -6,23 +7,43 @@ public class Booking {
     private String phone_number;
     private String email;
     private String confirmation_code;
+    private double totalPrice;
     private Boolean paid;
+    private List<Ticket> ticketList;
 
-
-
-    public Booking(int booking_id, int movie_plan_id, MoviePlan moviePlan, String phone_number, String email, String confirmation_code, Boolean paid) {
+    public Booking(int booking_id, int movie_plan_id, MoviePlan moviePlan, String phone_number, String email, String confirmation_code, Boolean paid, Double totalPrice, List<Ticket> ticketList) {
         this.booking_id = booking_id;
         this.movie_plan_id = movie_plan_id;
         this.moviePlan = moviePlan;
         this.phone_number = phone_number;
         this.email = email;
         this.confirmation_code = confirmation_code;
+        this.totalPrice = totalPrice;
         this.paid = paid;
+        this.ticketList = ticketList;
     }
 
     public Booking()
     {
     }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public List<Ticket> getTicketList() {
+        return ticketList;
+    }
+
+    public void setTicketList(List<Ticket> ticketList) {
+        this.ticketList = ticketList;
+    }
+
+
 
     public int getBooking_id() {
         return booking_id;
@@ -80,16 +101,41 @@ public class Booking {
         this.paid = paid;
     }
 
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "booking_id=" + booking_id +
-                ", movie_plan_id=" + movie_plan_id +
-                ", moviePlan=" + moviePlan +
-                ", phone_number='" + phone_number + '\'' +
-                ", email='" + email + '\'' +
-                ", confirmation_code='" + confirmation_code + '\'' +
-                ", paid=" + paid +
-                '}';
+    public double getBookingTotalPrice(){
+        double price = 0;
+        int i=0;
+        while (i<ticketList.size()) {
+            price += moviePlan.getPrice();
+            i++;
+        }
+        return price;
     }
+
+    public static void findBookedSeats(boolean[][] seats, int rows, int cols, List<Ticket> reservedSeats) {
+        for(int i = 0; i < rows; i++)
+        {
+            for(int j=0; j< cols; j++)
+            {
+                for (Ticket reservedSeat : reservedSeats) {
+                    String seat = String.format("%02d", i + 1) + "-" + String.format("%02d", j + 1);
+                    if (reservedSeat.getSeat_number().equals(seat)) {
+                        seats[i][j] = true;
+                    }
+                }
+            }
+        }
+    }
+
+    public static void seeBookedSeats(boolean[][] seats, int rows, int cols) {
+        for(int i = 0; i < rows; i++)
+        {
+            for(int j=0; j< cols; j++)
+            {
+                System.out.print(seats[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+
 }

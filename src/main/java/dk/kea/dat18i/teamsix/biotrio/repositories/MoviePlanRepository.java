@@ -23,10 +23,8 @@ public class MoviePlanRepository {
     private JdbcTemplate jdbc;
 
     public MoviePlan findMoviePlan(int id) {
-        String query = "SELECT movie_plan_id, date_time,  price,\n" +
-                "movie_plan.movie_id, movie.movie_details_id, type, movie_details.name,\n" +
-                "movie_plan.theater_room_id, theater_room.name as theater_room_name, 3d_capability\n" +
-                "FROM movie_plan \n" +
+        String query = "SELECT movie_plan_id, date_time,  price, movie_plan.movie_id, movie.movie_details_id, type, movie_details.name,movie_plan.theater_room_id, theater_room.name as theater_room_name,rows_no,columns_no,3d_capability \n" +
+                "FROM movie_plan\n" +
                 "INNER JOIN theater_room\n" +
                 "ON (movie_plan.theater_room_id = theater_room.theater_room_id)\n" +
                 "INNER JOIN movie\n" +
@@ -48,18 +46,32 @@ public class MoviePlanRepository {
         return moviePlan;
     }
 
-
-    public List<MoviePlan> findAllMoviePlan() {
-        String query = "SELECT movie_plan_id, date_time,  price,\n" +
-                "movie_plan.movie_id, movie.movie_details_id, type, movie_details.name,\n" +
-                "movie_plan.theater_room_id, theater_room.name as theater_room_name, 3d_capability\n" +
-                "FROM movie_plan \n" +
+    public List<MoviePlan> findMoviePlanByMovieId(int id) {
+        String query = "SELECT movie_plan_id, date_time,  price, movie_plan.movie_id, movie.movie_details_id, type, movie_details.name,movie_plan.theater_room_id, theater_room.name as theater_room_name,rows_no,columns_no,3d_capability \n" +
+                "FROM movie_plan\n" +
                 "INNER JOIN theater_room\n" +
                 "ON (movie_plan.theater_room_id = theater_room.theater_room_id)\n" +
                 "INNER JOIN movie\n" +
                 "ON (movie_plan.movie_id = movie.movie_id)\n" +
                 "INNER JOIN movie_details\n" +
-                "ON (movie.movie_details_id = movie_details.movie_details_id);";
+                "ON (movie.movie_details_id = movie_details.movie_details_id) " +
+                "WHERE movie_plan.movie_id = ? ;";
+
+        SqlRowSet rs = jdbc.queryForRowSet(query, id);
+        List<MoviePlan> moviePlanList = new ArrayList<>();
+
+        return getMoviePlanList(moviePlanList, rs);
+    }
+
+    public List<MoviePlan> findAllMoviePlan() {
+        String query = "SELECT movie_plan_id, date_time,  price, movie_plan.movie_id, movie.movie_details_id, type, movie_details.name,movie_plan.theater_room_id, theater_room.name as theater_room_name,rows_no,columns_no,3d_capability \n" +
+                "FROM movie_plan\n" +
+                "INNER JOIN theater_room\n" +
+                "ON (movie_plan.theater_room_id = theater_room.theater_room_id)\n" +
+                "INNER JOIN movie\n" +
+                "ON (movie_plan.movie_id = movie.movie_id)\n" +
+                "INNER JOIN movie_details\n" +
+                "ON (movie.movie_details_id = movie_details.movie_details_id)";
 
         SqlRowSet rs = jdbc.queryForRowSet(query);
         List<MoviePlan> moviePlanList = new ArrayList<>();
@@ -97,8 +109,11 @@ public class MoviePlanRepository {
         movieDetails.setMovie_details_id(rs.getInt("movie_details_id"));
         movieDetails.setName(rs.getString("name"));
 
-
+        theaterRoom.setTheater_room_id(rs.getInt("theater_room_id"));
         theaterRoom.setName(rs.getString("theater_room_name"));
+        theaterRoom.setRows_no(rs.getInt("rows_no"));
+        theaterRoom.setColumns_no(rs.getInt("columns_no"));
+        theaterRoom.setCapability_3d(rs.getBoolean("3d_capability"));
 
         movie.setMovieDetails(movieDetails);
         moviePlan.setMovie(movie);

@@ -2,6 +2,8 @@ package dk.kea.dat18i.teamsix.biotrio.controllers;
 
 import dk.kea.dat18i.teamsix.biotrio.models.Movie;
 import dk.kea.dat18i.teamsix.biotrio.models.MovieDetails;
+import dk.kea.dat18i.teamsix.biotrio.models.MoviePlan;
+import dk.kea.dat18i.teamsix.biotrio.repositories.MoviePlanRepository;
 import dk.kea.dat18i.teamsix.biotrio.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,9 @@ public class MovieController {
 
     @Autowired
     private MovieRepository movieRepo;
+
+    @Autowired
+    private MoviePlanRepository moviePlanRepo;
 
     @GetMapping({"/", "/index"})
     public String showHome(Model model) {
@@ -34,7 +39,9 @@ public class MovieController {
     public String showMovie(@PathVariable("id") int id, Model model) throws Exception {
         Movie movie = movieRepo.findMovie(id);
         model.addAttribute("movie", movie);
-        return "movie";
+        List<MoviePlan> moviePlanList = moviePlanRepo.findMoviePlanByMovieId(id);
+        model.addAttribute("moviePlans", moviePlanList);
+        return "/movie";
     }
 
     @GetMapping("/movies/{genre}")
@@ -57,6 +64,7 @@ public class MovieController {
             movie.setType(false);
         else
             movie.setType(true);
+
         Movie movieInserted = movieRepo.saveMovie(movie);
         return "redirect:/see-all-movies";
     }
