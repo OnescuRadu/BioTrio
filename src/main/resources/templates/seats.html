@@ -18,60 +18,28 @@
     <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css" />
 
     <!-- Page Title -->
-    <title>Bio Trio Cinema | Bookings</title>
+    <title>Bio Trio Cinema | Search</title>
 </head>
 <body>
 
 <!--Insert header fragment-->
 <div th:insert="~{/fragments/header :: header}"></div>
-<table class="table table-hover table-dark align-center" style="text-align: center">
-    <thead>
-    <tr>
-        <th scope="col">Movie Name</th>
-        <th scope="col">Movie Language</th>
-        <th scope="col">Date & Time</th>
-        <th scope="col">Duration</th>
-        <th scope="col">Seats</th>
 
-        <th scope="col">Theater Room</th>
-        <th scope="col">Phone Number</th>
-        <th scope="col">Email</th>
-        <th scope="col">Confirmation Code</th>
-        <th scope="col">Total Price</th>
-        <th scope="col">Paid</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="booking: ${bookings}">
-        <td th:text="${booking.moviePlan.movie.type} ? ${booking.moviePlan.movie.movieDetails.name} + ' : 3D' : ${movie.movieDetails.name} + ' : 2D'"></td>
-        <td th:text="${booking.moviePlan.movie.movieDetails.language}"></td>
-        <td th:text="${booking.moviePlan.date_time}"></td>
-        <td th:text="${booking.moviePlan.movie.movieDetails.duration_minutes}"></td>
-        <td>
-            <span th:each="ticket : ${booking.ticketList}" th:text="${ticket.seat_number}" style="display:block">
-            </span>
-        </td>
-        <td th:text="${booking.moviePlan.theaterRoom.name}"></td>
-        <td th:text="${booking.phone_number}"></td>
-        <td th:text="${booking.email}"></td>
-        <td th:text="${booking.confirmation_code}"></td>
-        <td th:text="${booking.totalPrice}"></td>
-        <td th:text="${booking.paid} ? 'YES' : 'NO'"></td>
+<form th:action="@{'/booking-confirmation'}" method="post" th:object="${seats}">
+<div class="container" style="text-align: center">
 
-        <td>
-            <!-- Button edit -->
-            <a th:href="'/edit-booking/' + ${booking.booking_id}" class="btn btn-primary edit-delete">Edit</a>
-            <!-- Button delete -->
-            <a th:href="'/delete-booking/' + ${booking.booking_id}" class="btn btn-danger edit-delete">Delete</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <div class="row" th:each="i: ${#numbers.sequence(0, moviePlan.theaterRoom.rows_no - 1)}">
+        <div class="span3" th:each="j: ${#numbers.sequence(0, moviePlan.theaterRoom.columns_no - 1)}">
+            <input type="checkbox" name="${i} + ${j}"  th:disabled="${seats[__${i}__][__${j}__]}" th:value="${seats[__${i}__][__${j}__]}">
+            <br>
+            <span th:text="'' + ${i} + '-' + ${j} + '&nbsp'"></span>
+        </div>
+        <br>
+    </div>
 
-
-
-
-
+</div>
+    <button type="submit">Submit</button>
+</form>
 <!--Insert footer fragment-->
 <div th:insert="~{/fragments/footer :: footer}"></div>
 
