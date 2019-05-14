@@ -1,5 +1,4 @@
 package dk.kea.dat18i.teamsix.biotrio.models;
-
 public class Booking {
     private int booking_id;
     private int movie_plan_id;
@@ -8,6 +7,8 @@ public class Booking {
     private String email;
     private String confirmation_code;
     private Boolean paid;
+
+
 
     public Booking(int booking_id, int movie_plan_id, MoviePlan moviePlan, String phone_number, String email, String confirmation_code, Boolean paid) {
         this.booking_id = booking_id;
