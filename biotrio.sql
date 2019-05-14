@@ -6,16 +6,9 @@ CREATE TABLE user (
 user_id int NOT NULL auto_increment,
 username VARCHAR(255) NOT NULL,
 password VARCHAR(255) NOT NULL,
+role VARCHAR(255) NOT NULL,
 enabled TINYINT NOT NULL DEFAULT 1,
 PRIMARY KEY (user_id)
-);
-
-CREATE TABLE user_role (
-user_role_id INT NOT NULL AUTO_INCREMENT,
-user_id int NOT NULL,
-role VARCHAR(255) NOT NULL,
-PRIMARY KEY (user_role_id),
-FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
 
 CREATE TABLE theater_room (
@@ -79,16 +72,9 @@ FOREIGN KEY (booking_id) REFERENCES booking(booking_id)
 ); 
 
 insert into user values
-(NULL,'admin', '$2a$10$D6SL8gFHaSuVS6fpzqW4q.CbU.XbbXn85BfdM8crcwz23P4SPeUey', 1),
-(NULL,'radu', '$2a$10$ER.Vsj3gbmGa6a1H2oOJoO1/rZw1VEbTSZr.G8S.kgsGcVGEDhHJq', 1),
-(NULL,'user', '$2a$10$DNiWOsiDNuDtnzKzQQ6M4OS1HP3DvfkFbJnl7w4DVf0R5lDmmVER6', 1);
-
-insert into user_role (user_id, role) values 
-(1, 'ROLE_ADMIN'),
-(1, 'ROLE_USER'),
-(2, 'ROLE_ADMIN'),
-(2, 'ROLE_USER'),
-(3, 'ROLE_USER');
+(NULL,'admin', '$2a$10$D6SL8gFHaSuVS6fpzqW4q.CbU.XbbXn85BfdM8crcwz23P4SPeUey', 'ROLE_ADMIN', 1),
+(NULL,'radu', '$2a$10$ER.Vsj3gbmGa6a1H2oOJoO1/rZw1VEbTSZr.G8S.kgsGcVGEDhHJq', 'ROLE_ADMIN', 1),
+(NULL,'user', '$2a$10$DNiWOsiDNuDtnzKzQQ6M4OS1HP3DvfkFbJnl7w4DVf0R5lDmmVER6', 'ROLE_USER', 1);
 
 
 -- QUERY FOR INSERTING MOVIE DESCRIPTION
@@ -104,3 +90,17 @@ insert into movie values
 insert into theater_room values
 (NULL, "ORANGE", 10, 10, 1),
 (NULL, "YELLOW", 15, 12, 0);
+
+-- QUERY FOR INSERTING MOVIE PLAN
+insert into movie_plan values
+(NULL, 1, 1, '2018-04-03 12:00', 100);
+
+-- QUERY FOR INSERTING BOOKING
+insert into booking values
+(NULL, 1, '12345678', 'email@email.com', '12asd123', TRUE);
+
+-- QUERY FOR INSERTING TICKET
+insert into ticket values
+(NULL,'01-01', 1),
+(NULL,"01-02", 1);
+-- ------------------------------------------------------------------------------END OF INSERTING
