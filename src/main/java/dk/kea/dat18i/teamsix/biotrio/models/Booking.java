@@ -1,5 +1,7 @@
 package dk.kea.dat18i.teamsix.biotrio.models;
 
+import java.util.List;
+
 public class Booking {
     private int booking_id;
     private int movie_plan_id;

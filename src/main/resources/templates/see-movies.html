@@ -55,11 +55,12 @@
                     <tbody>
                     <tr th:each="movie:${movie}">
                         <td>
-                            <div class="movieName" th:style="'background:url(' + ${movie.movieDetails.poster} + ')'">
-                                <!--<a th:href="'/movie/' + ${movie.movie_id}">-->
-                                <i class="material-icons see-movie-page-poster"></i>
-                                <!--</a>-->
-                            </div>
+                            <!--<div class="movieName" th:style="'background:url(' + ${movie.movieDetails.poster} + ')'">-->
+                                <!--&lt;!&ndash;<a th:href="'/movie/' + ${movie.movie_id}">&ndash;&gt;-->
+                                <!--<i class="material-icons see-movie-page-poster"></i>-->
+                                <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                            <!--</div>-->
+                            <img th:src="${movie.movieDetails.poster}" style="width: 200px; height: 300px;">
                         </td>
                         <td class="col-name" th:text="${movie.movieDetails.name}">Name</td>
                         <td class="col-name" th:text="${movie.movieDetails.genre}">Genre</td>
