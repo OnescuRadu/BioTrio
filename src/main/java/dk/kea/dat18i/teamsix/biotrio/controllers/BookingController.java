@@ -1,15 +1,19 @@
 package dk.kea.dat18i.teamsix.biotrio.controllers;
 
 import dk.kea.dat18i.teamsix.biotrio.models.Booking;
+import dk.kea.dat18i.teamsix.biotrio.models.MoviePlan;
+import dk.kea.dat18i.teamsix.biotrio.models.Ticket;
 import dk.kea.dat18i.teamsix.biotrio.repositories.BookingRepository;
+import dk.kea.dat18i.teamsix.biotrio.repositories.MoviePlanRepository;
+import dk.kea.dat18i.teamsix.biotrio.repositories.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -18,6 +22,12 @@ public class BookingController {
     @Autowired
     private BookingRepository bookingRepo;
 
+    @Autowired
+    private MoviePlanRepository movieRepo;
+
+    @Autowired
+    private TicketRepository ticketRepo;
+
     @GetMapping("/bookings")
     public String showAllBooking(Model model) {
         List<Booking> bookingList = bookingRepo.findAllBooking();
@@ -25,46 +35,31 @@ public class BookingController {
         return "/bookings";
     }
 
-    @GetMapping("/booking/{id}")
-    public String showBooking(@PathVariable("id") int id, Model model) {
-        Booking booking = bookingRepo.findBooking(id);
-        model.addAttribute("booking", booking);
-        return "/booking";
-    }
-
-    @GetMapping("/delete-booking/{id}")
-    public String deleteBooking(@PathVariable("id") int id) {
-        bookingRepo.deleteBooking(id);
-        return "redirect:/booking";
-    }
-
-    @GetMapping("/add-booking")
-    public String addBooking(Model m)
+    @PostMapping("/select-seats")
+    public String selectSeats(HttpServletRequest request, Model model)
     {
-        m.addAttribute("newBooking", new Booking());
-        return "/add-booking";
+        int movie_plan_id = Integer.parseInt(request.getParameter("movie_plan_id"));
+        MoviePlan moviePlan = movieRepo.findMoviePlan(movie_plan_id);
+        model.addAttribute(moviePlan);
+        int rows = moviePlan.getTheaterRoom().getRows_no();
+        int cols = moviePlan.getTheaterRoom().getColumns_no();
+
+        boolean[][] seats = new boolean[rows][cols];
+
+        List<Ticket> reservedSeats = ticketRepo.findSeatsByBooking(movie_plan_id);
+
+        Booking.findBookedSeats(seats, rows,cols, reservedSeats);
+
+        Booking.seeBookedSeats(seats,rows,cols);
+        model.addAttribute("seats", seats);
+        return "/seats";
     }
 
-    @PostMapping("/add-booking/save")
-    public String saveBooking(@ModelAttribute Booking booking)
+    @PostMapping("/booking-confirmation")
+    public String saveMoviePlan(@ModelAttribute boolean[][] seats)
     {
-        bookingRepo.insertBooking(booking);
-        return "redirect:/booking";
+
+        return "redirect:/index";
     }
 
-
-    @GetMapping("/edit-booking/{id}")
-    public String editCar(@PathVariable("id") int id, Model model)
-    {
-        Booking booking = bookingRepo.findBooking(id);
-        model.addAttribute("editedBooking", booking);
-        return "/edit-booking";
-    }
-
-    @PostMapping("/edit-booking/save")
-    public String editCarInfo(@ModelAttribute Booking booking)
-    {
-        bookingRepo.editBooking(booking);
-        return "redirect:/booking";
-    }
 }

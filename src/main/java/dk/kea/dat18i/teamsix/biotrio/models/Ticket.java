@@ -11,6 +11,10 @@ public class Ticket {
         this.booking_id = booking_id;
     }
 
+    public Ticket()
+    {
+
+    }
     public int getTicket_id() {
         return ticket_id;
     }
