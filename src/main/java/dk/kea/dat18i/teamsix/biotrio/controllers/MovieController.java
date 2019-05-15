@@ -3,6 +3,7 @@ package dk.kea.dat18i.teamsix.biotrio.controllers;
 import dk.kea.dat18i.teamsix.biotrio.models.Movie;
 import dk.kea.dat18i.teamsix.biotrio.models.MovieDetails;
 import dk.kea.dat18i.teamsix.biotrio.models.MoviePlan;
+import dk.kea.dat18i.teamsix.biotrio.repositories.MovieDetailsRepository;
 import dk.kea.dat18i.teamsix.biotrio.repositories.MoviePlanRepository;
 import dk.kea.dat18i.teamsix.biotrio.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class MovieController {
     @Autowired
     private MoviePlanRepository moviePlanRepo;
 
+    @Autowired
+    private MovieDetailsRepository movieDetailsRepo;
+
     @GetMapping({"/", "/index"})
     public String showHome(Model model) {
         List<Movie> movieList = movieRepo.findAllMovies();
@@ -32,6 +36,8 @@ public class MovieController {
     public String showAllMovie(Model model) {
         List<Movie> movieList = movieRepo.findAllMovies();
         model.addAttribute("movies", movieList);
+        String genre = "All";
+        model.addAttribute("moviesGenre", genre);
         return "/movies";
     }
 
@@ -48,6 +54,8 @@ public class MovieController {
     public String showMovieByGender(@PathVariable("genre") String genre, Model model) throws Exception {
         List<Movie> movieList = movieRepo.findMovieByGender(genre);
         model.addAttribute("movies", movieList);
+        String genreText = "'" + genre.substring(0, 1).toUpperCase() + genre.substring(1) + "'";
+        model.addAttribute("moviesGenre", genreText);
         return "movies";
     }
 
@@ -55,6 +63,15 @@ public class MovieController {
     public String addMovie(Model m) {
         m.addAttribute("movieForm", new Movie());
         return "add-movie-page";
+    }
+
+    @GetMapping("/add-movie-page-using-details")
+    public String addMovieUsingDetails(Model m) {
+        m.addAttribute("movie", new Movie());
+
+        List<MovieDetails> movieDetailsList = movieDetailsRepo.findAllMovieDetails();
+        m.addAttribute("movieDetailsList", movieDetailsList);
+        return "add-movie-page2";
     }
 
     @PostMapping("/save-movie")
@@ -66,6 +83,18 @@ public class MovieController {
             movie.setType(true);
 
         Movie movieInserted = movieRepo.saveMovie(movie);
+        return "redirect:/see-all-movies";
+    }
+
+    @PostMapping("/save-movie-using-details")
+    public String saveMovieUsingExistingDetails(@ModelAttribute Movie movie, @ModelAttribute("a") String type) {
+        if(type.isEmpty())
+            movie.setType(false);
+        else
+            movie.setType(true);
+
+        System.out.println(movie);
+        movieRepo.insertMovieUsingDetails(movie);
         return "redirect:/see-all-movies";
     }
 
