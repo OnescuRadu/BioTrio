@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +58,7 @@ public class MovieRepository {
         return movie;
     }
 
-    public Movie saveMovie(Movie movie){
+    public Movie saveMovie(Movie movie) {
 
         PreparedStatementCreator psc_movie_details = new PreparedStatementCreator() {
             @Override
@@ -69,8 +68,8 @@ public class MovieRepository {
                 ps.setString(2, movie.getMovieDetails().getGenre());
                 ps.setString(3, movie.getMovieDetails().getLanguage());
                 ps.setString(4, movie.getMovieDetails().getName());
-                ps.setString(5,movie.getMovieDetails().getPoster());
-                ps.setString(6,movie.getMovieDetails().getTrailer());
+                ps.setString(5, movie.getMovieDetails().getPoster());
+                ps.setString(6, movie.getMovieDetails().getTrailer());
                 ps.setInt(7, movie.getMovieDetails().getDuration_minutes());
                 ps.setDate(8, java.sql.Date.valueOf(movie.getMovieDetails().getRelease_date()));
                 return ps;
@@ -120,12 +119,14 @@ public class MovieRepository {
         return getMovieList(movieList, rs);
     }
 
-    public void deleteMovie(int id)
-    {
-        PreparedStatementCreator psc = connection -> {
-            PreparedStatement ps = connection.prepareStatement("DELETE from movie where movie_id = ?");
-            ps.setInt(1, id);
-            return ps;
+    public void deleteMovie(int id) {
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement("DELETE from movie where movie_id = ?");
+                ps.setInt(1, id);
+                return ps;
+            }
         };
         jdbc.update(psc);
     }
@@ -134,7 +135,7 @@ public class MovieRepository {
         movie.setMovie_id(rs.getInt("movie_id"));
         movie.setMovie_details_id(rs.getInt("movie_details_id"));
         movie.setType(rs.getBoolean("type"));
-//        movie.setAvailable(rs.getBoolean("available"));
+
         MovieDetails movieDetails = new MovieDetails();
         movieDetails.setMovie_details_id(rs.getInt("movie_details_id"));
         movieDetails.setName(rs.getString("name"));
@@ -164,42 +165,37 @@ public class MovieRepository {
         return movieList;
     }
 
-    public void updateMovie(Movie movie){
-        PreparedStatementCreator psc = connection -> {
-            //PreparedStatement ps = connection.prepareStatement("UPDATE movie_details SET (name, genre, release_date, duration_minutes, description, language, poster, trailer)VALUES( ?, ?, ?, ?, ?, ?, ?, ?) WHERE movie_details_id = ?");
-            PreparedStatement ps = connection.prepareStatement("UPDATE movie_details SET name = ?, genre = ?, release_date = ?, duration_minutes= ?, description = ?, language = ?, poster = ?, trailer = ? WHERE movie_details_id = ?");
-            ps.setString(1, movie.getMovieDetails().getName());
-            ps.setString(2, movie.getMovieDetails().getGenre());
-            ps.setDate(3, java.sql.Date.valueOf(movie.getMovieDetails().getRelease_date()));
-            ps.setInt(4, movie.getMovieDetails().getDuration_minutes());
-            ps.setString(5, movie.getMovieDetails().getDescription());
-            ps.setString(6, movie.getMovieDetails().getLanguage());
-            ps.setString(7, movie.getMovieDetails().getPoster());
-            ps.setString(8, movie.getMovieDetails().getTrailer());
-            ps.setInt(9, movie.getMovieDetails().getMovie_details_id());
-            return ps;
+    public void updateMovie(Movie movie) {
+
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement("UPDATE movie_details SET name = ?, genre = ?, release_date = ?, duration_minutes= ?, description = ?, language = ?, poster = ?, trailer = ? WHERE movie_details_id = ?");
+                ps.setString(1, movie.getMovieDetails().getName());
+                ps.setString(2, movie.getMovieDetails().getGenre());
+                ps.setDate(3, java.sql.Date.valueOf(movie.getMovieDetails().getRelease_date()));
+                ps.setInt(4, movie.getMovieDetails().getDuration_minutes());
+                ps.setString(5, movie.getMovieDetails().getDescription());
+                ps.setString(6, movie.getMovieDetails().getLanguage());
+                ps.setString(7, movie.getMovieDetails().getPoster());
+                ps.setString(8, movie.getMovieDetails().getTrailer());
+                ps.setInt(9, movie.getMovieDetails().getMovie_details_id());
+                return ps;
+            }
         };
 
         jdbc.update(psc);
 
-        PreparedStatementCreator pscc = connection -> {
-            PreparedStatement ps = connection.prepareStatement("UPDATE movie SET type = ?  WHERE movie_id = ?");
-            ps.setBoolean(1,movie.getType());
-            ps.setInt(2, movie.getMovie_id());
-            return ps;
+        PreparedStatementCreator psc2 = new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement("UPDATE movie SET type = ?  WHERE movie_id = ?");
+                ps.setBoolean(1, movie.getType());
+                ps.setInt(2, movie.getMovie_id());
+                return ps;
+            }
         };
-
-        jdbc.update(pscc);
-//        jdbc.update("UPDATE movie_details SET " +
-//                "name='" + movie.getMovieDetails().getName() + "', " +
-//                "genre='" + movie.getMovieDetails().getGenre() + "', " +
-//                "release_date='" + movie.getMovieDetails().getRelease_date() + "' " +
-//                "duration_minutes='" + movie.getMovieDetails().getDuration_minutes() + "', " +
-//                "descrption='" + movie.getMovieDetails().getDescription() + "', " +
-//                "language='" + movie.getMovieDetails().getLanguage() + "', " +
-//                "poster='" + movie.getMovieDetails().getPoster() + "', " +
-//                "trailer='" + movie.getMovieDetails().getTrailer() + "', " +
-//                "WHERE movie_details_id=" + movie.getMovieDetails().getMovie_details_id());
+        jdbc.update(psc2);
     }
 
 }

@@ -48,18 +48,19 @@ public class UserRepository {
         return user;
     }
 
-    public void deleteUser(int id)
-    {
-        PreparedStatementCreator psc = connection -> {
-            PreparedStatement ps = connection.prepareStatement("DELETE from user where user_id = ?");
-            ps.setInt(1, id);
-            return ps;
+    public void deleteUser(int id) {
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement("DELETE from user where user_id = ?");
+                ps.setInt(1, id);
+                return ps;
+            }
         };
         jdbc.update(psc);
     }
 
-    public void insertUser(User user)
-    {
+    public void insertUser(User user) {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
 
             @Override
@@ -67,7 +68,7 @@ public class UserRepository {
                 PreparedStatement ps = connection.prepareStatement("INSERT INTO user values(null, ?, ?, ?, ?)");
                 ps.setString(1, user.getUsername());
                 ps.setString(2, passwordEncoder().encode(user.getPassword()));
-                ps.setString(3,  user.getRole());
+                ps.setString(3, user.getRole());
                 ps.setBoolean(4, user.getEnabled());
                 return ps;
             }
@@ -76,8 +77,7 @@ public class UserRepository {
         jdbc.update(psc);
     }
 
-    public void editUserPassword(User user)
-    {
+    public void editUserPassword(User user) {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
 
             @Override
@@ -92,8 +92,7 @@ public class UserRepository {
         jdbc.update(psc);
     }
 
-    public void editUser(User user)
-    {
+    public void editUser(User user) {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
 
             @Override

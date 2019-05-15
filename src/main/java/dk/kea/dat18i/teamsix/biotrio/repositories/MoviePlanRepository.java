@@ -8,16 +8,11 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class MoviePlanRepository {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-
 
     @Autowired
     private JdbcTemplate jdbc;
@@ -80,10 +75,14 @@ public class MoviePlanRepository {
     }
 
     public void deleteMoviePlan(int id) {
-        PreparedStatementCreator psc = connection -> {
-            PreparedStatement ps = connection.prepareStatement("DELETE from movie_plan where movie_plan_id = ?");
-            ps.setInt(1, id);
-            return ps;
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
+
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement("DELETE from movie_plan where movie_plan_id = ?");
+                ps.setInt(1, id);
+                return ps;
+            }
         };
         jdbc.update(psc);
     }
@@ -137,8 +136,7 @@ public class MoviePlanRepository {
         return moviePlanList;
     }
 
-    public void insertMoviePlan(MoviePlan moviePlan)
-    {
+    public void insertMoviePlan(MoviePlan moviePlan) {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
 
             @Override
@@ -148,7 +146,7 @@ public class MoviePlanRepository {
                 System.out.println(moviePlan.getMovie_id());
                 ps.setInt(2, moviePlan.getTheater_room_id());
                 System.out.println(moviePlan.getTheater_room_id());
-                ps.setTimestamp(3,  Timestamp.valueOf(moviePlan.getDate_time()));
+                ps.setTimestamp(3, Timestamp.valueOf(moviePlan.getDate_time()));
                 System.out.println(moviePlan.getDate_time());
                 ps.setDouble(4, moviePlan.getPrice());
                 System.out.println(moviePlan.getPrice());
@@ -159,8 +157,7 @@ public class MoviePlanRepository {
         jdbc.update(psc);
     }
 
-    public void editMoviePlan(MoviePlan moviePlan)
-    {
+    public void editMoviePlan(MoviePlan moviePlan) {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
 
             @Override
@@ -169,7 +166,7 @@ public class MoviePlanRepository {
                 ps.setInt(1, moviePlan.getMovie_id());
                 ps.setInt(2, moviePlan.getTheater_room_id());
                 ps.setDouble(3, moviePlan.getPrice());
-                ps.setTimestamp(4,  Timestamp.valueOf(moviePlan.getDate_time()));
+                ps.setTimestamp(4, Timestamp.valueOf(moviePlan.getDate_time()));
                 ps.setInt(5, moviePlan.getMovie_plan_id());
                 return ps;
             }

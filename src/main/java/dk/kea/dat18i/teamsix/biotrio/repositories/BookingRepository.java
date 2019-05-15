@@ -2,14 +2,11 @@ package dk.kea.dat18i.teamsix.biotrio.repositories;
 
 
 import dk.kea.dat18i.teamsix.biotrio.models.*;
-import dk.kea.dat18i.teamsix.biotrio.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +60,6 @@ public class BookingRepository {
         moviePlan.setTheater_room_id(rs.getInt("theater_room_id"));
         moviePlan.setDate_time(rs.getTimestamp("date_time").toLocalDateTime());
         moviePlan.setPrice(rs.getDouble("price"));
-
 
         movie.setMovie_id(rs.getInt("movie_id"));
         movie.setMovie_details_id(rs.getInt("movie_details_id"));

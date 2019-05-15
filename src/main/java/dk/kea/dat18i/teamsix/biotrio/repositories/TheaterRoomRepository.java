@@ -14,8 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class TheaterRoomRepository
-{
+public class TheaterRoomRepository {
     @Autowired
     private JdbcTemplate jdbc;
 
@@ -48,18 +47,19 @@ public class TheaterRoomRepository
         return theaterRoom;
     }
 
-    public void deleteTheaterRoom(int id)
-    {
-        PreparedStatementCreator psc = connection -> {
-            PreparedStatement ps = connection.prepareStatement("DELETE from theater_room where theater_room_id = ?");
-            ps.setInt(1, id);
-            return ps;
+    public void deleteTheaterRoom(int id) {
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement("DELETE from theater_room where theater_room_id = ?");
+                ps.setInt(1, id);
+                return ps;
+            }
         };
         jdbc.update(psc);
     }
 
-    public String insertTheaterRoom(TheaterRoom theaterRoom)
-    {
+    public String insertTheaterRoom(TheaterRoom theaterRoom) {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
 
             @Override
@@ -77,8 +77,7 @@ public class TheaterRoomRepository
         return "redirect:/theater-room";
     }
 
-    public void editTheaterRoom(TheaterRoom theaterRoom)
-    {
+    public void editTheaterRoom(TheaterRoom theaterRoom) {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
 
             @Override
