@@ -1,13 +1,12 @@
 package dk.kea.dat18i.teamsix.biotrio.repositories;
 
-import dk.kea.dat18i.teamsix.biotrio.models.TheaterRoom;
 import dk.kea.dat18i.teamsix.biotrio.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@Repository
 public class UserRepository {
 
     @Autowired

@@ -96,14 +96,28 @@ public class MovieRepository {
         return movie;
     }
 
+    public void insertMovieUsingDetails(Movie movie)
+    {
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement("INSERT INTO movie VALUES (NULL, ?, ?)");
+                ps.setInt(1, movie.getMovie_details_id());
+                ps.setBoolean(2, movie.getType());
+                return ps;
+            }
+        };
+        jdbc.update(psc);
+    }
+
     public List<Movie> findMovieByGender(String gender) {
-        String query = "SELECT movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
-                "FROM movie \n" +
+        String query = "SELECT movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer \n" +
+                "FROM movie\n" +
                 "INNER JOIN movie_details \n" +
                 "ON (movie.movie_details_id = movie_details.movie_details_id)\n" +
-                "WHERE (movie_details.genre) like '?' ORDER BY release_date;";
+                "WHERE (movie_details.genre) like ?";
 
-        SqlRowSet rs = jdbc.queryForRowSet(query, gender);
+        SqlRowSet rs = jdbc.queryForRowSet(query, "%" + gender + "%");
         List<Movie> movieList = new ArrayList<>();
         return getMovieList(movieList, rs);
     }
