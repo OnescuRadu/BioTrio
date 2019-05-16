@@ -2,6 +2,7 @@ package dk.kea.dat18i.teamsix.biotrio.controllers;
 
 import dk.kea.dat18i.teamsix.biotrio.models.Booking;
 import dk.kea.dat18i.teamsix.biotrio.models.MoviePlan;
+import dk.kea.dat18i.teamsix.biotrio.models.SeatList;
 import dk.kea.dat18i.teamsix.biotrio.models.Ticket;
 import dk.kea.dat18i.teamsix.biotrio.repositories.BookingRepository;
 import dk.kea.dat18i.teamsix.biotrio.repositories.MoviePlanRepository;
@@ -12,8 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -40,25 +39,28 @@ public class BookingController {
     {
         int movie_plan_id = Integer.parseInt(request.getParameter("movie_plan_id"));
         MoviePlan moviePlan = movieRepo.findMoviePlan(movie_plan_id);
-        model.addAttribute(moviePlan);
+
         int rows = moviePlan.getTheaterRoom().getRows_no();
         int cols = moviePlan.getTheaterRoom().getColumns_no();
 
-        boolean[][] seats = new boolean[rows][cols];
+        boolean[][] reservedSeats = new boolean[rows][cols];
 
-        List<Ticket> reservedSeats = ticketRepo.findSeatsByBooking(movie_plan_id);
+        List<Ticket> reservedSeatsList = ticketRepo.findSeatsByBooking(movie_plan_id);
 
-        Booking.findBookedSeats(seats, rows,cols, reservedSeats);
+        Booking.findBookedSeats(reservedSeats, rows,cols, reservedSeatsList);
 
-        Booking.seeBookedSeats(seats,rows,cols);
-        model.addAttribute("seats", seats);
+        SeatList selectSeatsList = new SeatList();
+        
+        model.addAttribute(moviePlan);
+        model.addAttribute("reservedSeats", reservedSeats);
+        model.addAttribute("seats", selectSeatsList);
         return "/seats";
     }
 
     @PostMapping("/booking-confirmation")
-    public String saveMoviePlan(@ModelAttribute boolean[][] seats)
+    public String saveMoviePlan(@ModelAttribute("seats") SeatList seatList)
     {
-
+        System.out.println(seatList);
         return "redirect:/index";
     }
 
