@@ -6,62 +6,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/latest/js/all.js" integrity="sha384-L469/ELG4Bg9sDQbl0hvjMq8pOcqFgkSpwhwnslzvVVGpDjYJ6wJJyYjvG3u8XW7" crossorigin="anonymous"></script>
+    <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/latest/js/all.js" integrity="sha384-L469/ELG4Bg9sDQbl0hvjMq8pOcqFgkSpwhwnslzvVVGpDjYJ6wJJyYjvG3u8XW7"
+            crossorigin="anonymous"></script>
 
     <!-- Custom CSS File -->
-    <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css"/>
 
     <!-- Page Title -->
     <title>Bio Trio Cinema | See users</title>
 </head>
 <body>
+<div class="d-flex flex-column sticky-footer-wrapper">
+    <!--Insert header fragment-->
+    <div th:insert="~{/fragments/header :: header}"></div>
+    <div class="container-fluid flex-fill">
+        <!--Section: Contact v.2-->
+        <section class="mb-4">
 
-<!--Insert header fragment-->
-<div th:insert="~{/fragments/header :: header}"></div>
+            <!--Section heading-->
+            <h2 class="h1-responsive font-weight-bold text-center my-4">See movies</h2>
+            <div class="row contact_form">
 
-<table class="table table-hover table-dark align-center" style="text-align: center">
-    <thead>
-    <tr>
-        <th scope="col">Username</th>
-        <th scope="col">Role</th>
-        <th scope="col">Enabled</th>
-        <th scope="col">Password</th>
-        <th scope="col">
-            <!-- Button edit -->
-            <a th:href="'/add-user/'" class="btn btn-success add">Add</a>
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user: ${users}">
-        <td th:text="${user.username}"></td>
-        <td th:text="${user.role}"></td>
-        <td th:text="${user.enabled} ? 'Yes' : 'No'"></td>
-        <td><a th:href="'/edit-user-password/' + ${user.user_id}">Reset password</a></td>
-        <td>
-            <!-- Button edit -->
-            <a th:href="'/edit-user/' + ${user.user_id}" class="btn btn-primary edit-delete">Edit</a>
-            <!-- Button delete -->
-            <a th:href="'/delete-user/' + ${user.user_id}" class="btn btn-danger edit-delete">Delete</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+                <!--Grid column-->
+                <div class="col-md-12 mb-md-0 mb-5">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Enabled</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">
+                                <!-- Button edit -->
+                                <a th:href="'/add-user/'" class="btn btn-success add">Add</a>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user: ${users}">
+                            <td th:text="${user.username}"></td>
+                            <td th:text="${user.role}"></td>
+                            <td th:text="${user.enabled} ? 'Yes' : 'No'"></td>
+                            <td><a th:href="'/edit-user-password/' + ${user.user_id}">Reset password</a></td>
+                            <td>
+                                <!-- Button edit -->
+                                <a th:href="'/edit-user/' + ${user.user_id}" class="btn btn-primary edit-delete">Edit</a>
+                                <!-- Button delete -->
+                                <a th:href="'/delete-user/' + ${user.user_id}" class="btn btn-danger edit-delete">Delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--Grid column-->
+            </div>
 
-
-<!--Insert footer fragment-->
-<div th:insert="~{/fragments/footer :: footer}"></div>
-
+        </section>
+        <!--Section: Contact v.2-->
+    </div>
+    <!--Insert footer fragment-->
+    <div th:insert="~{/fragments/footer :: footer}"></div>
+</div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>

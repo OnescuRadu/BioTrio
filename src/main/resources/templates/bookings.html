@@ -6,79 +6,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/latest/js/all.js" integrity="sha384-L469/ELG4Bg9sDQbl0hvjMq8pOcqFgkSpwhwnslzvVVGpDjYJ6wJJyYjvG3u8XW7" crossorigin="anonymous"></script>
+    <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/latest/js/all.js" integrity="sha384-L469/ELG4Bg9sDQbl0hvjMq8pOcqFgkSpwhwnslzvVVGpDjYJ6wJJyYjvG3u8XW7"
+            crossorigin="anonymous"></script>
 
     <!-- Custom CSS File -->
-    <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css"/>
 
     <!-- Page Title -->
     <title>Bio Trio Cinema | Bookings</title>
 </head>
-<body>
+<div class="d-flex flex-column sticky-footer-wrapper">
+    <!--Insert header fragment-->
+    <div th:insert="~{/fragments/header :: header}"></div>
+    <div class="container-fluid flex-fill">
+        <!--Section: Contact v.2-->
+        <section class="mb-4">
 
-<!--Insert header fragment-->
-<div th:insert="~{/fragments/header :: header}"></div>
-<table class="table table-hover table-dark align-center" style="text-align: center">
-    <thead>
-    <tr>
-        <th scope="col">Movie Name</th>
-        <th scope="col">Movie Language</th>
-        <th scope="col">Date & Time</th>
-        <th scope="col">Duration</th>
-        <th scope="col">Seats</th>
+            <!--Section heading-->
+            <h2 class="h1-responsive font-weight-bold text-center my-4">See bookings</h2>
+            <div class="row contact_form">
 
-        <th scope="col">Theater Room</th>
-        <th scope="col">Phone Number</th>
-        <th scope="col">Email</th>
-        <th scope="col">Confirmation Code</th>
-        <th scope="col">Total Price</th>
-        <th scope="col">Paid</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="booking: ${bookings}">
-        <td th:text="${booking.moviePlan.movie.type} ? ${booking.moviePlan.movie.movieDetails.name} + ' : 3D' : ${movie.movieDetails.name} + ' : 2D'"></td>
-        <td th:text="${booking.moviePlan.movie.movieDetails.language}"></td>
-        <td th:text="${booking.moviePlan.date_time}"></td>
-        <td th:text="${booking.moviePlan.movie.movieDetails.duration_minutes}"></td>
-        <td>
+                <!--Grid column-->
+                <div class="col-md-12 mb-md-0 mb-5">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">Movie Name</th>
+                            <th scope="col">Movie Language</th>
+                            <th scope="col">Date & Time</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Seats</th>
+
+                            <th scope="col">Theater Room</th>
+                            <th scope="col">Phone Number</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Confirmation Code</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col">Paid</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="booking: ${bookings}">
+                            <td th:text="${booking.moviePlan.movie.type} ? ${booking.moviePlan.movie.movieDetails.name} + ' : 3D' : ${movie.movieDetails.name} + ' : 2D'"></td>
+                            <td th:text="${booking.moviePlan.movie.movieDetails.language}"></td>
+                            <td th:text="${booking.moviePlan.date_time}"></td>
+                            <td th:text="${booking.moviePlan.movie.movieDetails.duration_minutes}"></td>
+                            <td>
             <span th:each="ticket : ${booking.ticketList}" th:text="${ticket.seat_number}" style="display:block">
             </span>
-        </td>
-        <td th:text="${booking.moviePlan.theaterRoom.name}"></td>
-        <td th:text="${booking.phone_number}"></td>
-        <td th:text="${booking.email}"></td>
-        <td th:text="${booking.confirmation_code}"></td>
-        <td th:text="${booking.totalPrice}"></td>
-        <td th:text="${booking.paid} ? 'YES' : 'NO'"></td>
+                            </td>
+                            <td th:text="${booking.moviePlan.theaterRoom.name}"></td>
+                            <td th:text="${booking.phone_number}"></td>
+                            <td th:text="${booking.email}"></td>
+                            <td th:text="${booking.confirmation_code}"></td>
+                            <td th:text="${booking.totalPrice}"></td>
+                            <td th:text="${booking.paid} ? 'YES' : 'NO'"></td>
 
-        <td>
-            <!-- Button edit -->
-            <a th:href="'/edit-booking/' + ${booking.booking_id}" class="btn btn-primary edit-delete">Edit</a>
-            <!-- Button delete -->
-            <a th:href="'/delete-booking/' + ${booking.booking_id}" class="btn btn-danger edit-delete">Delete</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+                            <td>
+                                <!-- Button edit -->
+                                <a th:href="'/edit-booking/' + ${booking.booking_id}" class="btn btn-primary edit-delete">Edit</a>
+                                <!-- Button delete -->
+                                <a th:href="'/delete-booking/' + ${booking.booking_id}" class="btn btn-danger edit-delete">Delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--Grid column-->
+            </div>
 
+        </section>
+        <!--Section: Contact v.2-->
+    </div>
 
-
-
-
-<!--Insert footer fragment-->
-<div th:insert="~{/fragments/footer :: footer}"></div>
-
+    <!--Insert footer fragment-->
+    <div th:insert="~{/fragments/footer :: footer}"></div>
+</div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>

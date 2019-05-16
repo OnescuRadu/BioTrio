@@ -23,71 +23,73 @@
     <title>Bio Trio Cinema | See Movie</title>
 </head>
 <body>
-<!--Insert header fragment-->
-<div th:insert="~{/fragments/header :: header}"></div>
-<div class="container-fluid">
-    <!--Section: Contact v.2-->
-    <section class="mb-4">
+<div class="d-flex flex-column sticky-footer-wrapper">
+    <!--Insert header fragment-->
+    <div th:insert="~{/fragments/header :: header}"></div>
+    <div class="container-fluid flex-fill">
+        <!--Section: Contact v.2-->
+        <section class="mb-4">
 
-        <!--Section heading-->
-        <h2 class="h1-responsive font-weight-bold text-center my-4">See movies</h2>
-        <div class="row contact_form">
+            <!--Section heading-->
+            <h2 class="h1-responsive font-weight-bold text-center my-4">See movies</h2>
+            <div class="row contact_form">
 
-            <!--Grid column-->
-            <div class="col-md-12 mb-md-0 mb-5">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th class="col-name" scope="col">Poster</th>
-                        <th class="col-name"scope="col">Name</th>
-                        <th class="col-name"scope="col">Genre</th>
-                        <th class="col-name"scope="col">Release date</th>
-                        <th class="col-name"scope="col">Duration minutes</th>
-                        <th class="col-name"scope="col">Description</th>
-                        <th class="col-name"scope="col">Language</th>
-                        <th class="col-name"scope="col">Type</th>
-                        <th class="col-name"scope="col">
-                            <!-- Button edit -->
-                            <a th:href="'/add-movie-page/'" class= "empty-button btn add">Add</a>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="movie:${movie}">
-                        <td>
-                            <!--<div class="movieName" th:style="'background:url(' + ${movie.movieDetails.poster} + ')'">-->
+                <!--Grid column-->
+                <div class="col-md-12 mb-md-0 mb-5">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th class="col-name" scope="col">Poster</th>
+                            <th class="col-name" scope="col">Name</th>
+                            <th class="col-name" scope="col">Genre</th>
+                            <th class="col-name" scope="col">Release date</th>
+                            <th class="col-name" scope="col">Duration minutes</th>
+                            <th class="col-name" scope="col">Description</th>
+                            <th class="col-name" scope="col">Language</th>
+                            <th class="col-name" scope="col">Type</th>
+                            <th class="col-name" scope="col">
+                                <!-- Button edit -->
+                                <a th:href="'/add-movie-page/'" class="empty-button btn add">Add</a>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="movie:${movie}">
+                            <td>
+                                <!--<div class="movieName" th:style="'background:url(' + ${movie.movieDetails.poster} + ')'">-->
                                 <!--&lt;!&ndash;<a th:href="'/movie/' + ${movie.movie_id}">&ndash;&gt;-->
                                 <!--<i class="material-icons see-movie-page-poster"></i>-->
                                 <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                            <!--</div>-->
-                            <img th:src="${movie.movieDetails.poster}" style="width: 200px; height: 300px;">
-                        </td>
-                        <td class="col-name" th:text="${movie.movieDetails.name}">Name</td>
-                        <td class="col-name" th:text="${movie.movieDetails.genre}">Genre</td>
-                        <td class="col-name" th:text="${movie.movieDetails.release_date}">Release date</td>
-                        <td class="col-name" th:text="${movie.movieDetails.duration_minutes}">Duration minutes</td>
-                        <td class="col-name" th:text="${movie.movieDetails.description}">Description</td>
-                        <td class="col-name" th:text="${movie.movieDetails.language}">Language</td>
-                        <td class="col-name" th:text="${movie.type} ? '3D' : '2D'">Type</td>
-                        <td>
-                            <a class="btn btn-outline-warning  empty-button" th:href="@{'/edit-movie/' + ${movie.movie_id}}">Edit</a>
-                        </td>
-                        <td>
-                            <a class="btn btn-danger" th:href="@{'/delete-movie/' + ${movie.movie_id}}">Delete</a>
-                        </td>
-                    </tr>
+                                <!--</div>-->
+                                <img th:src="${movie.movieDetails.poster}" style="width: 200px; height: 300px;">
+                            </td>
+                            <td class="col-name" th:text="${movie.movieDetails.name}">Name</td>
+                            <td class="col-name" th:text="${movie.movieDetails.genre}">Genre</td>
+                            <td class="col-name" th:text="${movie.movieDetails.release_date}">Release date</td>
+                            <td class="col-name" th:text="${movie.movieDetails.duration_minutes}">Duration minutes</td>
+                            <td class="col-name" th:text="${movie.movieDetails.description}">Description</td>
+                            <td class="col-name" th:text="${movie.movieDetails.language}">Language</td>
+                            <td class="col-name" th:text="${movie.type} ? '3D' : '2D'">Type</td>
+                            <td>
+                                <a class="btn btn-outline-warning  empty-button" th:href="@{'/edit-movie/' + ${movie.movie_id}}">Edit</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger" th:href="@{'/delete-movie/' + ${movie.movie_id}}">Delete</a>
+                            </td>
+                        </tr>
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+                <!--Grid column-->
             </div>
-            <!--Grid column-->
-        </div>
 
-    </section>
-    <!--Section: Contact v.2-->
+        </section>
+        <!--Section: Contact v.2-->
+    </div>
+    <!--Insert footer fragment-->
+    <div th:insert="~{/fragments/footer :: footer}"></div>
 </div>
-<!--Insert footer fragment-->
-<div th:insert="~{/fragments/footer :: footer}"></div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
