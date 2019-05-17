@@ -32,9 +32,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         http.csrf().disable();
         http
                 .authorizeRequests()
-                //.antMatchers("/", "/index", "/movies/**", "/contact", "/about-us", "/faq", "/movie/**", "/css/**", "/images/**", "/save-movie/**").permitAll()
-               // .antMatchers("/control-panel/**").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/**").permitAll()
+                .antMatchers("/", "/index", "/movies/**", "/contact", "/about-us", "/faq", "/movie/**", "/css/**", "/images/**", "/save-movie/**").permitAll()
+                .antMatchers("/control-panel/**").hasAnyRole("MANAGER", "EMPLOYEE")
+                //.antMatchers("/**").permitAll()
                 .anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
                 .permitAll();
         http.exceptionHandling().accessDeniedPage("/403");

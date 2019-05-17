@@ -28,8 +28,8 @@
 <form th:action="@{'/booking-confirmation'}" method="post" th:object="${seats}">
 <div class="container" style="text-align: center">
 
-    <div class="row" th:each="i: ${#numbers.sequence(0, moviePlan.theaterRoom.rows_no - 1)}">
-        <div class="span3" th:each="j: ${#numbers.sequence(0, moviePlan.theaterRoom.columns_no - 1)}">
+    <div class="row" th:each="i: ${#numbers.sequence(1, moviePlan.theaterRoom.rows_no)}">
+        <div class="span3" th:each="j: ${#numbers.sequence(1, moviePlan.theaterRoom.columns_no)}">
             <input type="checkbox" th:name="${i} + '-' + ${j}"  th:disabled="${reservedSeats[__${i}__][__${j}__]}" th:field="${seats.selectedSeats}" th:value="${i} + '-' + ${j}">
             <br>
             <span th:text="'' + ${i} + '-' + ${j} + '&nbsp'"></span>

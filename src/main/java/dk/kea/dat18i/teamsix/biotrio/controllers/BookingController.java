@@ -7,6 +7,7 @@ import dk.kea.dat18i.teamsix.biotrio.models.Ticket;
 import dk.kea.dat18i.teamsix.biotrio.repositories.BookingRepository;
 import dk.kea.dat18i.teamsix.biotrio.repositories.MoviePlanRepository;
 import dk.kea.dat18i.teamsix.biotrio.repositories.TicketRepository;
+import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,7 +51,7 @@ public class BookingController {
         Booking.findBookedSeats(reservedSeats, rows,cols, reservedSeatsList);
 
         SeatList selectSeatsList = new SeatList();
-        
+
         model.addAttribute(moviePlan);
         model.addAttribute("reservedSeats", reservedSeats);
         model.addAttribute("seats", selectSeatsList);
@@ -60,8 +61,11 @@ public class BookingController {
     @PostMapping("/booking-confirmation")
     public String saveMoviePlan(@ModelAttribute("seats") SeatList seatList)
     {
+       System.out.println(seatList);
+        formatSeatList(seatList);
         System.out.println(seatList);
         return "redirect:/index";
     }
+
 
 }

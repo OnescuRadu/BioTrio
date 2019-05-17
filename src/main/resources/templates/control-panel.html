@@ -26,16 +26,16 @@
 <div class="d-flex flex-column sticky-footer-wrapper">
 <!--Insert header fragment-->
 <div th:insert="~{/fragments/header :: header}"></div>
-<div sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
-    This content is only shown to users and admins.
+<div sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_MANAGER')">
+    This content is only shown to employees and managers.
 </div>
 
-<div sec:authorize="hasRole('ROLE_ADMIN')">
-    This content is only shown to administrators.
+<div sec:authorize="hasRole('ROLE_MANAGER')">
+    This content is only shown to managers.
 </div>
 
-<div sec:authorize="hasRole('ROLE_USER')">
-    This content is only shown to users.
+<div sec:authorize="hasRole('ROLE_EMPLOYEE')">
+    This content is only shown to employees.
 </div>
 <!-- Page content here -->
 <div class="container flex-fill">
@@ -54,7 +54,7 @@
                         <div class="manage-btn">
                             <a th:href="@{/see-all-movies}">Manage Movies</a>
                             <a th:href="@{/add-movie-page}">Add Movie Using New Description</a>
-                            <a th:href="@{/add-movie-page-using-description}">Add Movie Using Existing Description</a>
+                            <a th:href="@{/add-movie-page-using-details}">Add Movie Using Existing Description</a>
                         </div>
                     </div>
                 </div>

@@ -28,4 +28,18 @@ public class SeatList {
                 "selectedSeats=" + Arrays.toString(selectedSeats) +
                 '}';
     }
+
+    public void formatSeatList(SeatList seatList)
+    {
+        for(int i=0; i<seatList.getSelectedSeats().length; i++)
+        {
+            String seat = seatList.getSelectedSeats()[i];
+
+            String[] split = seat.split("-");
+            String row = String.format("%02d", Integer.parseInt(split[0]));
+            String col = String.format("%02d", Integer.parseInt(split[1]));
+
+            seatList.getSelectedSeats()[i] = row + "-" + col;
+        }
+    }
 }
