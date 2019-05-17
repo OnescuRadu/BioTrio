@@ -1,5 +1,6 @@
 package dk.kea.dat18i.teamsix.biotrio.models;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Booking {
@@ -10,8 +11,9 @@ public class Booking {
     private String email;
     private String confirmation_code;
     private double totalPrice;
-    private Boolean paid;
+    private Boolean paid = false;
     private List<Ticket> ticketList;
+    private String[] seatList;
 
     public Booking(int booking_id, int movie_plan_id, MoviePlan moviePlan, String phone_number, String email, String confirmation_code, Boolean paid, Double totalPrice, List<Ticket> ticketList) {
         this.booking_id = booking_id;
@@ -27,6 +29,14 @@ public class Booking {
 
     public Booking()
     {
+    }
+
+    public String[] getSeatList() {
+        return seatList;
+    }
+
+    public void setSeatList(String[] seatList) {
+        this.seatList = seatList;
     }
 
     public double getTotalPrice() {
@@ -128,16 +138,33 @@ public class Booking {
         }
     }
 
-    public static void seeBookedSeats(boolean[][] seats, int rows, int cols) {
-        for(int i = 0; i < rows; i++)
+    public static void formatSeatList(String[] seatList)
+    {
+        for(int i=0; i<seatList.length; i++)
         {
-            for(int j=0; j< cols; j++)
-            {
-                System.out.print(seats[i][j] + " ");
-            }
-            System.out.println();
+            String seat = seatList[i];
+
+            String[] split = seat.split("-");
+            String row = String.format("%02d", Integer.parseInt(split[0]));
+            String col = String.format("%02d", Integer.parseInt(split[1]));
+
+            seatList[i] = row + "-" + col;
         }
     }
 
-
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "booking_id=" + booking_id +
+                ", movie_plan_id=" + movie_plan_id +
+                ", moviePlan=" + moviePlan +
+                ", phone_number='" + phone_number + '\'' +
+                ", email='" + email + '\'' +
+                ", confirmation_code='" + confirmation_code + '\'' +
+                ", totalPrice=" + totalPrice +
+                ", paid=" + paid +
+                ", ticketList=" + ticketList +
+                ", seatList=" + Arrays.toString(seatList) +
+                '}';
+    }
 }

@@ -4,9 +4,15 @@ package dk.kea.dat18i.teamsix.biotrio.repositories;
 import dk.kea.dat18i.teamsix.biotrio.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +26,7 @@ public class BookingRepository {
     @Autowired
     private JdbcTemplate jdbc;
 
-    public List<Booking> findAllBooking()
-    {
+    public List<Booking> findAllBooking() {
         String query = "SELECT booking.booking_id, booking.movie_plan_id, phone_number, email, confirmation_code, paid, movie_plan.movie_plan_id, date_time, price as ticket_price, duration_minutes, movie_plan.movie_id, \n" +
                 "movie.movie_details_id, type as movie_type, movie_details.name as movie_name, language, movie_plan.theater_room_id, \n" +
                 "theater_room.name as theater_room_name from booking\n" +
@@ -39,8 +44,7 @@ public class BookingRepository {
         return getBookingList(bookingList, rs);
     }
 
-    private void getBooking(SqlRowSet rs, Booking booking)
-    {
+    private void getBooking(SqlRowSet rs, Booking booking) {
         booking.setBooking_id(rs.getInt("booking_id"));
         booking.setPhone_number(rs.getString("phone_number"));
         booking.setEmail(rs.getString("email"));
@@ -98,5 +102,26 @@ public class BookingRepository {
         return bookingsList;
     }
 
+    public Booking insertBooking(Booking booking)
+    {
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
 
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement("INSERT INTO booking VALUES(null, ?, ?, ?, ?, false)", new String[]{"id"});
+                ps.setInt(1, booking.getMovie_plan_id());
+                ps.setString(2, booking.getPhone_number());
+                ps.setString(3, booking.getEmail());
+                ps.setString(4, booking.getConfirmation_code());
+                //ps.setBoolean(5, booking.getPaid());
+                return ps;
+            }
+        };
+
+
+        KeyHolder id = new GeneratedKeyHolder();
+        jdbc.update(psc, id);
+        booking.setBooking_id(id.getKey().intValue());
+        return booking;
+    }
 }

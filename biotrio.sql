@@ -57,7 +57,7 @@ booking_id INT NOT NULL AUTO_INCREMENT,
 movie_plan_id INT NOT NULL,
 phone_number VARCHAR(11) NOT NULL,
 email varchar(255) NOT NULL,
-confirmation_code VARCHAR(10) NOT NULL,
+confirmation_code VARCHAR(36) NOT NULL,
 paid TINYINT NOT NULL DEFAULT 1,
 PRIMARY KEY (booking_id),
 FOREIGN KEY (movie_plan_id) REFERENCES movie_plan(movie_plan_id)
@@ -72,9 +72,9 @@ FOREIGN KEY (booking_id) REFERENCES booking(booking_id)
 ); 
 
 insert into user values
-(NULL,'admin', '$2a$10$D6SL8gFHaSuVS6fpzqW4q.CbU.XbbXn85BfdM8crcwz23P4SPeUey', 'ROLE_ADMIN', 1),
-(NULL,'radu', '$2a$10$ER.Vsj3gbmGa6a1H2oOJoO1/rZw1VEbTSZr.G8S.kgsGcVGEDhHJq', 'ROLE_ADMIN', 1),
-(NULL,'user', '$2a$10$DNiWOsiDNuDtnzKzQQ6M4OS1HP3DvfkFbJnl7w4DVf0R5lDmmVER6', 'ROLE_USER', 1);
+(NULL,'admin', '$2a$10$D6SL8gFHaSuVS6fpzqW4q.CbU.XbbXn85BfdM8crcwz23P4SPeUey', 'ROLE_MANAGER', 1),
+(NULL,'radu', '$2a$10$ER.Vsj3gbmGa6a1H2oOJoO1/rZw1VEbTSZr.G8S.kgsGcVGEDhHJq', 'ROLE_MANAGER', 1),
+(NULL,'user', '$2a$10$DNiWOsiDNuDtnzKzQQ6M4OS1HP3DvfkFbJnl7w4DVf0R5lDmmVER6', 'ROLE_EMPLOYEE', 1);
 
 
 -- QUERY FOR INSERTING MOVIE DESCRIPTION

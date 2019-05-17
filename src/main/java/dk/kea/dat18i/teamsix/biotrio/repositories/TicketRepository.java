@@ -4,9 +4,13 @@ import dk.kea.dat18i.teamsix.biotrio.models.Ticket;
 import dk.kea.dat18i.teamsix.biotrio.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,5 +81,20 @@ public class TicketRepository {
             e.printStackTrace();
         }
         return ticketList;
+    }
+
+    public void insertTicket(Ticket ticket) {
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
+
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement("INSERT INTO ticket values(null, ?, ?)");
+                ps.setString(1, ticket.getSeat_number());
+                ps.setInt(2, ticket.getBooking_id());
+                return ps;
+            }
+        };
+
+        jdbc.update(psc);
     }
 }

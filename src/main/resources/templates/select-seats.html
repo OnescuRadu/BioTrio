@@ -25,20 +25,30 @@
 <!--Insert header fragment-->
 <div th:insert="~{/fragments/header :: header}"></div>
 
-<form th:action="@{'/booking-confirmation'}" method="post" th:object="${seats}">
-<div class="container" style="text-align: center">
-
-    <div class="row" th:each="i: ${#numbers.sequence(1, moviePlan.theaterRoom.rows_no)}">
-        <div class="span3" th:each="j: ${#numbers.sequence(1, moviePlan.theaterRoom.columns_no)}">
-            <input type="checkbox" th:name="${i} + '-' + ${j}"  th:disabled="${reservedSeats[__${i}__][__${j}__]}" th:field="${seats.selectedSeats}" th:value="${i} + '-' + ${j}">
+<form th:action="@{'/create-booking'}" method="post" th:object="${newBooking}">
+<div class="container align-items-center" style="text-align: center">
+    <span>SCREEN</span>
+    <div class="row" th:each="i: ${#numbers.sequence(1, newBooking.moviePlan.theaterRoom.rows_no)}">
+        <div class="span3" th:each="j: ${#numbers.sequence(1, newBooking.moviePlan.theaterRoom.columns_no)}" style="padding: 10px;">
+            <input type="checkbox" th:name="${i} + '-' + ${j}"  th:disabled="${reservedSeats[__${i-1}__][__${j-1}__]}" th:field="${newBooking.seatList}" th:value="${i} + '-' + ${j}">
             <br>
-            <span th:text="'' + ${i} + '-' + ${j} + '&nbsp'"></span>
         </div>
         <br>
-    </div>
 
-</div>
+    </div>
+    <input type="hidden" id="movie_plan_id" th:value="${newBooking.moviePlan.movie_plan_id}" name="movie_plan_id">
+
+
+    <label>Please enter your email:</label><br>
+    <input type="text" th:field="${newBooking.email}"><br>
+
+    <label>Please enter your phone number:</label><br>
+    <input type="text" th:field="${newBooking.phone_number}"><br>
+
+
+
     <button type="submit">Submit</button>
+</div>
 </form>
 <!--Insert footer fragment-->
 <div th:insert="~{/fragments/footer :: footer}"></div>
