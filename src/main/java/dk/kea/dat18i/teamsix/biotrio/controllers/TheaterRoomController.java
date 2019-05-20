@@ -37,8 +37,12 @@ public class TheaterRoomController {
     }
 
     @PostMapping("/add-theater-room/save")
-    public String saveTheaterRoom(@ModelAttribute TheaterRoom theaterRoom)
+    public String saveTheaterRoom(@ModelAttribute TheaterRoom theaterRoom, @ModelAttribute("a") String type)
     {
+        if(type.isEmpty())
+            theaterRoom.setCapability_3d(false);
+        else
+            theaterRoom.setCapability_3d(true);
         theaterRepo.insertTheaterRoom(theaterRoom);
         return "redirect:/theater-room";
     }
@@ -53,8 +57,13 @@ public class TheaterRoomController {
     }
 
     @PostMapping("/edit-theater-room/save")
-    public String saveEditedTheaterRoom(@ModelAttribute TheaterRoom theaterRoom)
+    public String saveEditedTheaterRoom(@ModelAttribute TheaterRoom theaterRoom, @ModelAttribute("a") String type)
     {
+        if(type.isEmpty())
+            theaterRoom.setCapability_3d(false);
+        else
+            theaterRoom.setCapability_3d(true);
+
         theaterRepo.editTheaterRoom(theaterRoom);
         return "redirect:/theater-room";
     }

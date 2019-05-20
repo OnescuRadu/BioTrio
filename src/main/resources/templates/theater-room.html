@@ -31,7 +31,7 @@
         <section class="mb-4">
 
             <!--Section heading-->
-            <h2 class="h1-responsive font-weight-bold text-center my-4">See movies</h2>
+            <h2 class="h1-responsive font-weight-bold text-center my-4">See theater rooms</h2>
             <div class="row contact_form">
 
                 <!--Grid column-->
@@ -39,25 +39,25 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Number of Rows</th>
-                            <th scope="col">Number of Columns</th>
-                            <th scope="col">3D</th>
-                            <th scope="col">
-                                <!-- Button edit -->
-                                <a th:href="'/add-theater-room/'" class="btn btn-success add">Add</a>
+                            <th scope="col" class="col-name">Name</th>
+                            <th scope="col" class="col-name">Number of Rows</th>
+                            <th scope="col" class="col-name">Number of Columns</th>
+                            <th scope="col" class="col-name">3D</th>
+                            <th class="col-name" scope="col" colspan="2">
+                                <a th:href="'/add-theater-room/'" class="empty-button btn add">Add theater room</a>
                             </th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="theaterRoom: ${theaterRooms}">
-                            <td th:text="${theaterRoom.name}"></td>
-                            <td th:text="${theaterRoom.rows_no}"></td>
-                            <td th:text="${theaterRoom.columns_no}"></td>
-                            <td th:text="${theaterRoom.capability_3d} ? 'Yes' : 'No'"></td>
-                            <td>
+                            <td class="col-name" th:text="${theaterRoom.name}"></td>
+                            <td class="col-name" th:text="${theaterRoom.rows_no}"></td>
+                            <td class="col-name" th:text="${theaterRoom.columns_no}"></td>
+                            <td class="col-name" th:text="${theaterRoom.capability_3d} ? 'Yes' : 'No'"></td>
+                            <td class="col-name">
                                 <!-- Button edit -->
-                                <a th:href="'/edit-theater-room/' + ${theaterRoom.theater_room_id}" class="btn btn-primary edit-delete">Edit</a>
+                                <a th:href="'/edit-theater-room/' + ${theaterRoom.theater_room_id}" class="btn btn-default  empty-button">Edit</a>
                                 <!-- Button delete -->
                                 <a th:href="'/delete-theater-room/' + ${theaterRoom.theater_room_id}" class="btn btn-danger edit-delete">Delete</a>
                             </td>

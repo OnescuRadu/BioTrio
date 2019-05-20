@@ -34,51 +34,46 @@
             <h2 class="h1-responsive font-weight-bold text-center my-4">See movies</h2>
             <div class="row contact_form">
 
-            <!--Grid column-->
-            <div class="col-md-12 mb-md-0 mb-5">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th class="col-name" scope="col">Poster</th>
-                        <th class="col-name"scope="col">Name</th>
-                        <th class="col-name"scope="col">Genre</th>
-                        <th class="col-name"scope="col">Release date</th>
-                        <th class="col-name"scope="col">Duration minutes</th>
-                        <th class="col-name"scope="col">Description</th>
-                        <th class="col-name"scope="col">Language</th>
-                        <th class="col-name"scope="col">Type</th>
-                        <th class="col-name"scope="col" colspan="2">
+                <!--Grid column-->
+                <div class="col-md-12 mb-md-0 mb-5">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th class="col-name" scope="col">Poster</th>
+                            <th class="col-name" scope="col">Name</th>
+                            <th class="col-name" scope="col">Genre</th>
+                            <th class="col-name" scope="col">Release date</th>
+                            <th class="col-name" scope="col">Duration minutes</th>
+                            <th class="col-name" scope="col">Description</th>
+                            <th class="col-name" scope="col">Language</th>
+                            <th class="col-name" scope="col">Type</th>
+                            <th class="col-name" scope="col" colspan="2">
 
-                            <!-- Modal Add Movie -->
+                                <!-- Modal Add Movie -->
 
-                            <!-- Trigger/Open The Modal -->
-                            <button id="movieModalbtn" class="empty-button btn add">Add Movie</button>
+                                <!-- Trigger/Open The Modal -->
+                                <button id="movieModalbtn" class="empty-button btn add">Add Movie</button>
 
-                            <!-- The Modal -->
-                            <div id="movieModal" class="modal">
-                                <!-- Modal content -->
-                                <div class="modal-content">
-                                    <span class="close" style="text-align: right">&times;</span>
-                                    <p>Would you like to add a movie using new details or using existing details?</p>
-                                    <a th:href="'/add-movie-page/'" class= "empty-button btn add">Add movie using new details</a>
-                                    <a th:href="'/add-movie-page-using-details/'" class= "empty-button btn add">Add movie using existing details</a>
+                                <!-- The Modal -->
+                                <div id="movieModal" class="modal">
+                                    <!-- Modal content -->
+                                    <div class="modal-content">
+                                        <span class="close" style="text-align: right">&times;</span>
+                                        <p>Would you like to add a movie using new details or using existing details?</p>
+                                        <a th:href="'/add-movie-page/'" class="empty-button btn add">Add movie using new details</a>
+                                        <a th:href="'/add-movie-page-using-details/'" class="empty-button btn add">Add movie using existing details</a>
+                                    </div>
+
                                 </div>
+                            </th>
+                            <th>
 
-                            </div>
-                        </th>
-                        <th>
-
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="movie:${movie}">
-                        <td>
-                            <!--<div class="movieName" th:style="'background:url(' + ${movie.movieDetails.poster} + ')'">-->
-                                <!--&lt;!&ndash;<a th:href="'/movie/' + ${movie.movie_id}">&ndash;&gt;-->
-                                <!--<i class="material-icons see-movie-page-poster"></i>-->
-                                <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                                <!--</div>-->
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="movie:${movie}">
+                            <td>
                                 <img th:src="${movie.movieDetails.poster}" style="width: 200px; height: 300px;">
                             </td>
                             <td class="col-name" th:text="${movie.movieDetails.name}">Name</td>
@@ -88,10 +83,10 @@
                             <td class="col-name" th:text="${movie.movieDetails.description}">Description</td>
                             <td class="col-name" th:text="${movie.movieDetails.language}">Language</td>
                             <td class="col-name" th:text="${movie.type} ? '3D' : '2D'">Type</td>
-                            <td>
-                                <a class="btn btn-outline-warning  empty-button" th:href="@{'/edit-movie/' + ${movie.movie_id}}">Edit</a>
+                            <td class="col-name">
+                                <a class="btn btn-default empty-button" th:href="@{'/edit-movie/' + ${movie.movie_id}}">Edit</a>
                             </td>
-                            <td>
+                            <td class="col-name">
                                 <a class="btn btn-danger" th:href="@{'/delete-movie/' + ${movie.movie_id}}">Delete</a>
                             </td>
                         </tr>
@@ -133,17 +128,17 @@ dateControl.value = '2017-06-01';</script>
     var span = document.getElementsByClassName("close")[0];
 
     // When the user clicks the button, open the modal
-    btn.onclick = function() {
+    btn.onclick = function () {
         modal.style.display = "block";
     }
 
     // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
+    span.onclick = function () {
         modal.style.display = "none";
     }
 
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
