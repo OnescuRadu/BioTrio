@@ -108,12 +108,12 @@ public class BookingRepository {
 
             @Override
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                PreparedStatement ps = connection.prepareStatement("INSERT INTO booking VALUES(null, ?, ?, ?, ?, false)", new String[]{"id"});
+                PreparedStatement ps = connection.prepareStatement("INSERT INTO booking VALUES(null, ?, ?, ?, ?, ?)", new String[]{"id"});
                 ps.setInt(1, booking.getMovie_plan_id());
                 ps.setString(2, booking.getPhone_number());
                 ps.setString(3, booking.getEmail());
                 ps.setString(4, booking.getConfirmation_code());
-                //ps.setBoolean(5, booking.getPaid());
+                ps.setBoolean(5, booking.getPaid());
                 return ps;
             }
         };

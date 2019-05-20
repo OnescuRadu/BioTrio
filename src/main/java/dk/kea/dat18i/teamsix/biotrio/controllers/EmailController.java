@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
 
+import dk.kea.dat18i.teamsix.biotrio.models.Booking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -50,6 +51,22 @@ public class EmailController {
         String body = templateEngine.process("mails/contact-email", context);
         String sendTo = "onescuradu@yahoo.com";
         String emailSubject = "New message from BioTrio Customer";
+
+        //send the html template
+        sendPreparedMail(body, sendTo, emailSubject);
+    }
+
+    public void sendBookingConfirmation(Booking booking) {
+
+        //get and fill the template
+        final Context context = new Context();
+        context.setVariable("booking", booking);
+
+
+        //set variables for the emails
+        String body = templateEngine.process("mails/booking-email", context);
+        String emailSubject = "BioTrio Cinema | Booking Confirmation";
+        String sendTo = booking.getEmail();
 
         //send the html template
         sendPreparedMail(body, sendTo, emailSubject);

@@ -35,6 +35,17 @@ public class TicketRepository {
         return getTicketList(ticketList, rs);
     }
 
+    public List<Ticket> findTicketsByMoviePlan(int id) {
+        String query = "select ticket.ticket_id, seat_number, ticket.booking_id from ticket\n" +
+                "inner join booking\n" +
+                "on booking.booking_id = ticket.booking_id\n" +
+                "where movie_plan_id = ? ;";
+        SqlRowSet rs = jdbc.queryForRowSet(query, id);
+        List<Ticket> ticketList = new ArrayList<>();
+
+        return getTicketList(ticketList, rs);
+    }
+
     public List<Ticket> findSeatsByBooking(int id) {
         String query = "select seat_number from ticket\n" +
                 "inner join booking\n" +
@@ -96,5 +107,19 @@ public class TicketRepository {
         };
 
         jdbc.update(psc);
+    }
+
+    public boolean checkIfSeatsAreAvailable(List<Ticket> selectedSeats, int movie_plan_id)
+    {
+        List<Ticket> reservedSeats = findTicketsByMoviePlan(movie_plan_id);
+        for(int i=0; i<reservedSeats.size(); i++)
+        {
+            for(int j=0; j<selectedSeats.size(); j++)
+            {
+                if(reservedSeats.get(i).getSeat_number().equals(selectedSeats.get(j).getSeat_number()))
+                    return false;
+            }
+        }
+        return true;
     }
 }

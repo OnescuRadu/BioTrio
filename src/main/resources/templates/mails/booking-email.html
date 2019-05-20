@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BioTrio Booking Confirmation</title>
+</head>
+<body>
+Movie: <span th:text="${booking.moviePlan.movie.type} ? ${booking.moviePlan.movie.movieDetails.name} + ' : 3D' : ${booking.moviePlan.movie.movieDetails.name} + ' : 2D'">Movie</span><br>
+Date & Time: <span th:text="${booking.moviePlan.date_time}">Date & Time</span><br>
+Theater Room: <span th:text="${booking.moviePlan.theaterRoom.name}">Theater Room</span><br>
+Seat(s):
+<ul th:each="ticket : ${booking.ticketList}">
+    <li th:text="${ticket.seat_number}"></li>
+</ul>
+Email: <span th:text="${booking.email}"></span><br>
+Phone number: <span th:text="${booking.phone_number}"></span><br>
+Total price: <span th:text="${booking.totalPrice}"></span> DKK <br>
+Confirmation code: <span th:text="${booking.confirmation_code}"></span>
+</body>
+</html>

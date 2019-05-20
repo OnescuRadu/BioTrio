@@ -28,6 +28,9 @@ public class BookingController {
     @Autowired
     private TicketRepository ticketRepo;
 
+    @Autowired
+    private EmailController email;
+
     @GetMapping("/bookings")
     public String showAllBooking(Model model) {
         List<Booking> bookingList = bookingRepo.findAllBooking();
@@ -71,29 +74,53 @@ public class BookingController {
         booking.setMoviePlan(moviePlan); //sets the moviePlan object inside booking object
         booking.setSeatList(seats); //sets the checked seat list in the booking
         booking.setConfirmation_code(UUID.randomUUID().toString()); //sets a random generated alpha numeric string as confirmation code
-        booking.setTotalPrice(booking.getMoviePlan().getPrice()*seats.length); //sets total price based on number of tickets and ticket price
-
-        booking = bookingRepo.insertBooking(booking); //insert booking and return the object with updated id
+        booking.setTotalPrice(booking.getMoviePlan().getPrice() * seats.length); //sets total price based on number of tickets and ticket price
 
         List<Ticket> ticketList = new ArrayList<>(); //instantiates an arraylist of Ticket object
 
-        for(int i=0; i<booking.getSeatList().length; i++)   //add every seat from seatList into the List of Ticket
+        for (int i = 0; i < booking.getSeatList().length; i++)   //add every seat from seatList into the List of Ticket
         {
             Ticket ticket = new Ticket();
             ticket.setSeat_number(booking.getSeatList()[i]);
-            ticket.setBooking_id(booking.getBooking_id());
             ticketList.add(ticket);
         }
 
         booking.setTicketList(ticketList); //sets ticketList inside booking
 
-        for(int i=0; i<ticketList.size(); i++)
-        {
 
-            ticketRepo.insertTicket(ticketList.get(i));     //inserting tickets into the database
+
+
+        //Checking the number of selected seats
+        if (seats.length > 4 || seats.length == 0) {
+            model.addAttribute("error", "Invalid number of seats. Maximum number is 4. Please try again!");
+            return "/error";
+        }
+
+        //Checking if the selected seats are already booked
+        if(!ticketRepo.checkIfSeatsAreAvailable(booking.getTicketList(), booking.getMovie_plan_id())){
+            model.addAttribute("error", "Seats are already booked. Please try again!");
+            return "/error";
+        }
+
+
+        booking = bookingRepo.insertBooking(booking); //insert booking and return the object with updated id
+
+
+        //inserting tickets into the database
+        for (int i = 0; i < ticketList.size(); i++) {
+
+            ticketList.get(i).setBooking_id(booking.getBooking_id());
+            ticketRepo.insertTicket(ticketList.get(i));
 
         }
 
+        //Sending email
+        email.sendBookingConfirmation(booking);
+
+        //Sending sms
+        //TODO
+
+        //Adding the booking object into a model and returning the booking-confirmation template
         model.addAttribute("booking", booking);
         return "/booking-confirmation";
     }

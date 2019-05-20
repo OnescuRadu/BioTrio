@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -34,8 +34,8 @@
             <br>
         </div>
         <br>
-
     </div>
+
     <input type="hidden" id="movie_plan_id" th:value="${newBooking.moviePlan.movie_plan_id}" name="movie_plan_id">
 
 
@@ -45,7 +45,10 @@
     <label>Please enter your phone number:</label><br>
     <input type="text" th:field="${newBooking.phone_number}"><br>
 
-
+    <div sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_MANAGER')">
+    <label>Paid</label>
+    <input type="checkbox" th:field="${newBooking.paid}"><br>
+    </div>
 
     <button type="submit">Submit</button>
 </div>

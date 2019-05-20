@@ -143,13 +143,9 @@ public class MoviePlanRepository {
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement ps = connection.prepareStatement("INSERT INTO movie_plan values(null, ?, ?, ?, ?)");
                 ps.setInt(1, moviePlan.getMovie_id());
-                System.out.println(moviePlan.getMovie_id());
                 ps.setInt(2, moviePlan.getTheater_room_id());
-                System.out.println(moviePlan.getTheater_room_id());
                 ps.setTimestamp(3, Timestamp.valueOf(moviePlan.getDate_time()));
-                System.out.println(moviePlan.getDate_time());
                 ps.setDouble(4, moviePlan.getPrice());
-                System.out.println(moviePlan.getPrice());
                 return ps;
             }
         };
