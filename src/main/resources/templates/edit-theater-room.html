@@ -6,59 +6,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/latest/js/all.js" integrity="sha384-L469/ELG4Bg9sDQbl0hvjMq8pOcqFgkSpwhwnslzvVVGpDjYJ6wJJyYjvG3u8XW7" crossorigin="anonymous"></script>
+    <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/latest/js/all.js" integrity="sha384-L469/ELG4Bg9sDQbl0hvjMq8pOcqFgkSpwhwnslzvVVGpDjYJ6wJJyYjvG3u8XW7"
+            crossorigin="anonymous"></script>
 
     <!-- Custom CSS File -->
-    <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css"/>
 
     <!-- Page Title -->
     <title>Bio Trio Cinema | Edit theater room</title>
 </head>
 <body>
+<div class="d-flex flex-column sticky-footer-wrapper">
+    <div th:insert="~{/fragments/header :: header}"></div>
+    <div class="container flex-fill">
 
-<div class="container">
-    <form class="text-center border border-light p-5" method="post" action="/edit-theater-room/save" th:object="${editedTheaterRoom}">
-        <h5 class="card-header bg-primary white-text text-center py-4" style="color:white">
-            <strong>Edit Theater Room</strong>
-        </h5>
-        <br>
+        <section class="mb-4">
+            <h2 class="h1-responsive font-weight-bold text-center my-4">Edit theater room</h2>
+            <form class="text-center border border-light p-5" method="post" action="/edit-theater-room/save" th:object="${editedTheaterRoom}">
+                <!-- ID -->
+                <input type="hidden" id="id" th:field="${editedTheaterRoom.theater_room_id}" name="id">
 
-        <!-- Registration -->
-        <input type="hidden" id="id" th:field="${editedTheaterRoom.theater_room_id}" name="id">
-        <label>Name</label>
-        <input type="text" id="name" name="name" th:field="${editedTheaterRoom.name}" class="form-control mb-4">
+                <!--Grid row-->
+                <div class="row">
+                    <!--Grid column-->
+                    <div class="col-md-6" style="margin-bottom: 2%">
+                        <div class="md-form mb-0">
+                            <label>Name</label>
+                            <input type="text" id="reg" name="name" th:field="${editedTheaterRoom.name}" class="form-control mb-4">
+                        </div>
+                    </div>
+                    <!--Grid column-->
 
-        <!-- Brand -->
-        <label>Number of rows</label>
-        <input type="text" id="rows_no" name="rows_no" th:field="${editedTheaterRoom.rows_no}" class="form-control mb-4">
+                    <!--Grid column-->
+                    <div class="col-md-6" style="margin-bottom: 2%">
+                        <div class="md-form mb-0">
+                            <label>Number of rows</label>
+                            <input type="text" id="brand" name="rows_no" th:field="${editedTheaterRoom.rows_no}" class="form-control mb-4">
+                        </div>
+                    </div>
+                </div>
+                <!--Grid row-->
 
-        <!-- Color -->
-        <label>Number of columns</label>
-        <input type="text" id="columns_no" name="columns_no" th:field="${editedTheaterRoom.columns_no}" class="form-control mb-4">
 
-        <!-- Speed -->
-        <label>3D Capability</label>
-        <input type="checkbox" id="capability_3d" name="capability_3d" th:field="${editedTheaterRoom.capability_3d}" class="form-control mb-4">
+                <!--Grid row-->
+                <div class="row">
+                    <!--Grid column-->
+                    <div class="col-md-6" style="margin-bottom: 2%">
+                        <div class="md-form mb-0">
+                            <!-- No Cols -->
+                            <label>Number of columns</label>
+                            <input type="text" id="color" name="cols_no" th:field="${editedTheaterRoom.columns_no}" class="form-control mb-4">
+                        </div>
+                    </div>
+                    <!--Grid column-->
 
-        <!-- Send button -->
-        <button type="submit" class="btn btn-success btn-rounded btn-block z-depth-0 my-4 waves-effect" style="font-weight: bold">Submit</button>
-        <button type="reset" class="btn btn-danger btn-rounded btn-block z-depth-0 my-4 waves-effect" style="font-weight: bold">Cancel</button>
-    </form>
+                    <!--Grid column-->
+                    <div th:switch="${editedTheaterRoom.capability_3d}" class="col-md-6" style="margin-bottom: 2%">
+                        <!--<label for="checkbox">3D:</label>-->
+                        <h6>3D: Capability</h6>
+                        <label th:case="false" class="switch">
+                            <input type="checkbox" id="enabled" name="a" value="3D" class="form-control mb-4 switch">
+                            <span class="slider round"></span>
+                        </label>
+                        <label th:case="true" class="switch">
+                            <input type="checkbox" id="unenabled" name="a" value="3D" class="form-control mb-4 switch" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <!--Grid column-->
+                </div>
+                <!--Grid row-->
+
+                <!-- Send button -->
+                <div class="text-center">
+                    <button type="submit" class="empty-button btn btn-default">
+                        Save
+                    </button>
+                    <button type="reset" class="empty-button btn btn-default">
+                        Reset
+                    </button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <!--Insert footer fragment-->
+    <div th:insert="~{/fragments/footer :: footer}"></div>
 </div>
-
-<!--Insert footer fragment-->
-<div th:insert="~{/fragments/footer :: footer}"></div>
-
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>

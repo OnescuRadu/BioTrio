@@ -6,67 +6,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/latest/js/all.js" integrity="sha384-L469/ELG4Bg9sDQbl0hvjMq8pOcqFgkSpwhwnslzvVVGpDjYJ6wJJyYjvG3u8XW7" crossorigin="anonymous"></script>
+    <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/latest/js/all.js" integrity="sha384-L469/ELG4Bg9sDQbl0hvjMq8pOcqFgkSpwhwnslzvVVGpDjYJ6wJJyYjvG3u8XW7"
+            crossorigin="anonymous"></script>
 
     <!-- Custom CSS File -->
-    <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css"/>
 
     <!-- Page Title -->
     <title>Bio Trio Cinema | Add movie plan</title>
 </head>
 <body>
+<div class="d-flex flex-column sticky-footer-wrapper">
+    <div th:insert="~{/fragments/header :: header}"></div>
+    <div class="container flex-fill">
+        <section class="mb-4">
 
-<div class="container">
-    <form class="text-center border border-light p-5" method="post" action="/add-movie-plan/save" th:object="${moviePlan}">
-        <h5 class="card-header bg-primary white-text text-center py-4" style="color:white">
-            <strong>Add Movie Plan</strong>
-        </h5>
-        <br>
+            <!--Section heading-->
+            <h2 class="h1-responsive font-weight-bold text-center my-4">Add movie plan</h2>
+            <div class="row contact_form">
 
+                <!--Grid column-->
+                <div class="col-md-12 mb-md-0 mb-5">
+                    <form class="text-center border border-light p-5" method="post" action="/add-movie-plan/save" th:object="${moviePlan}">
+                        <input type="hidden" id="user_id" th:field="${moviePlan.movie_plan_id}" name="id">
 
-        <input type="hidden" id="user_id" th:field="${moviePlan.movie_plan_id}" name="id">
-        <!-- Movie -->
-        <label>Movie</label>
-        <select th:field="${moviePlan.movie_id}" class="form-control mb-4">
-            <option th:each="movie: ${movies}" th:value="${movie.movie_id}">
-                <span th:text="${movie.type} ? ${movie.movieDetails.name} + ' : 3D' : ${movie.movieDetails.name} + ' : 2D'"></span>
-            </option>
-        </select>
+                        <!--Grid row-->
+                        <div class="row">
 
-        <!-- Theater -->
-        <label>Theater</label>
-        <select th:field="${moviePlan.theater_room_id}" class="form-control mb-4">
-            <option th:each="theaterRoom: ${theaterRooms}" th:value="${theaterRoom.theater_room_id}"> <span th:text="${theaterRoom.capability_3d} ? ${theaterRoom.name} + ' : 3D Support' : ${theaterRoom.name} + ' : No 3D Support'"></span> </option>
-        </select>
+                            <!--Grid column-->
+                            <div class="col-md-6" style="margin-bottom: 2%">
+                                <div class="md-form mb-0">
+                                    <!-- Movie -->
+                                    <label>Movie</label>
+                                    <select th:field="${moviePlan.movie_id}" class="form-control mb-4">
+                                        <option th:each="movie: ${movies}" th:value="${movie.movie_id}"><span
+                                                th:text="${movie.type} ? ${movie.movieDetails.name} + ' : 3D' : ${movie.movieDetails.name} + ' : 2D'"></span></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--Grid column-->
 
-        <!-- Date and Time -->
-        <label>Date and Time</label>
-        <input type="datetime-local" id="dateTime" name="dateTime" th:field="${moviePlan.date_time}" class="form-control mb-4"/>
+                            <!--Grid column-->
+                            <div class="col-md-6" style="margin-bottom: 2%">
+                                <div class="md-form mb-0">
+                                    <!-- Theater -->
+                                    <label>Theater</label>
+                                    <select th:field="${moviePlan.theater_room_id}" class="form-control mb-4">
+                                        <option th:each="theaterRoom: ${theaterRooms}" th:value="${theaterRoom.theater_room_id}"><span
+                                                th:text="${theaterRoom.capability_3d} ? ${theaterRoom.name} + ' : 3D Support' : ${theaterRoom.name} + ' : No 3D Support'"></span></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--Grid column-->
+                        </div>
+                        <!--Grid row-->
 
-        <!-- Price -->
-        <label>Price</label>
-        <input type="text" id="price" name="price" th:field="${moviePlan.price}" class="form-control mb-4">
+                        <!--Grid row-->
+                        <div class="row">
+                            <!--Grid column-->
+                            <div class="col-md-6" style="margin-bottom: 2%">
+                                <div class="md-form mb-0">
+                                    <!-- Date and Time -->
+                                    <label>Date and Time</label>
+                                    <input type="datetime-local" id="dateTime" name="dateTime" th:field="${moviePlan.date_time}" class="form-control mb-4"/>
+                                </div>
+                            </div>
+                            <!--Grid column-->
 
+                            <!--Grid column-->
+                            <div class="col-md-6" style="margin-bottom: 2%">
+                                <div class="md-form mb-0">
+                                    <!-- Price -->
+                                    <label>Price</label>
+                                    <input type="text" id="price" name="price" th:field="${moviePlan.price}" class="form-control mb-4">
+                                </div>
+                            </div>
+                            <!--Grid column-->
+                        </div>
+                        <!--Grid row-->
 
-        <!-- Send button -->
-        <button type="submit" class="btn btn-success btn-rounded btn-block z-depth-0 my-4 waves-effect" style="font-weight: bold">Submit</button>
-        <button type="reset" class="btn btn-danger btn-rounded btn-block z-depth-0 my-4 waves-effect" style="font-weight: bold">Cancel</button>
-    </form>
+                        <!-- Send button -->
+                        <div class="text-center">
+                            <button type="submit" class="empty-button btn btn-default">
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!--Insert footer fragment-->
+    <div th:insert="~{/fragments/footer :: footer}"></div>
 </div>
-
-<!--Insert footer fragment-->
-<div th:insert="~{/fragments/footer :: footer}"></div>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>

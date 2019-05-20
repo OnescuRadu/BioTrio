@@ -31,7 +31,7 @@
         <section class="mb-4">
 
             <!--Section heading-->
-            <h2 class="h1-responsive font-weight-bold text-center my-4">See movies</h2>
+            <h2 class="h1-responsive font-weight-bold text-center my-4">See movie plan</h2>
             <div class="row contact_form">
 
                 <!--Grid column-->
@@ -39,25 +39,26 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th scope="col">Movie</th>
-                            <th scope="col">Theater Room</th>
-                            <th scope="col">Date & Time</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">
+                            <th class="col-name" scope="col">Movie</th>
+                            <th class="col-name" scope="col">Theater Room</th>
+                            <th class="col-name" scope="col">Date & Time</th>
+                            <th class="col-name" scope="col">Price</th>
+                            <th class="col-name" scope="col" colspan="2">
                                 <!-- Button edit -->
-                                <a th:href="'/add-movie-plan/'" class="btn btn-success add">Add</a>
+                                <a th:href="'/add-movie-plan/'" class="empty-button btn add">Add Movie Plan</a>
                             </th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="moviePlan: ${moviePlans}">
-                            <td th:text="${moviePlan.movie.type} ? ${moviePlan.movie.movieDetails.name} + ' : 3D' : ${moviePlan.movie.movieDetails.name} + ' : 2D'"></td>
-                            <td th:text="${moviePlan.theaterRoom.name}"></td>
-                            <td th:text="${moviePlan.date_time}"></td>
-                            <td th:text="${moviePlan.price}"></td>
-                            <td>
+                            <td class="col-name" th:text="${moviePlan.movie.type} ? ${moviePlan.movie.movieDetails.name} + ' : 3D' : ${moviePlan.movie.movieDetails.name} + ' : 2D'"></td>
+                            <td class="col-name" th:text="${moviePlan.theaterRoom.name}"></td>
+                            <td class="col-name" th:text="${moviePlan.date_time}"></td>
+                            <td class="col-name" th:text="${moviePlan.price}"></td>
+                            <td class="col-name" >
                                 <!-- Button edit -->
-                                <a th:href="'/edit-movie-plan/' + ${moviePlan.movie_plan_id}" class="btn btn-primary edit-delete">Edit</a>
+                                <a th:href="'/edit-movie-plan/' + ${moviePlan.movie_plan_id}" class="btn btn-default empty-button">Edit</a>
                                 <!-- Button delete -->
                                 <a th:href="'/delete-movie-plan/' + ${moviePlan.movie_plan_id}" class="btn btn-danger edit-delete">Delete</a>
                             </td>
