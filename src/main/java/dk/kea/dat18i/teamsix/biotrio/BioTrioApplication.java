@@ -2,17 +2,18 @@ package dk.kea.dat18i.teamsix.biotrio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 
 @SpringBootApplication
 public class BioTrioApplication {
+    private final static String ACCOUNT_SID = "ACb148f0ade1dc904031cb2964c9ee73e3";
+    private final static String AUTH_ID = "cdb308c91105ee45db4d94a9262a5dfe";
 
-
-
+    static {
+        Twilio.init(ACCOUNT_SID, AUTH_ID);
+    }
     public static void main(String[] args) {
             SpringApplication.run(BioTrioApplication.class,args);
         }

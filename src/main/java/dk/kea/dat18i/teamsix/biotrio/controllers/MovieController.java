@@ -93,7 +93,6 @@ public class MovieController {
         else
             movie.setType(true);
 
-        System.out.println(movie);
         movieRepo.insertMovieUsingDetails(movie);
         return "redirect:/see-all-movies";
     }

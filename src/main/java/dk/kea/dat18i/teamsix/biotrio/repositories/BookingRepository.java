@@ -44,6 +44,36 @@ public class BookingRepository {
         return getBookingList(bookingList, rs);
     }
 
+    public Booking findBookingByConfirmationCode(String email_phone, String confirmation_code) {
+        String query = "SELECT booking.booking_id, booking.movie_plan_id, phone_number, email, confirmation_code, paid, movie_plan.movie_plan_id, date_time, price as ticket_price, duration_minutes, movie_plan.movie_id,\n" +
+                "movie.movie_details_id, type as movie_type, movie_details.name as movie_name, language, movie_plan.theater_room_id,\n" +
+                "theater_room.name as theater_room_name from booking\n" +
+                "INNER JOIN movie_plan\n" +
+                "on booking.movie_plan_id = movie_plan.movie_plan_id\n" +
+                "INNER JOIN theater_room\n" +
+                "ON (movie_plan.theater_room_id = theater_room.theater_room_id)\n" +
+                "INNER JOIN movie\n" +
+                "ON (movie_plan.movie_id = movie.movie_id)\n" +
+                "INNER JOIN movie_details\n" +
+                "ON (movie.movie_details_id = movie_details.movie_details_id)\n" +
+                "WHERE ((email = ? or phone_number = ?) and confirmation_code = ?)";
+
+        SqlRowSet rs = jdbc.queryForRowSet(query, email_phone, email_phone, confirmation_code);
+        Booking booking = new Booking();
+
+        try {
+            if (rs.first()) {
+                getBooking(rs,booking);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(rs.getRow()==0)
+            return null;
+        return booking;
+    }
+
     private void getBooking(SqlRowSet rs, Booking booking) {
         booking.setBooking_id(rs.getInt("booking_id"));
         booking.setPhone_number(rs.getString("phone_number"));
@@ -78,7 +108,6 @@ public class BookingRepository {
         theaterRoom.setName(rs.getString("theater_room_name"));
 
         ticketList = ticketRepo.findTicketsByBooking(rs.getInt("booking_id"));
-        System.out.println(ticketList);
         movie.setMovieDetails(movieDetails);
         moviePlan.setMovie(movie);
         moviePlan.setTheaterRoom(theaterRoom);
@@ -123,5 +152,30 @@ public class BookingRepository {
         jdbc.update(psc, id);
         booking.setBooking_id(id.getKey().intValue());
         return booking;
+    }
+
+    public void deleteBooking(int id) {
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement("DELETE from booking where booking_id = ?");
+                ps.setInt(1, id);
+                return ps;
+            }
+        };
+        jdbc.update(psc);
+    }
+
+    public void deleteBookingByConfirmationCode(String phoneNumber, String confirmation_code) {
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement("DELETE from booking where confirmation_code = ? and phone_number = ?");
+                ps.setString(1, confirmation_code);
+                ps.setString(2, phoneNumber);
+                return ps;
+            }
+        };
+        jdbc.update(psc);
     }
 }

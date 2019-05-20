@@ -30,7 +30,7 @@
         <section class="mb-4">
 
             <!--Section heading-->
-            <h2 class="h1-responsive font-weight-bold text-center my-4">Bookings</h2>
+            <h2 class="h1-responsive font-weight-bold text-center my-4">Booking</h2>
             <div class="row contact_form">
 
                 <!--Grid column-->
@@ -52,7 +52,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="booking: ${bookings}">
+                        <tr>
                             <td th:text="${booking.moviePlan.movie.type} ? ${booking.moviePlan.movie.movieDetails.name} + ' : 3D' : ${booking.moviePlan.movie.movieDetails.name} + ' : 2D'"></td>
                             <td th:text="${booking.moviePlan.date_time}"></td>
                             <td th:text="${booking.moviePlan.movie.movieDetails.duration_minutes}"></td>
@@ -68,10 +68,8 @@
                             <td th:text="${booking.paid} ? 'YES' : 'NO'"></td>
 
                             <td>
-                                <!-- Button edit -->
-                                <a th:href="'/edit-booking/' + ${booking.booking_id}" class="btn btn-primary edit-delete">Edit</a>
                                 <!-- Button delete -->
-                                <a th:href="'/delete-booking/' + ${booking.booking_id}" class="btn btn-danger edit-delete">Delete</a>
+                                <a th:href="'/delete-booking-by-customer/' + ${booking.phone_number} + '/' + ${booking.confirmation_code}" class="btn btn-danger edit-delete">Delete</a>
                             </td>
                         </tr>
                         </tbody>

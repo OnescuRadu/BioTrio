@@ -1,8 +1,6 @@
 package dk.kea.dat18i.teamsix.biotrio.controllers;
 
-import dk.kea.dat18i.teamsix.biotrio.models.Booking;
-import dk.kea.dat18i.teamsix.biotrio.models.MoviePlan;
-import dk.kea.dat18i.teamsix.biotrio.models.Ticket;
+import dk.kea.dat18i.teamsix.biotrio.models.*;
 import dk.kea.dat18i.teamsix.biotrio.repositories.BookingRepository;
 import dk.kea.dat18i.teamsix.biotrio.repositories.MoviePlanRepository;
 import dk.kea.dat18i.teamsix.biotrio.repositories.TicketRepository;
@@ -30,6 +28,9 @@ public class BookingController {
 
     @Autowired
     private EmailController email;
+
+    @Autowired
+    private SMSController sms;
 
     @GetMapping("/bookings")
     public String showAllBooking(Model model) {
@@ -118,12 +119,49 @@ public class BookingController {
         email.sendBookingConfirmation(booking);
 
         //Sending sms
-        //TODO
+        //Method works but dont use it because it costs money per sms
+        //sms.sendBookingSMS(booking);
 
         //Adding the booking object into a model and returning the booking-confirmation template
         model.addAttribute("booking", booking);
         return "/booking-confirmation";
     }
 
+    @GetMapping("/delete-booking/{id}")
+    public String deleteBooking(@PathVariable("id") int id) {
+        bookingRepo.deleteBooking(id);
+        return "redirect:/bookings";
+    }
+
+    @GetMapping("/find-booking")
+    public String findBooking()
+    {
+        return "/find-booking";
+    }
+
+    @PostMapping("/view-booking")
+    public String viewBooking(@RequestParam("confirmation-code") String confirmationCode, @RequestParam("email-phone") String emailPhone, Model model)
+    {
+
+        Booking booking = bookingRepo.findBookingByConfirmationCode(emailPhone, confirmationCode);
+
+        //If booking object is null (there is no record found in the database) it redirects to the error page with the provided message
+       if(booking == null) {
+           model.addAttribute("error", "There was no booking found with the provided information. Please try again!");
+           return "/error";
+       }
+        else
+        {
+            model.addAttribute("booking", booking);
+            return "/view-booking";
+        }
+    }
+
+    @GetMapping("/delete-booking-by-customer/{phoneNumber}/{confirmationCode}")
+    public String deleteBooking(@PathVariable("phoneNumber") String phoneNumber, @PathVariable("confirmationCode") String confirmationCode) {
+
+        bookingRepo.deleteBookingByConfirmationCode(phoneNumber, confirmationCode);
+        return "redirect:/find-booking";
+    }
 
 }

@@ -30,7 +30,6 @@ public class MoviePlanController {
     @GetMapping("/movie-plans")
     public String showMoviePlan(Model model) {
         List<MoviePlan> moviePlanList = moviePlanRepo.findAllMoviePlan();
-        System.out.println(moviePlanList);
         model.addAttribute("moviePlans", moviePlanList);
         return "/movie-plan";
     }
@@ -56,7 +55,6 @@ public class MoviePlanController {
     public String saveMoviePlan(@ModelAttribute MoviePlan moviePlan)
     {
         moviePlanRepo.insertMoviePlan(moviePlan);
-        System.out.println(moviePlan);
         return "redirect:/movie-plans";
     }
 
