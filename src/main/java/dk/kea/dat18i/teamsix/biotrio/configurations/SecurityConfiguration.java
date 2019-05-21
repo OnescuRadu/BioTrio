@@ -34,6 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                 .antMatchers("/", "/index", "/movies/**", "/contact", "/about-us", "/faq", "/movie/**", "/css/**", "/images/**", "/save-movie/**").permitAll()
                 .antMatchers("/control-panel/**").hasAnyRole("MANAGER", "EMPLOYEE")
+                .antMatchers("/theater-room").hasRole("MANAGER")
                 //.antMatchers("/**").permitAll()
                 .anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
                 .permitAll();

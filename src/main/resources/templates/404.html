@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -13,34 +13,37 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/latest/js/all.js" integrity="sha384-L469/ELG4Bg9sDQbl0hvjMq8pOcqFgkSpwhwnslzvVVGpDjYJ6wJJyYjvG3u8XW7"
+            crossorigin="anonymous"></script>
 
     <!-- Custom CSS File -->
     <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css"/>
 
     <!-- Page Title -->
-    <title>Bio Trio Cinema | Error Page</title>
+    <title>Bio Trio Cinema | 404</title>
 </head>
-<body>
-<div class="d-flex flex-column sticky-footer-wrapper">
-    <!--Insert header fragment-->
-    <div th:insert="~{/fragments/header :: header}"></div>
-
-    <div class="container flex-fill">
-
-        <div class="row justify-content-center" style="margin-top: 5%">
-            <h3 th:text="${error}"></h3>
+<body class="page-403">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+                <h1>Oops!</h1>
+                <h2>404...Page not found!</h2>
+                <div class="error-details">
+                    Sorry, an error has occured!
+                </div>
+                <div class="error-actions">
+                    <a th:href="@{/index}" class="btn empty-button"><span class="glyphicon glyphicon-home"></span>
+                        Take Me Home </a>
+                    <a th:href="@{/contact}" class="btn btn-support"><span class="glyphicon glyphicon-envelope">
+                    </span> Contact Support </a>
+                </div>
+            </div>
         </div>
-
-
-        <!--Insert footer fragment-->
-
-        <!--</div>-->
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
     </div>
-    <div th:insert="~{/fragments/footer :: footer}"></div>
 </div>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>

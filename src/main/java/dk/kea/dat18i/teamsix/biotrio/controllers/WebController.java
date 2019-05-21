@@ -51,4 +51,7 @@ public class WebController {
     public String Error403(){
         return "403";
     }
+
+    @GetMapping("/404")
+    public String error404() { return "404"; }
 }
