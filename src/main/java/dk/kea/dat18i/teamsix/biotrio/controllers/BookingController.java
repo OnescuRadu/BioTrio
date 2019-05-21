@@ -122,6 +122,7 @@ public class BookingController {
 
         //Adding the booking object into a model and returning the booking-confirmation template
         model.addAttribute("booking", booking);
+        System.out.println(booking.getMoviePlan().getMovie().getMovieDetails().getPoster());
         return "/booking-confirmation";
     }
 

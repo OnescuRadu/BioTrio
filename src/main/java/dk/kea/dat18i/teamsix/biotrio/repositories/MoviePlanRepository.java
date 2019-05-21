@@ -18,7 +18,7 @@ public class MoviePlanRepository {
     private JdbcTemplate jdbc;
 
     public MoviePlan findMoviePlan(int id) {
-        String query = "SELECT movie_plan_id, date_time,  price, movie_plan.movie_id, movie.movie_details_id, type, movie_details.name,movie_plan.theater_room_id, theater_room.name as theater_room_name,rows_no,columns_no,3d_capability \n" +
+        String query = "SELECT movie_plan_id, date_time,  price, movie_plan.movie_id, movie.movie_details_id, type, movie_details.name, movie_plan.theater_room_id, theater_room.name as theater_room_name,rows_no,columns_no,3d_capability \n" +
                 "FROM movie_plan\n" +
                 "INNER JOIN theater_room\n" +
                 "ON (movie_plan.theater_room_id = theater_room.theater_room_id)\n" +
