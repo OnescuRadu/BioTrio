@@ -830,6 +830,7 @@ input.seat[type='checkbox'] {
     background:white;
     border-radius:5px;
     border:2px solid #555;
+    background: forestgreen;
 }
 
 *:focus{
@@ -841,7 +842,7 @@ input.seat[type='checkbox']:disabled {
 }
 
 input.seat[type='checkbox']:checked{
-    background: green;
+    background: yellow;
 }
 
 /*----------- BOOKING CONFIRMATION PAGE ----------- */

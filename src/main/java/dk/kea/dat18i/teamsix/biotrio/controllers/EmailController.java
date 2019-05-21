@@ -49,7 +49,7 @@ public class EmailController {
 
         //set variables for the emails
         String body = templateEngine.process("mails/contact-email", context);
-        String sendTo = "biotriocinema@@gmail.com";
+        String sendTo = "biotriocinema@gmail.com";
         String emailSubject = "New message from BioTrio Customer";
 
         //send the html template
