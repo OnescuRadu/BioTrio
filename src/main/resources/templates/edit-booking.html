@@ -36,18 +36,18 @@
 
             <!--Grid column-->
             <div class="col-md-12 mb-md-0 mb-5">
-                <form th:action="@{'/edit-booking/save'}" method="post" th:object="${booking}" id="myForm">
+                <form th:action="@{'/edit-booking/save'}" method="post" th:object="${editedBooking}" id="myForm">
 
                     <!--Grid row-->
                     <div class="row">
 
-                        <input type="hidden" id="booking_id" th:field="${booking.booking_id}" name="id">
+                        <input type="hidden" id="booking_id" th:field="${editedBooking.booking_id}" name="id">
 
                         <!--Grid column-->
                         <div class="col-md-6" style="margin-bottom: 2%">
                             <div class="md-form mb-0">
                                 <label for="phone_number" class="">Phone Number</label>
-                                <input th:field="${booking.phone_number}" type="tel" id="phone_number" name="phone_number" class="form-control">
+                                <input th:field="${editedBooking.phone_number}" type="tel" id="phone_number" name="phone_number" class="form-control">
                             </div>
                         </div>
                         <!--Grid column-->
@@ -56,7 +56,7 @@
                         <div class="col-md-6" style="margin-bottom: 2%">
                             <div class="md-form mb-0">
                                 <label for="email" class="">Email</label>
-                                <input th:field="${booking.email}" type="email" id="email" name="email" class="form-control">
+                                <input th:field="${editedBooking.email}" type="email" id="email" name="email" class="form-control">
                             </div>
                         </div>
 
@@ -70,7 +70,7 @@
                         <div class="col-md-6" style="margin-bottom: 2%">
                             <div class="md-form mb-0">
                                 <label for="paid" class="">Paid</label>
-                                <input th:field="${booking.paid}" type="checkbox" id="paid" name="paid" class="form-control">
+                                <input th:field="${editedBooking.paid}" type="checkbox" id="paid" name="paid" class="form-control">
                             </div>
                         </div>
 
@@ -82,9 +82,6 @@
                     <div class="text-center">
                         <button type="submit" class="empty-button btn btn-default">
                             Edit
-                        </button>
-                        <button type="reset" class="empty-button btn btn-default">
-                            Reset
                         </button>
                     </div>
                 </form>

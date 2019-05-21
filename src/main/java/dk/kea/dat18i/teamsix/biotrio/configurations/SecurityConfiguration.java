@@ -32,9 +32,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         http.csrf().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index", "/movies/**", "/contact", "/about-us", "/faq", "/movie/**", "/css/**", "/images/**", "/save-movie/**").permitAll()
+                .antMatchers("/", "/index", "/movies/**", "/select-seats", "/create-booking", "/booking-confirmation", "/contact", "/send-contact-email", "/about-us", "/faq", "/movie/**", "/css/**", "/images/**", "/save-movie/**", "/find-booking", "/view-booking", "/delete-booking-by-customer/**", "/search-movie:**" , "/search-movie-post").permitAll()
                 .antMatchers("/control-panel/**").hasAnyRole("MANAGER", "EMPLOYEE")
-                //.antMatchers("/**").permitAll()
+                .antMatchers(
+                        "/theater-room", "/delete-theater-room/**", "/add-theater-room", "/add-theater-room/save","/edit-theater-room/**",
+                "/users", "/delete-user/**", "/add-user", "/add-user/save", "/edit-user/**", "/edit-user/save", "/edit-user-password/**"
+                ).hasRole("MANAGER")
+                .antMatchers("/**").hasAnyRole("MANAGER", "EMPLOYEE")
                 .anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
                 .permitAll();
         http.exceptionHandling().accessDeniedPage("/403");
