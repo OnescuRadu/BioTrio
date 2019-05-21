@@ -21,26 +21,47 @@
     <title>Bio Trio Cinema | Booking Confirmation</title>
 </head>
 <body>
-<!--Insert header fragment-->
-<div th:insert="~{/fragments/header :: header}"></div>
+<div class="d-flex flex-column sticky-footer-wrapper">
+    <div th:insert="~{/fragments/header :: header}"></div>
+    <div class="container-fluid flex-fill">
+        <!--Insert header fragment-->
 
-Your booking has been successfully made !
-<br>
+        <div class="row justify-content-center">
+            <!-- Boxes de Acoes -->
+            <div class="col-xs-12 col-sm-6 col-lg-4">
+                <div class="box">
+                    <div class="icon">
+                        <div class="image"><i class="fa fa-thumbs-o-up"></i></div>
+                        <div class="info">
+                            <h3 class="title">Your booking has been made</h3>
+                            <p>
+                                Movie: <span
+                                    th:text="${booking.moviePlan.movie.type} ? ${booking.moviePlan.movie.movieDetails.name} + ' : 3D' : ${booking.moviePlan.movie.movieDetails.name} + ' : 2D'">Movie</span><br>
+                                Date & Time: <span th:text="${booking.moviePlan.date_time}">Date & Time</span><br>
+                                Theater Room: <span th:text="${booking.moviePlan.theaterRoom.name}">Theater Room</span><br>
+                                Seat(s):
+                            <ul th:each="ticket : ${booking.ticketList}">
+                                <li class="conf_seats" th:text="${ticket.seat_number}"></li>
+                            </ul>
+                            Email: <span th:text="${booking.email}"></span><br>
+                            Phone number: <span th:text="${booking.phone_number}"></span><br>
+                            Total price: <span th:text="${booking.totalPrice}"></span> DKK <br>
+                            Confirmation code: <span th:text="${booking.confirmation_code}"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="space"></div>
+                </div>
+            </div>
 
-Movie: <span th:text="${booking.moviePlan.movie.type} ? ${booking.moviePlan.movie.movieDetails.name} + ' - 3D' : ${booking.moviePlan.movie.movieDetails.name} + ' - 2D'">Movie</span><br>
-Date & Time: <span th:text="${booking.moviePlan.date_time}">Date & Time</span><br>
-Theater Room: <span th:text="${booking.moviePlan.theaterRoom.name}">Theater Room</span><br>
-Seat(s):
-<ul th:each="ticket : ${booking.ticketList}">
-    <li th:text="${ticket.seat_number}"></li>
-</ul>
-Email: <span th:text="${booking.email}"></span><br>
-Phone number: <span th:text="${booking.phone_number}"></span><br>
-Total price: <span th:text="${booking.totalPrice}"></span> DKK <br>
-Confirmation code: <span th:text="${booking.confirmation_code}"></span>
+            <!-- /Boxes de Acoes -->
+        </div>
 
-<!--Insert footer fragment-->
-<div th:insert="~{/fragments/footer :: footer}"></div>
+
+        <!--Insert footer fragment-->
+    </div>
+    <div th:insert="~{/fragments/footer :: footer}"></div>
+</div>
 <!--</div>-->
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

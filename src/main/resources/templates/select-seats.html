@@ -6,60 +6,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/latest/js/all.js" integrity="sha384-L469/ELG4Bg9sDQbl0hvjMq8pOcqFgkSpwhwnslzvVVGpDjYJ6wJJyYjvG3u8XW7" crossorigin="anonymous"></script>
+    <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/latest/js/all.js" integrity="sha384-L469/ELG4Bg9sDQbl0hvjMq8pOcqFgkSpwhwnslzvVVGpDjYJ6wJJyYjvG3u8XW7"
+            crossorigin="anonymous"></script>
 
     <!-- Custom CSS File -->
-    <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css"/>
 
     <!-- Page Title -->
-    <title>Bio Trio Cinema | Search</title>
+    <title>Bio Trio Cinema | Select seats</title>
 </head>
 <body>
 
 <!--Insert header fragment-->
 <div th:insert="~{/fragments/header :: header}"></div>
-
-<form th:action="@{'/create-booking'}" method="post" th:object="${newBooking}">
 <div class="container align-items-center" style="text-align: center">
-    <span>SCREEN</span>
-    <div class="row" th:each="i: ${#numbers.sequence(1, newBooking.moviePlan.theaterRoom.rows_no)}">
-        <div class="span3" th:each="j: ${#numbers.sequence(1, newBooking.moviePlan.theaterRoom.columns_no)}" style="padding: 10px;">
-            <input type="checkbox" th:name="${i} + '-' + ${j}"  th:disabled="${reservedSeats[__${i-1}__][__${j-1}__]}" th:field="${newBooking.seatList}" th:value="${i} + '-' + ${j}">
-            <br>
+    <section class="mb-4">
+
+        <!--Section heading-->
+        <h2 class="h1-responsive font-weight-bold text-center my-4">Select seats</h2>
+        <div class="row contact_form">
+
+            <!--Grid column-->
+            <div class="col-md-12 mb-md-0 mb-5">
+                <form th:action="@{'/create-booking'}" method="post" th:object="${newBooking}">
+
+                    <!--<span>SCREEN</span>-->
+                    <div class="row justify-content-center">
+                        <div class="screen"></div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <!--<div class="col-md-1"></div>-->
+                        <div th:each="i: ${#numbers.sequence(1, newBooking.moviePlan.theaterRoom.rows_no)}">
+                            <div class="span3 pretty p-default p-curve p-toggle" th:each="j: ${#numbers.sequence(1, newBooking.moviePlan.theaterRoom.columns_no)}" style="padding: 10px;">
+                                <div class="col-md-6">
+                                    <input class="seat" type="checkbox" th:name="${i} + '-' + ${j}" th:disabled="${reservedSeats[__${i-1}__][__${j-1}__]}" th:field="${newBooking.seatList}"
+                                           th:value="${i} + '-' + ${j}">
+                                    <br>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <input type="hidden" id="movie_plan_id" th:value="${newBooking.moviePlan.movie_plan_id}" name="movie_plan_id">
+
+                    <!--Row -->
+                    <!--Row column-->
+
+
+                    <div class="row">
+                        <!--Grid column-->
+                        <div class="col-md-5" style="margin-bottom: 2%">
+                            <div class="md-form mb-0">
+                                <label>Please enter your email:</label><br>
+                                <input type="text" th:field="${newBooking.email}" class="form-control mb-4"><br>
+                            </div>
+                        </div>
+                        <!--Grid column-->
+
+                        <!--Grid column-->
+                        <div class="col-md-2" style="margin-bottom: 2%">
+                            <div class="md-form mb-0">
+                                <div sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_MANAGER')">
+                                    <h6>Paid</h6>
+                                    <label class="switch" for="enabled">
+                                        <!--<input th:="${movieForm.type}" type="checkbox">-->
+                                        <!--<input type="checkbox" id="enabled" name="a" value="3D" class="form-control mb-4 switch">-->
+                                        <input type="checkbox" id="enabled" name="a" th:field="${newBooking.paid}" class="form-control mb-4 switch">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid column-->
+
+
+                        <!--Grid column-->
+                        <div class="col-md-5" style="margin-bottom: 2%">
+                            <div class="md-form mb-0">
+                                <label>Please enter your phone number:</label><br>
+                                <input type="text" th:field="${newBooking.phone_number}" class="form-control mb-4"><br>
+                            </div>
+                        </div>
+                        <!--Grid column-->
+
+                    </div>
+
+                    <div class="text-center">
+                    <button type="submit" class="empty-button btn btn-default">
+                        Book
+                    </button>
+            </div>
+                </form>
+            </div>
         </div>
-        <br>
-    </div>
-
-    <input type="hidden" id="movie_plan_id" th:value="${newBooking.moviePlan.movie_plan_id}" name="movie_plan_id">
-
-
-    <label>Please enter your email:</label><br>
-    <input type="text" th:field="${newBooking.email}"><br>
-
-    <label>Please enter your phone number:</label><br>
-    <input type="text" th:field="${newBooking.phone_number}"><br>
-
-    <div sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_MANAGER')">
-    <label>Paid</label>
-    <input type="checkbox" th:field="${newBooking.paid}"><br>
-    </div>
-
-    <button type="submit">Submit</button>
+    </section>
 </div>
-</form>
 <!--Insert footer fragment-->
 <div th:insert="~{/fragments/footer :: footer}"></div>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>
