@@ -5,11 +5,16 @@ import dk.kea.dat18i.teamsix.biotrio.repositories.BookingRepository;
 import dk.kea.dat18i.teamsix.biotrio.repositories.MoviePlanRepository;
 import dk.kea.dat18i.teamsix.biotrio.repositories.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.awt.print.Book;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -163,6 +168,22 @@ public class BookingController {
 
         bookingRepo.deleteBookingByConfirmationCode(phoneNumber, confirmationCode);
         return "redirect:/find-booking";
+    }
+
+    @GetMapping("/edit-booking/{id}")
+    public String editBooking(@PathVariable("id") int id, Model model)
+    {
+        Booking booking = bookingRepo.findBooking(id);
+        model.addAttribute("editedBooking", booking);
+        return "/edit-booking";
+    }
+
+    @PostMapping("/edit-booking/save")
+    public String saveEditedBooking(@ModelAttribute Booking booking, @ModelAttribute("a") String type)
+    {
+
+        bookingRepo.editBooking(booking);
+        return "redirect:/bookings";
     }
 
 }

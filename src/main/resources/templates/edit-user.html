@@ -50,33 +50,25 @@
                             </div>
                             <!--Grid column-->
 
-                            <!-- Password -->
-                            <!--Grid column-->
-                            <div class="col-md-6" style="margin-bottom: 2%">
-                                <div class="md-form mb-0">
-                                    <label>Password</label>
-                                    <input type="text" id="password" name="password" th:field="${editedUser.password}" class="form-control mb-4">
-                                </div>
-                            </div>
-                            <!--Grid column-->
-                        </div>
-                        <!--Grid row-->
-
-                        <!--Grid row-->
-                        <div class="row">
-
                             <!--Grid column-->
                             <div class="col-md-6" style="margin-bottom: 2%">
                                 <div class="md-form mb-0">
                                     <!-- Role -->
                                     <label>Role</label>
                                     <select th:field="${editedUser.role}" class="form-control mb-4">
-                                        <option value="ROLE_MANAGER"> USER</option>
+                                        <option value="ROLE_MANAGER"> MANAGER</option>
                                         <option value="ROLE_EMPLOYEE"> EMPLOYEE</option>
                                     </select>
                                 </div>
                             </div>
                             <!--Grid column-->
+
+                        </div>
+                        <!--Grid row-->
+
+                        <!--Grid row-->
+                        <div class="row">
+
 
                             <!--Grid column-->
                             <div class="col-md-6" style="margin-bottom: 2%">
