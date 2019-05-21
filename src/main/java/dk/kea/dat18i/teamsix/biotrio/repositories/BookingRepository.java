@@ -44,6 +44,35 @@ public class BookingRepository {
         return getBookingList(bookingList, rs);
     }
 
+    public Booking findBooking(int id) {
+        String query = "SELECT booking.booking_id, booking.movie_plan_id, phone_number, email, confirmation_code, paid, movie_plan.movie_plan_id, date_time, price as ticket_price, duration_minutes, movie_plan.movie_id,\n" +
+                "movie.movie_details_id, type as movie_type, movie_details.name as movie_name, language, movie_plan.theater_room_id,\n" +
+                "theater_room.name as theater_room_name from booking\n" +
+                "INNER JOIN movie_plan\n" +
+                "on booking.movie_plan_id = movie_plan.movie_plan_id\n" +
+                "INNER JOIN theater_room\n" +
+                "ON (movie_plan.theater_room_id = theater_room.theater_room_id)\n" +
+                "INNER JOIN movie\n" +
+                "ON (movie_plan.movie_id = movie.movie_id)\n" +
+                "INNER JOIN movie_details\n" +
+                "ON (movie.movie_details_id = movie_details.movie_details_id)\n" +
+                "WHERE booking_id = ?";
+
+        SqlRowSet rs = jdbc.queryForRowSet(query, id);
+        Booking booking = new Booking();
+
+        try {
+            if (rs.first()) {
+                getBooking(rs,booking);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(rs.getRow()==0)
+            return null;
+        return booking;
+    }
     public Booking findBookingByConfirmationCode(String email_phone, String confirmation_code) {
         String query = "SELECT booking.booking_id, booking.movie_plan_id, phone_number, email, confirmation_code, paid, movie_plan.movie_plan_id, date_time, price as ticket_price, duration_minutes, movie_plan.movie_id,\n" +
                 "movie.movie_details_id, type as movie_type, movie_details.name as movie_name, language, movie_plan.theater_room_id,\n" +
@@ -176,6 +205,23 @@ public class BookingRepository {
                 return ps;
             }
         };
+        jdbc.update(psc);
+    }
+
+    public void editBooking(Booking booking) {
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
+
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement("UPDATE booking set phone_number = ? , email = ? , paid = ? WHERE booking_id = ?");
+                ps.setString(1, booking.getPhone_number());
+                ps.setString(2, booking.getEmail());
+                ps.setBoolean(3, booking.getPaid());
+                ps.setInt(4, booking.getBooking_id());
+                return ps;
+            }
+        };
+
         jdbc.update(psc);
     }
 }
