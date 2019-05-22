@@ -26,116 +26,116 @@
 <div class="d-flex flex-column sticky-footer-wrapper">
     <!--Insert header fragment-->
     <div th:insert="~{/fragments/header :: header}"></div>
+    <div class="container flex-fill">
+        <nav class="navbar navbar-light navbar-expand-md bg-light justify-content-center">
+            <button class="navbar-toggler ml-1" type="button" data-toggle="collapse" data-target="#collapsingNavbar2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="collapsingNavbar2">
+                <ul class="navbar-nav mx-auto text-center">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="'/movies'">All</a>
+                    </li>
 
-    <nav class="navbar navbar-light navbar-expand-md bg-light justify-content-center">
-        <button class="navbar-toggler ml-1" type="button" data-toggle="collapse" data-target="#collapsingNavbar2">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="collapsingNavbar2">
-            <ul class="navbar-nav mx-auto text-center">
-                <li class="nav-item">
-                    <a class="nav-link" th:href="'/movies'">All</a>
-                </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" th:href="'/movies/action'">Action</a>
+                    </li>
 
-                <li class="nav-item ">
-                    <a class="nav-link" th:href="'/movies/action'">Action</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="'/movies/adventure'">Adventure</a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" th:href="'/movies/adventure'">Adventure</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="'/movies/anime'">Anime</a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" th:href="'/movies/anime'">Anime</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="'/movies/comedies'">Comedies</a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" th:href="'/movies/comedies'">Comedies</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="'/movies/crime'">Crime</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="'/movies/documentaries'">Documentaries</a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" th:href="'/movies/crime'">Crime</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="'/movies/documentaries'">Documentaries</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" th:href="'/movies/horror'">Horror</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="'/movies/romance'">Romance</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="'/movies/sci-fi'">SciFi</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="'/movies/thriller'">Thrillers</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <!--<div class="page-container">-->
-    <!-- Latest Released Movies Title and Divider -->
-    <h2 class="text-center orange-text" style="margin-top: 1.5rem"><span th:text="${moviesGenre}"> </span> Movies</h2>
-    <hr class="star-dark mb-5">
-    <!--start movie container-->
-    <!--style="padding-bottom: 15rem"-->
-    <div class="container container-movies flex-fill">
-        <!--movie-card-->
-        <div class="movie-card" th:each="movie: ${movies}">
-            <div class="movie-header movieName" th:style="'background:url(' + ${movie.movieDetails.poster} + '); background-size: cover;'">
-                <div class="header-icon-container">
-                    <a th:href="'/movie/' + ${movie.movie_id}">
-                        <i class="material-icons header-icon"></i>
-                    </a>
-                </div>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="'/movies/horror'">Horror</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="'/movies/romance'">Romance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="'/movies/sci-fi'">SciFi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="'/movies/thriller'">Thrillers</a>
+                    </li>
+                </ul>
             </div>
-            <!--movie-header-->
-            <div class="movie-content">
-                <div class="movie-content-header">
-                    <a href="#">
-                        <h3 class="movie-title">
-                            <span th:text="${movie.movieDetails.name}"></span>
-                        </h3>
-                    </a>
+        </nav>
+        <!--<div class="page-container">-->
+        <!-- Latest Released Movies Title and Divider -->
+        <h2 class="text-center orange-text" style="margin-top: 1.5rem"><span th:text="${moviesGenre}"> </span> Movies</h2>
+        <hr class="star-dark mb-5">
+        <!--start movie container-->
+        <!--style="padding-bottom: 15rem"-->
+        <div class="container container-movies flex-fill">
+            <!--movie-card-->
+            <div class="movie-card" th:each="movie: ${movies}">
+                <div class="movie-header movieName" th:style="'background:url(' + ${movie.movieDetails.poster} + '); background-size: cover;'">
+                    <div class="header-icon-container">
+                        <a th:href="'/movie/' + ${movie.movie_id}">
+                            <i class="material-icons header-icon"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="movie-info">
-                    <div class="info-section">
-                        <label>Release Date</label>
-                        <span th:text="${movie.movieDetails.release_date}"></span>
+                <!--movie-header-->
+                <div class="movie-content">
+                    <div class="movie-content-header">
+                        <a href="#">
+                            <h3 class="movie-title">
+                                <span th:text="${movie.movieDetails.name}"></span>
+                            </h3>
+                        </a>
                     </div>
-                    <!--date_time,time-->
-                    <div class="info-section">
-                        <label>Genre</label>
-                        <span th:text="${movie.movieDetails.genre}"></span>
+                    <div class="movie-info">
+                        <div class="info-section">
+                            <label>Release Date</label>
+                            <span th:text="${movie.movieDetails.release_date}"></span>
+                        </div>
+                        <!--date_time,time-->
+                        <div class="info-section">
+                            <label>Genre</label>
+                            <span th:text="${movie.movieDetails.genre}"></span>
+                        </div>
+                        <!--screen-->
+                        <div class="info-section">
+                            <label>Language</label>
+                            <span th:text="${movie.movieDetails.language}"></span>
+                        </div>
+                        <!--row-->
+                        <div class="info-section">
+                            <label>TYPE</label>
+                            <span th:text="${movie.type} ? '3D' : '2D'"></span>
+                        </div>
+                        <!--seat-->
                     </div>
-                    <!--screen-->
-                    <div class="info-section">
-                        <label>Language</label>
-                        <span th:text="${movie.movieDetails.language}"></span>
-                    </div>
-                    <!--row-->
-                    <div class="info-section">
-                        <label>TYPE</label>
-                        <span th:text="${movie.type} ? '3D' : '2D'"></span>
-                    </div>
-                    <!--seat-->
                 </div>
+                <!--movie-content-->
             </div>
-            <!--movie-content-->
+            <!--movie-card-->
+
+
         </div>
-        <!--movie-card-->
+        <!--end movie container-->
 
-
+        <!--Insert footer fragment-->
     </div>
-    <!--end movie container-->
-
-    <!--Insert footer fragment-->
     <div th:insert="~{/fragments/footer :: footer}"></div>
+    <!--</div>-->
 </div>
-<!--</div>-->
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
