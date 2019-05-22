@@ -23,63 +23,64 @@
     <title>Bio Trio Cinema | Find Booking</title>
 </head>
 <body>
-<!--Insert header fragment-->
-<div th:insert="~{/fragments/header :: header}"></div>
+<div class="d-flex flex-column sticky-footer-wrapper">
+    <!--Insert header fragment-->
+    <div th:insert="~{/fragments/header :: header}"></div>
 
-<div class="container">
-    <!--Section: Contact v.2-->
-    <section class="mb-4">
+    <div class="container flex-fill">
+        <!--Section: Contact v.2-->
+        <section class="mb-4">
 
-        <!--Section heading-->
-        <h2 class="h1-responsive font-weight-bold text-center my-4">Booking</h2>
-        <div class="row contact_form">
+            <!--Section heading-->
+            <h2 class="h1-responsive font-weight-bold text-center my-4">Booking</h2>
+            <div class="row contact_form">
 
-            <!--Grid column-->
-            <div class="col-md-12 mb-md-0 mb-5">
-                <form th:action="@{'/view-booking'}" method="post">
+                <!--Grid column-->
+                <div class="col-md-12 mb-md-0 mb-5">
+                    <form th:action="@{'/view-booking'}" method="post">
 
-                    <!--Grid row-->
-                    <div class="row">
+                        <!--Grid row-->
+                        <div class="row">
 
 
-                        <!--Grid column-->
-                        <div class="col-md-6" style="margin-bottom: 2%">
-                            <div class="md-form mb-0">
-                                <label for="email-phone" class="">Email / Phone Number</label>
-                                <input type="text" id="email-phone" name="email-phone" class="form-control">
+                            <!--Grid column-->
+                            <div class="col-md-6" style="margin-bottom: 2%">
+                                <div class="md-form mb-0">
+                                    <label for="email-phone" class="">Email / Phone Number</label>
+                                    <input type="text" id="email-phone" name="email-phone" class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <!--Grid column-->
+                            <!--Grid column-->
 
-                        <!--Grid column-->
-                        <div class="col-md-6" style="margin-bottom: 2%">
-                            <div class="md-form mb-0">
-                                <label for="confirmation-code" class="">Confirmation Code</label>
-                                <input type="text" id="confirmation-code" name="confirmation-code" class="form-control">
+                            <!--Grid column-->
+                            <div class="col-md-6" style="margin-bottom: 2%">
+                                <div class="md-form mb-0">
+                                    <label for="confirmation-code" class="">Confirmation Code</label>
+                                    <input type="text" id="confirmation-code" name="confirmation-code" class="form-control">
+                                </div>
                             </div>
+
                         </div>
-
-                    </div>
-                    <!--Grid row-->
+                        <!--Grid row-->
 
 
-                    <div class="text-center">
-                        <button type="submit" class="empty-button btn btn-default">
-                            Search
-                        </button>
-                    </div>
-                </form>
+                        <div class="text-center">
+                            <button type="submit" class="empty-button btn btn-default">
+                                Search
+                            </button>
+                        </div>
+                    </form>
 
+                </div>
+                <!--Grid column-->
             </div>
-            <!--Grid column-->
-        </div>
 
-    </section>
-    <!--Section: Contact v.2-->
+        </section>
+        <!--Section: Contact v.2-->
+    </div>
+    <!--Insert footer fragment-->
+    <div th:insert="~{/fragments/footer :: footer}"></div>
 </div>
-<!--Insert footer fragment-->
-<div th:insert="~{/fragments/footer :: footer}"></div>
-
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
