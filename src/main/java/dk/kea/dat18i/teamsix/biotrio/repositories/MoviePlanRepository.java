@@ -8,6 +8,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -169,6 +170,19 @@ public class MoviePlanRepository {
         };
 
         jdbc.update(psc);
+    }
+
+    public boolean checkIfMoviePlanIsAvailable(int theater_room_id, LocalDateTime date_time)
+    {
+        String query = "select theater_room_id, duration_minutes, date_time from movie_plan\n" +
+                "inner join movie\n" +
+                "on movie.movie_id = movie_plan.movie_id\n" +
+                "inner join movie_details\n" +
+                "on movie_details.movie_details_id = movie.movie_details_id\n" +
+                "where theater_room_id = ? && (date_time = ? || DATE_ADD(date_time, INTERVAL duration_minutes minute) >= ? );";
+
+        SqlRowSet rs = jdbc.queryForRowSet(query, theater_room_id, Timestamp.valueOf(date_time), Timestamp.valueOf(date_time));
+        return rs.first() ;
     }
 
 

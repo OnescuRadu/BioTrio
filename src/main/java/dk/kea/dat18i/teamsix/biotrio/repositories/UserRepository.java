@@ -130,6 +130,18 @@ public class UserRepository {
         return userList;
     }
 
+    public boolean checkIfUsernameExists(String username){
+        String query = "SELECT * FROM user WHERE username = ? ;";
+        SqlRowSet rs = jdbc.queryForRowSet(query, username);
+        return rs.first() ;
+    }
+
+    public boolean checkIfUsernameExistsWithId(String username, int id){
+        String query = "SELECT * FROM user WHERE username = ? and user_id != ?;";
+        SqlRowSet rs = jdbc.queryForRowSet(query, username, id);
+        return rs.first() ;
+    }
+
     @Autowired
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

@@ -41,8 +41,13 @@ public class UserController {
     }
 
     @PostMapping("/add-user/save")
-    public String saveUser(@ModelAttribute User user)
+    public String saveUser(@ModelAttribute User user, Model model)
     {
+        if(userRepo.checkIfUsernameExists(user.getUsername()))
+        {
+            model.addAttribute("error", "Username already exists. Please try again!");
+            return "/error";
+        }
         userRepo.insertUser(user);
         return "redirect:/users";
     }
@@ -57,8 +62,13 @@ public class UserController {
     }
 
     @PostMapping("/edit-user/save")
-    public String editUser(@ModelAttribute User user)
+    public String editUser(@ModelAttribute User user, Model model)
     {
+        if(userRepo.checkIfUsernameExistsWithId(user.getUsername(), user.getUser_id()))
+        {
+            model.addAttribute("error", "Username already exists. Please try again!");
+            return "/error";
+        }
         userRepo.editUser(user);
         return "redirect:/users";
     }

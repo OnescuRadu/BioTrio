@@ -69,7 +69,7 @@ public class BookingController {
     }
 
     @PostMapping("/create-booking")
-    public String saveMoviePlan(@ModelAttribute("newBooking") Booking booking, Model model) {
+    public String saveBooking(@ModelAttribute("newBooking") Booking booking, Model model) {
 
         String[] seats = booking.getSeatList(); //instantiate array of strings and initialize it with the array of strings from the booking object
         Booking.formatSeatList(seats); //format the array of strings so the numbers will have two digits
@@ -92,7 +92,6 @@ public class BookingController {
         }
 
         booking.setTicketList(ticketList); //sets ticketList inside booking
-
 
 
 
@@ -129,7 +128,6 @@ public class BookingController {
 
         //Adding the booking object into a model and returning the booking-confirmation template
         model.addAttribute("booking", booking);
-        System.out.println(booking.getMoviePlan().getMovie().getMovieDetails().getPoster());
         return "/booking-confirmation";
     }
 
