@@ -983,3 +983,9 @@ ul {
     background-color: black;
     color: white;
 }
+
+/*----------- Seats Table ----------- */
+
+.seats-table{
+    margin: 0 auto;
+}

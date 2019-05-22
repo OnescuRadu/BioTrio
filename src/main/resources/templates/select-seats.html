@@ -41,8 +41,8 @@
                     <div class="row justify-content-center">
                         <div class="screen"></div>
                     </div>
-                    <div class="row justify-content-center">
-                        <!--<div class="col-md-1"></div>-->
+<!--                    <div class="row justify-content-center">
+                        &lt;!&ndash;<div class="col-md-1"></div>&ndash;&gt;
                         <div th:each="i: ${#numbers.sequence(1, newBooking.moviePlan.theaterRoom.rows_no)}">
                             <div class="span3 pretty p-default p-curve p-toggle" th:each="j: ${#numbers.sequence(1, newBooking.moviePlan.theaterRoom.columns_no)}" style="padding: 10px;">
                                 <div class="col-md-6">
@@ -53,7 +53,27 @@
                             </div>
                             <br>
                         </div>
-                    </div>
+                    </div>-->
+                    <div class="justify-content-center">
+                    <table border="0" class="seats-table">
+<!--                        <thead>
+                        <tr>
+                            <th>Col 1</th>
+                            <th>Col 2</th>
+                            <th>Col 3</th>
+                            <th>Col 4</th>
+                        </tr>
+                        </thead>-->
+                        <tbody>
+                        <tr th:each="i: ${#numbers.sequence(1, newBooking.moviePlan.theaterRoom.rows_no)}">
+                            <td th:each="j: ${#numbers.sequence(1, newBooking.moviePlan.theaterRoom.columns_no)}">
+                                <input class="seat" type="checkbox" th:name="${i} + '-' + ${j}" th:disabled="${reservedSeats[__${i-1}__][__${j-1}__]}" th:field="${newBooking.seatList}"
+                                       th:value="${i} + '-' + ${j}">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
                     <input type="hidden" id="movie_plan_id" th:value="${newBooking.moviePlan.movie_plan_id}" name="movie_plan_id">
 
 
