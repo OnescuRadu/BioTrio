@@ -32,7 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         http.csrf().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index", "/movies/**", "/select-seats", "/create-booking", "/booking-confirmation", "/contact", "/send-contact-email", "/about-us", "/faq", "/movie/**", "/css/**", "/images/**", "/save-movie/**", "/find-booking", "/view-booking", "/delete-booking-by-customer/**", "/search-movie:**" , "/search-movie-post").permitAll()
+                .antMatchers("/", "/index", "/movies/**", "/select-seats", "/create-booking", "/booking-confirmation", "/contact", "/send-contact-email", "/about-us", "/faq", "/movie/**", "/css/**", "/images/**", "/save-movie/**", "/find-booking", "/view-booking", "/delete-booking-by-customer/**", "/search-movie:**" , "/search-movie-post", "/404", "/403").permitAll()
                 .antMatchers("/control-panel/**").hasAnyRole("MANAGER", "EMPLOYEE")
                 .antMatchers(
                         "/theater-room", "/delete-theater-room/**", "/add-theater-room", "/add-theater-room/save","/edit-theater-room/**",

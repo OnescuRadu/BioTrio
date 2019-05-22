@@ -17,11 +17,6 @@ public class WebController {
         return "/contact";
     }
 
-    @GetMapping("/faq")
-    public String showFaq(){
-        return "/faq";
-    }
-
     @GetMapping("/control-panel")
     public String showControlPanel(){
         return "/control-panel";
@@ -30,21 +25,6 @@ public class WebController {
     @GetMapping("/login")
     public String login(){
         return "login";
-    }
-
-    @GetMapping("/user")
-    public String user(){
-        return "user";
-    }
-
-    @GetMapping("/admin")
-    public String admin(){
-        return "admin";
-    }
-
-    @GetMapping("/employee")
-    public String employee(){
-        return "employee";
     }
 
     @GetMapping("/403")
