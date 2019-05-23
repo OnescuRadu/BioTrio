@@ -182,7 +182,8 @@ public class MoviePlanRepository {
                 "on movie.movie_id = movie_plan.movie_id\n" +
                 "inner join movie_details\n" +
                 "on movie_details.movie_details_id = movie.movie_details_id\n" +
-                "where theater_room_id = ? && (date_time = ? || DATE_ADD(date_time, INTERVAL duration_minutes minute) >= ? || DATE_ADD(?, INTERVAL ? minute) >= date_time );";
+                "where theater_room_id = ? && (date_time = ? || DATE_ADD(date_time, INTERVAL duration_minutes minute) >= ? );";
+        //Still have to check if planned time plus duration is not overlapping the already planned movies
 
         SqlRowSet rs = jdbc.queryForRowSet(query, theater_room_id, Timestamp.valueOf(date_time), Timestamp.valueOf(date_time), Timestamp.valueOf(date_time), duration_minutes);
         return rs.first() ;
