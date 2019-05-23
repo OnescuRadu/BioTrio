@@ -23,6 +23,9 @@ public class MovieRepository {
     @Autowired
     private JdbcTemplate jdbc;
 
+    @Autowired
+    private MovieDetailsRepository movieDetailsRepo;
+
     public List<Movie> findAllMovies() {
         String query = "SELECT movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
                 "FROM movie \n" +
@@ -151,7 +154,8 @@ public class MovieRepository {
         movie.setType(rs.getBoolean("type"));
 
         MovieDetails movieDetails = new MovieDetails();
-        MovieDetailsRepository.movieDetailsSetter(rs, movieDetails);
+
+        movieDetailsRepo.getMovieDetails(rs, movieDetails);
 
         movie.setMovieDetails(movieDetails);
     }

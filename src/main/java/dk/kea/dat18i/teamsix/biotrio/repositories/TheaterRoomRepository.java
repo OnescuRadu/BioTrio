@@ -23,7 +23,7 @@ public class TheaterRoomRepository {
     private JdbcTemplate jdbc;
 
     /**
-     * Method finds all the theater room's in the database
+     * Method finds all the theater rooms in the database
      *
      * @return a list containing all the theater rooms
      */
@@ -40,7 +40,7 @@ public class TheaterRoomRepository {
      * Method finds the theater room that has a given id in the database
      *
      * @param id represents the theater room's id
-     * @return a TheaterRoom object that has the given id
+     * @return a populated TheaterRoom object
      */
     public TheaterRoom findTheaterRoom(int id) {
         String query = "SELECT * FROM theater_room WHERE theater_room_id = ? ;";
