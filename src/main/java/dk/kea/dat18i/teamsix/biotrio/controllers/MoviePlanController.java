@@ -54,8 +54,8 @@ public class MoviePlanController {
     @PostMapping("/add-movie-plan/save")
     public String saveMoviePlan(@ModelAttribute MoviePlan moviePlan, Model model)
     {
-        System.out.println(moviePlanRepo.checkIfMoviePlanIsAvailable(moviePlan.getTheater_room_id(), moviePlan.getDate_time()));
-        if(moviePlanRepo.checkIfMoviePlanIsAvailable(moviePlan.getTheater_room_id(), moviePlan.getDate_time()))
+        Movie movie = movieRepo.findMovie(moviePlan.getMovie_id());
+        if(moviePlanRepo.checkIfMoviePlanIsAvailable(moviePlan.getTheater_room_id(), moviePlan.getDate_time(),movie.getMovieDetails().getDuration_minutes()))
         {
             model.addAttribute("error", "There is already a movie scheduled for that time.");
             return "/error";

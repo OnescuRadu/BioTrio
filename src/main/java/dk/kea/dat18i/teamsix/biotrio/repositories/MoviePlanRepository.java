@@ -18,6 +18,9 @@ public class MoviePlanRepository {
     @Autowired
     private JdbcTemplate jdbc;
 
+    @Autowired
+    private MovieRepository movieRepo;
+
     public MoviePlan findMoviePlan(int id) {
         String query = "SELECT movie_plan_id, date_time,  price, movie_plan.movie_id, movie.movie_details_id, type, movie_details.name, movie_plan.theater_room_id, theater_room.name as theater_room_name,rows_no,columns_no,3d_capability \n" +
                 "FROM movie_plan\n" +
@@ -172,16 +175,16 @@ public class MoviePlanRepository {
         jdbc.update(psc);
     }
 
-    public boolean checkIfMoviePlanIsAvailable(int theater_room_id, LocalDateTime date_time)
+    public boolean checkIfMoviePlanIsAvailable(int theater_room_id, LocalDateTime date_time, int duration_minutes)
     {
         String query = "select theater_room_id, duration_minutes, date_time from movie_plan\n" +
                 "inner join movie\n" +
                 "on movie.movie_id = movie_plan.movie_id\n" +
                 "inner join movie_details\n" +
                 "on movie_details.movie_details_id = movie.movie_details_id\n" +
-                "where theater_room_id = ? && (date_time = ? || DATE_ADD(date_time, INTERVAL duration_minutes minute) >= ? );";
+                "where theater_room_id = ? && (date_time = ? || DATE_ADD(date_time, INTERVAL duration_minutes minute) >= ? || DATE_ADD(?, INTERVAL ? minute) >= date_time );";
 
-        SqlRowSet rs = jdbc.queryForRowSet(query, theater_room_id, Timestamp.valueOf(date_time), Timestamp.valueOf(date_time));
+        SqlRowSet rs = jdbc.queryForRowSet(query, theater_room_id, Timestamp.valueOf(date_time), Timestamp.valueOf(date_time), Timestamp.valueOf(date_time), duration_minutes);
         return rs.first() ;
     }
 

@@ -13,11 +13,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the repository for the theater room
+ */
 @Repository
 public class TheaterRoomRepository {
+
     @Autowired
     private JdbcTemplate jdbc;
 
+    /**
+     * Method finds all the theater room's in the database
+     *
+     * @return a list containing all the theater rooms
+     */
     public List<TheaterRoom> findAllTheaterRoom() {
         String query = "SELECT * from theater_room";
 
@@ -27,6 +36,12 @@ public class TheaterRoomRepository {
         return getTheaterRoomList(theaterRoomList, rs);
     }
 
+    /**
+     * Method finds the theater room that has a given id in the database
+     *
+     * @param id represents the theater room's id
+     * @return a TheaterRoom object that has the given id
+     */
     public TheaterRoom findTheaterRoom(int id) {
         String query = "SELECT * FROM theater_room WHERE theater_room_id = ? ;";
 
@@ -47,6 +62,11 @@ public class TheaterRoomRepository {
         return theaterRoom;
     }
 
+    /**
+     * Method deletes from the database the theater room that has the given id
+     *
+     * @param id represents the theater room's id
+     */
     public void deleteTheaterRoom(int id) {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
             @Override
@@ -59,7 +79,12 @@ public class TheaterRoomRepository {
         jdbc.update(psc);
     }
 
-    public String insertTheaterRoom(TheaterRoom theaterRoom) {
+    /**
+     * Method inserts in the database the given TheaterRoom object
+     *
+     * @param theaterRoom represents a TheaterRoom object
+     */
+    public void insertTheaterRoom(TheaterRoom theaterRoom) {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
 
             @Override
@@ -74,9 +99,14 @@ public class TheaterRoomRepository {
         };
 
         jdbc.update(psc);
-        return "redirect:/theater-room";
+
     }
 
+    /**
+     * Method updates the information from the database of the given TheaterRoom object
+     *
+     * @param theaterRoom represents a TheaterRoom object
+     */
     public void editTheaterRoom(TheaterRoom theaterRoom) {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
 
@@ -95,6 +125,13 @@ public class TheaterRoomRepository {
         jdbc.update(psc);
     }
 
+    /**
+     * Method sets theater room id, name, rows number, columns number, 3d capability inside the given TheaterRoom object using the given SqlRowSet
+     * This method is used for avoiding writing the same setters in every other method and having duplicate code
+     *
+     * @param rs represents a RowSet object containing a set of rows
+     * @param theaterRoom represents a TheaterRoom object
+     */
     private void getTheaterRoom(SqlRowSet rs, TheaterRoom theaterRoom) {
 
         theaterRoom.setTheater_room_id(rs.getInt("theater_room_id"));
@@ -105,6 +142,13 @@ public class TheaterRoomRepository {
 
     }
 
+    /**
+     * Method initializes TheaterRoom objects using the given RowSet and adds them to a list that is returned in the end
+     *
+     * @param theaterRoomList represents a list of TheaterRoom objects
+     * @param rs represents a RowSet object containing a set of rows
+     * @return a list of TheaterRoom objects
+     */
     private List<TheaterRoom> getTheaterRoomList(List<TheaterRoom> theaterRoomList, SqlRowSet rs) {
         try {
             while (rs.next()) {

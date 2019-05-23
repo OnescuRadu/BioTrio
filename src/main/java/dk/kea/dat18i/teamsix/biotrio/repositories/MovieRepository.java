@@ -151,15 +151,7 @@ public class MovieRepository {
         movie.setType(rs.getBoolean("type"));
 
         MovieDetails movieDetails = new MovieDetails();
-        movieDetails.setMovie_details_id(rs.getInt("movie_details_id"));
-        movieDetails.setName(rs.getString("name"));
-        movieDetails.setGenre(rs.getString("genre"));
-        movieDetails.setRelease_date(rs.getDate("release_date").toLocalDate());
-        movieDetails.setDuration_minutes(rs.getInt("duration_minutes"));
-        movieDetails.setDescription(rs.getString("description"));
-        movieDetails.setLanguage(rs.getString("language"));
-        movieDetails.setPoster(rs.getString("poster"));
-        movieDetails.setTrailer(rs.getString("trailer"));
+        MovieDetailsRepository.movieDetailsSetter(rs, movieDetails);
 
         movie.setMovieDetails(movieDetails);
     }

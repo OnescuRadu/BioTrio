@@ -26,6 +26,10 @@ public class MovieDetailsRepository {
     }
 
     private void getMovieDetail(SqlRowSet rs, MovieDetails movieDetails) {
+        movieDetailsSetter(rs, movieDetails);
+    }
+
+    static void movieDetailsSetter(SqlRowSet rs, MovieDetails movieDetails) {
         movieDetails.setMovie_details_id(rs.getInt("movie_details_id"));
         movieDetails.setName(rs.getString("name"));
         movieDetails.setGenre(rs.getString("genre"));
