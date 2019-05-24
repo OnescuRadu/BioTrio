@@ -14,12 +14,30 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the repository for the user
+ */
 @Repository
 public class UserRepository {
 
     @Autowired
     private JdbcTemplate jdbc;
 
+    /**
+     * Implementation of PasswordEncoder
+     * Eg. 'pass' becomes '$2a$10$hLA38Utx1nxf9pVmhYa7xOCmM/CnC4UqBsbwvyFsP7fbOhMZy1iZa'
+     */
+    @Autowired
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+
+    /**
+     * Method finds all the users in the database
+     *
+     * @return a list of User objects
+     */
     public List<User> findAllUser() {
         String query = "SELECT * from user";
 
@@ -29,6 +47,12 @@ public class UserRepository {
     }
 
 
+    /**
+     * Method finds the user that has a given id in the database
+     *
+     * @param id represents the user's id
+     * @return a populated User object
+     */
     public User findUser(int id) {
         String query = "SELECT * FROM user WHERE user_id = ? ;";
         SqlRowSet rs = jdbc.queryForRowSet(query, id);
@@ -36,9 +60,7 @@ public class UserRepository {
         try {
 
             if (rs.first()) {
-
                 getUser(rs, user);
-
             }
 
         } catch (Exception e) {
@@ -47,6 +69,11 @@ public class UserRepository {
         return user;
     }
 
+    /**
+     * Method deletes from the database the user that has the given id
+     *
+     * @param id represents the user's id
+     */
     public void deleteUser(int id) {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
             @Override
@@ -59,6 +86,11 @@ public class UserRepository {
         jdbc.update(psc);
     }
 
+    /**
+     * Method inserts in the database the given User object
+     *
+     * @param user represents the User object
+     */
     public void insertUser(User user) {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
 
@@ -76,6 +108,11 @@ public class UserRepository {
         jdbc.update(psc);
     }
 
+    /**
+     * Method updates the password from the database of the given User object
+     *
+     * @param user represents the User object
+     */
     public void editUserPassword(User user) {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
 
@@ -91,6 +128,11 @@ public class UserRepository {
         jdbc.update(psc);
     }
 
+    /**
+     * Method updates the username, role and access status from the database of the given User object
+     *
+     * @param user represents the User object
+     */
     public void editUser(User user) {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
 
@@ -108,6 +150,13 @@ public class UserRepository {
         jdbc.update(psc);
     }
 
+    /**
+     * Method sets username, role, access status inside the given User object using the given SqlRowSet
+     * This method is used for avoiding writing the same setters in every other method and having duplicate code
+     *
+     * @param rs   represents a RowSet object containing a set of rows
+     * @param user represents a User object
+     */
     private void getUser(SqlRowSet rs, User user) {
         user.setUser_id(rs.getInt("user_id"));
         user.setUsername(rs.getString("username"));
@@ -115,6 +164,13 @@ public class UserRepository {
         user.setEnabled(rs.getBoolean("enabled"));
     }
 
+    /**
+     * Method initializes User objects using the given RowSet and adds them to a list that is returned in the end
+     *
+     * @param userList represents a list of User objects
+     * @param rs       represents a RowSet object containing a set of rows
+     * @return a list of User objects
+     */
     private List<User> getUserList(List<User> userList, SqlRowSet rs) {
         try {
 
@@ -130,21 +186,37 @@ public class UserRepository {
         return userList;
     }
 
-    public boolean checkIfUsernameExists(String username){
+    /**
+     * Method checks if the given username already exists in the database
+     * <p>
+     * rs.first() tries to move the cursor to the first row of the RowSet and returns true if the row exists or false if the row doesn't exist
+     *
+     * @param username represents the username
+     * @return TRUE if the given username already exists and FALSE if it doesn't
+     */
+    public boolean checkIfUsernameExists(String username) {
         String query = "SELECT * FROM user WHERE username = ? ;";
         SqlRowSet rs = jdbc.queryForRowSet(query, username);
-        return rs.first() ;
+        return rs.first();
     }
 
-    public boolean checkIfUsernameExistsWithId(String username, int id){
+    /**
+     * Method checks if the given username already exists in the database but it does not have the given id
+     * <p>
+     * This method is used when the username is edited in the edit user page,
+     * so it will return true if a username already exists and it does not belong to the same user that we edited
+     * <p>
+     * rs.first() tries to move the cursor to the first row of the RowSet and returns true if the row exists or false if the row doesn't exist
+     *
+     * @param username represents the username
+     * @param id       represents the user's id
+     * @return TRUE if the given username already exists and FALSE if it doesn't
+     */
+    public boolean checkIfUsernameExistsWithId(String username, int id) {
         String query = "SELECT * FROM user WHERE username = ? and user_id != ?;";
         SqlRowSet rs = jdbc.queryForRowSet(query, username, id);
-        return rs.first() ;
+        return rs.first();
     }
 
-    @Autowired
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
 }

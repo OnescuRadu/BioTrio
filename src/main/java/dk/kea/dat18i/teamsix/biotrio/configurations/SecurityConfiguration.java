@@ -18,6 +18,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     DataSource dataSource;
 
     @Autowired
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource)
                 .passwordEncoder(passwordEncoder())
@@ -44,8 +49,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         http.exceptionHandling().accessDeniedPage("/403");
     }
 
-    @Autowired
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 }
