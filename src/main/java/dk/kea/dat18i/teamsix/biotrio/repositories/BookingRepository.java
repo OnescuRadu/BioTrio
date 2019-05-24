@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * Represents the repository for the booking
+ */
 @Repository
 public class BookingRepository {
 
@@ -26,6 +29,11 @@ public class BookingRepository {
     @Autowired
     private JdbcTemplate jdbc;
 
+    /**
+     * Method finds all the bookings in the database
+     *
+     * @return a list of Booking object
+     */
     public List<Booking> findAllBooking() {
         String query = "SELECT booking.booking_id, booking.movie_plan_id, phone_number, email, confirmation_code, paid, movie_plan.movie_plan_id, date_time, price as ticket_price, duration_minutes, movie_plan.movie_id, \n" +
                 "movie.movie_details_id, type as movie_type, movie_details.name as movie_name, language, movie_plan.theater_room_id, \n" +
@@ -44,6 +52,12 @@ public class BookingRepository {
         return getBookingList(bookingList, rs);
     }
 
+    /**
+     * Method finds the booking that has the id in the database
+     *
+     * @param id represents the booking id
+     * @return a populated Booking object if it exists or NULL if not
+     */
     public Booking findBooking(int id) {
         String query = "SELECT booking.booking_id, booking.movie_plan_id, phone_number, email, confirmation_code, paid, movie_plan.movie_plan_id, date_time, price as ticket_price, duration_minutes, movie_plan.movie_id,\n" +
                 "movie.movie_details_id, type as movie_type, movie_details.name as movie_name, language, movie_plan.theater_room_id,\n" +
@@ -63,17 +77,65 @@ public class BookingRepository {
 
         try {
             if (rs.first()) {
-                getBooking(rs,booking);
+                getBooking(rs, booking);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(rs.getRow()==0)
+
+        //Checking to see if there is a row found and returns NULL if not
+
+        if (rs.getRow() == 0)
+            return null;
+
+        return booking;
+    }
+
+    /**
+     * Method finds the booking that has the given confirmation code in the database
+     *
+     * @param confirmation_code represents the booking's confirmation code
+     * @return a populated Booking object
+     */
+    public Booking findBookingByConfirmationCode(String confirmation_code) {
+        String query = "SELECT booking.booking_id, booking.movie_plan_id, phone_number, email, confirmation_code, paid, movie_plan.movie_plan_id, date_time, price as ticket_price, duration_minutes, movie_plan.movie_id,\n" +
+                "movie.movie_details_id, type as movie_type, movie_details.name as movie_name, language, movie_plan.theater_room_id,\n" +
+                "theater_room.name as theater_room_name from booking\n" +
+                "INNER JOIN movie_plan\n" +
+                "on booking.movie_plan_id = movie_plan.movie_plan_id\n" +
+                "INNER JOIN theater_room\n" +
+                "ON (movie_plan.theater_room_id = theater_room.theater_room_id)\n" +
+                "INNER JOIN movie\n" +
+                "ON (movie_plan.movie_id = movie.movie_id)\n" +
+                "INNER JOIN movie_details\n" +
+                "ON (movie.movie_details_id = movie_details.movie_details_id)\n" +
+                "WHERE confirmation_code = ? ";
+
+        SqlRowSet rs = jdbc.queryForRowSet(query, confirmation_code);
+        Booking booking = new Booking();
+
+        try {
+            if (rs.first()) {
+                getBooking(rs, booking);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (rs.getRow() == 0)
             return null;
         return booking;
     }
-    public Booking findBookingByConfirmationCode(String email_phone, String confirmation_code) {
+
+    /**
+     * Method finds the booking that has the given email/phone number and the given confirmation code in the database
+     *
+     * @param email_phone       represents the booking's email or the phone number
+     * @param confirmation_code represents the booking's confirmation code
+     * @return a populated Booking object
+     */
+    public Booking findBookingByCustomer(String email_phone, String confirmation_code) {
         String query = "SELECT booking.booking_id, booking.movie_plan_id, phone_number, email, confirmation_code, paid, movie_plan.movie_plan_id, date_time, price as ticket_price, duration_minutes, movie_plan.movie_id,\n" +
                 "movie.movie_details_id, type as movie_type, movie_details.name as movie_name, language, movie_plan.theater_room_id,\n" +
                 "theater_room.name as theater_room_name from booking\n" +
@@ -92,17 +154,24 @@ public class BookingRepository {
 
         try {
             if (rs.first()) {
-                getBooking(rs,booking);
+                getBooking(rs, booking);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(rs.getRow()==0)
+        if (rs.getRow() == 0)
             return null;
         return booking;
     }
 
+    /**
+     * Method sets the variables inside the given Booking object using the given SqlRowSet
+     * This method is used for avoiding writing the same setters in every other method and having duplicate code
+     *
+     * @param rs represents a RowSet object containing a set of rows
+     * @param booking represents the given Booking object
+     */
     private void getBooking(SqlRowSet rs, Booking booking) {
         booking.setBooking_id(rs.getInt("booking_id"));
         booking.setPhone_number(rs.getString("phone_number"));
@@ -146,6 +215,13 @@ public class BookingRepository {
 
     }
 
+    /**
+     * Method initializes Booking objects using the given RowSet and adds them to a list that is returned in the end
+     *
+     * @param bookingsList represents a list of Booking objects
+     * @param rs           represents a RowSet object containing a set of rows
+     * @return
+     */
     private List<Booking> getBookingList(List<Booking> bookingsList, SqlRowSet rs) {
         try {
             while (rs.next()) {
@@ -160,8 +236,13 @@ public class BookingRepository {
         return bookingsList;
     }
 
-    public Booking insertBooking(Booking booking)
-    {
+    /**
+     * Method inserts in the database the given Booking object
+     *
+     * @param booking represents the Booking object
+     * @return the booking object having the same id as in the database
+     */
+    public Booking insertBooking(Booking booking) {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
 
             @Override
@@ -183,6 +264,11 @@ public class BookingRepository {
         return booking;
     }
 
+    /**
+     * Method deletes the booking that has the given booking id
+     *
+     * @param id represents the booking's id
+     */
     public void deleteBooking(int id) {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
             @Override
@@ -195,7 +281,14 @@ public class BookingRepository {
         jdbc.update(psc);
     }
 
-    public void deleteBookingByConfirmationCode(String phoneNumber, String confirmation_code) {
+
+    /**
+     * Method deletes the booking that has the given confirmation code and the given email/phone number
+     *
+     * @param phoneNumber represents the booking's phone number
+     * @param confirmation_code represents the booking's confirmation code
+     */
+    public void deleteBookingByCustomer(String phoneNumber, String confirmation_code) {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -208,6 +301,27 @@ public class BookingRepository {
         jdbc.update(psc);
     }
 
+    /**
+     * Method deletes the booking that has the given confirmation code
+     *
+     * @param confirmation_code
+     */
+    public void deleteBooking(String confirmation_code) {
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement("DELETE from booking where confirmation_code = ?");
+                ps.setString(1, confirmation_code);
+                return ps;
+            }
+        };
+        jdbc.update(psc);
+    }
+
+    /**
+     * Method updates the information from the database of the given Booking object
+     * @param booking represents the Booking object
+     */
     public void editBooking(Booking booking) {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
 

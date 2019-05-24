@@ -37,20 +37,28 @@
 
                 <!--Grid column-->
                 <div class="col-md-12 mb-md-0 mb-5">
-                    <form th:action="@{'/view-booking'}" method="post">
+                    <form th:action="@{'/view-booking-by-customer'}" method="post">
 
                         <!--Grid row-->
                         <div class="row">
 
 
                             <!--Grid column-->
-                            <div class="col-md-12" style="margin-bottom: 2%">
+                            <div class="col-md-6" style="margin-bottom: 2%">
+                                <div class="md-form mb-0">
+                                    <label for="email-phone" class="">Email / Phone Number</label>
+                                    <input type="text" id="email-phone" name="email-phone" class="form-control">
+                                </div>
+                            </div>
+                            <!--Grid column-->
+
+                            <!--Grid column-->
+                            <div class="col-md-6" style="margin-bottom: 2%">
                                 <div class="md-form mb-0">
                                     <label for="confirmation-code" class="">Confirmation Code</label>
                                     <input type="text" id="confirmation-code" name="confirmation-code" class="form-control">
                                 </div>
                             </div>
-                            <!--Grid column-->
 
                         </div>
                         <!--Grid row-->

@@ -98,7 +98,7 @@ public class MoviePlanRepository {
     }
 
     /**
-     * Method deletes the movie plan that has the given movie plan iid
+     * Method deletes the movie plan that has the given movie plan id
      *
      * @param id represents the movie plan id
      */

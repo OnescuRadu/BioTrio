@@ -20,15 +20,7 @@ public class BioTrioApplication {
     }
     public static void main(String[] args) {
         SpringApplication.run(BioTrioApplication.class,args);
-/*        String date = "2013-09-18T20:40:00";
 
-        DateTimeZone timeZone = DateTimeZone.forID( "Europe/Copenhagen" );
-        DateTime dateTime = new DateTime( date, timeZone );
-        DateTime dateTimeUtc = dateTime.withZone( DateTimeZone.UTC );
-
-        System.out.println("dateTime NOW: " + LocalDateTime.now());
-        System.out.println( "dateTime: " + dateTime );
-        System.out.println( "dateTimeUtc: " + dateTimeUtc );*/
         }
 
 }
