@@ -16,6 +16,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the repository for the movie
+ */
+
 @Repository
 public class MovieRepository {
 
@@ -25,6 +29,12 @@ public class MovieRepository {
 
     @Autowired
     private MovieDetailsRepository movieDetailsRepo;
+
+    /**
+     * Method finds all the movies in the database
+     *
+     * @return a list of Movie objects
+     */
 
     public List<Movie> findAllMovies() {
         String query = "SELECT movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
@@ -38,6 +48,12 @@ public class MovieRepository {
         return getMovieList(movieList, rs);
     }
 
+    /**
+     * Method finds the movie that has the given movie id in the database
+     *
+     * @param id represents the movie's id
+     * @return a populated Movie object
+     */
 
     public Movie findMovie(int id) {
         String query = "SELECT movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
@@ -61,7 +77,13 @@ public class MovieRepository {
         return movie;
     }
 
-    public Movie saveMovie(Movie movie) {
+    /**
+     * Method inserts in the database the given Movie object
+     *
+     * @param movie represents a Movie object
+     */
+
+    public void saveMovie(Movie movie) {
 
         PreparedStatementCreator psc_movie_details = new PreparedStatementCreator() {
             @Override
@@ -96,8 +118,13 @@ public class MovieRepository {
         KeyHolder movie_id = new GeneratedKeyHolder();
         jdbc.update(psc_movie, movie_id);
         movie.setMovie_id(movie_id.getKey().intValue());
-        return movie;
     }
+
+    /**
+     * Method inserts in the database the given Movie object with details which already exists
+     *
+     * @param movie represents a Movie object
+     */
 
     public void insertMovieUsingDetails(Movie movie)
     {
@@ -113,6 +140,13 @@ public class MovieRepository {
         jdbc.update(psc);
     }
 
+    /**
+     * Method finds the movie that has the given gender in the database
+     *
+     * @param gender represents the given gender
+     * @return a list of Movie objects
+     */
+
     public List<Movie> findMovieByGender(String gender) {
         String query = "SELECT movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer \n" +
                 "FROM movie\n" +
@@ -125,6 +159,13 @@ public class MovieRepository {
         return getMovieList(movieList, rs);
     }
 
+    /**
+     * Method finds the movie that has the given name in the database
+     *
+     * @param name represents the given name
+     * @return a list of Movie objects
+     */
+
     public List<Movie> findMovieByName(String name) {
         String query = "SELECT movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
                 "FROM movie \n" +
@@ -135,6 +176,12 @@ public class MovieRepository {
         List<Movie> movieList = new ArrayList<>();
         return getMovieList(movieList, rs);
     }
+
+    /**
+     * Method deletes from the database the movie that has the given id
+     *
+     * @param id represents the movie's id
+     */
 
     public void deleteMovie(int id) {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
@@ -148,6 +195,14 @@ public class MovieRepository {
         jdbc.update(psc);
     }
 
+    /**
+     * Method sets movie id, movie details id, movie type inside the given Movie object using the given SqlRowSet
+     * This method is used for avoiding writing the same setters in every other method and having duplicate code
+     *
+     * @param rs   represents a RowSet object containing a set of rows
+     * @param movie represents a Movie object
+     */
+
     private void getMovie(SqlRowSet rs, Movie movie) {
         movie.setMovie_id(rs.getInt("movie_id"));
         movie.setMovie_details_id(rs.getInt("movie_details_id"));
@@ -159,6 +214,14 @@ public class MovieRepository {
 
         movie.setMovieDetails(movieDetails);
     }
+
+    /**
+     * Method initializes Movie objects using the given RowSet and adds them to a list that is returned in the end
+     *
+     * @param movieList represents a list of Movie objects
+     * @param rs       represents a RowSet object containing a set of rows
+     * @return a list of Movie objects
+     */
 
     private List<Movie> getMovieList(List<Movie> movieList, SqlRowSet rs) {
         try {
@@ -174,6 +237,12 @@ public class MovieRepository {
         }
         return movieList;
     }
+
+    /**
+     * Method updates the information from the database of the given Movie object
+     *
+     * @param movie represents a Movie object
+     */
 
     public void updateMovie(Movie movie) {
 

@@ -27,62 +27,63 @@
 </head>
 <body>
 <!--Insert header fragment-->
-<div th:insert="~{/fragments/header :: header}"></div>
+<div class="d-flex flex-column sticky-footer-wrapper">
+    <div th:insert="~{/fragments/header :: header}"></div>
 
-<div class="container">
-    <!--Section: Contact v.2-->
-    <section class="mb-4">
+    <div class="container flex-fill">
+        <!--Section: Contact v.2-->
+        <section class="mb-4">
 
-        <!--Section heading-->
-        <h2 class="h1-responsive font-weight-bold text-center my-4">Add movie</h2>
-        <div class="row contact_form">
+            <!--Section heading-->
+            <h2 class="h1-responsive font-weight-bold text-center my-4">Add movie</h2>
+            <div class="row contact_form">
 
-            <!--Grid column-->
-            <div class="col-md-12 mb-md-0 mb-5">
-                <form th:action="@{'/save-movie-using-details'}" method="post" th:object="${movie}">
+                <!--Grid column-->
+                <div class="col-md-12 mb-md-0 mb-5">
+                    <form th:action="@{'/save-movie-using-details'}" method="post" th:object="${movie}">
 
-                    <div class="col-md-6" style="margin-bottom: 2%">
-                        <!-- Movie -->
-                        <label>Movie Details</label>
-                        <select th:field="${movie.movie_details_id}" class="form-control mb-4">
-                            <option th:each="movieDetailsElement: ${movieDetailsList}" th:value="${movieDetailsElement.movie_details_id}">
-                                <span th:text="${movieDetailsElement.name}"></span>
-                            </option>
-                        </select>
-                    </div>
+                        <div class="col-md-6" style="margin-bottom: 2%">
+                            <!-- Movie -->
+                            <label>Movie Details</label>
+                            <select th:field="${movie.movie_details_id}" class="form-control mb-4">
+                                <option th:each="movieDetailsElement: ${movieDetailsList}" th:value="${movieDetailsElement.movie_details_id}">
+                                    <span th:text="${movieDetailsElement.name}"></span>
+                                </option>
+                            </select>
+                        </div>
 
-                    <!--Grid column-->
-                    <div class="col-md-6" style="margin-bottom: 2%">
-                        <!--<label for="checkbox">3D:</label>-->
-                        <h6>3D:</h6>
+                        <!--Grid column-->
+                        <div class="col-md-6" style="margin-bottom: 2%">
+                            <!--<label for="checkbox">3D:</label>-->
+                            <h6>3D:</h6>
 
-                        <label class="switch" for="enabled">
-                            <!--<input th:="${movieForm.type}" type="checkbox">-->
-                            <input type="checkbox" id="enabled" name="a" value="3D" class="form-control mb-4 switch">
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                    <!--Grid column-->
+                            <label class="switch" for="enabled">
+                                <!--<input th:="${movieForm.type}" type="checkbox">-->
+                                <input th:field="${movie.type}" type="checkbox" id="enabled" name="a" value="3D" class="form-control mb-4 switch">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <!--Grid column-->
 
 
-                    <div class="text-center">
-                        <button type="submit" class="empty-button btn btn-default">
-                            Save
-                        </button>
-                    </div>
-                </form>
+                        <div class="text-center">
+                            <button type="submit" class="empty-button btn btn-default">
+                                Save
+                            </button>
+                        </div>
+                    </form>
 
-                <div class="status"></div>
+                    <div class="status"></div>
+                </div>
+                <!--Grid column-->
             </div>
-            <!--Grid column-->
-        </div>
 
-    </section>
-    <!--Section: Contact v.2-->
+        </section>
+        <!--Section: Contact v.2-->
+    </div>
+    <!--Insert footer fragment-->
+    <div th:insert="~{/fragments/footer :: footer}"></div>
 </div>
-<!--Insert footer fragment-->
-<div th:insert="~{/fragments/footer :: footer}"></div>
-
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
