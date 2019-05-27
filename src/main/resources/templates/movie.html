@@ -91,7 +91,7 @@
         <div class="row ">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                <div class="form-group text-center">
+                <div class="form-group text-center" th:if="${not #lists.isEmpty(moviePlans)}">
                     <form th:action="@{'/select-seats'}" method="POST" style="margin-top: 10%">
                         <label>Select Date & Time</label>
                         <select name="movie_plan_id" class="form-control mb-4 select-css">
@@ -101,6 +101,11 @@
                         </select>
                         <button type="submit" class="btn empty-button">Select seats</button>
                     </form>
+                </div>
+
+                <div class="form-group text-center" th:if="${#lists.isEmpty(moviePlans)}">
+                    <br>
+                    <span>There is no movie plan available at the moment.</span>
                 </div>
             </div>
         </div>

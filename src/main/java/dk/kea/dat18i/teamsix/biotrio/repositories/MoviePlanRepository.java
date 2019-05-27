@@ -240,7 +240,7 @@ public class MoviePlanRepository {
                 "where theater_room_id = ? && (date_time = ? || DATE_ADD(date_time, INTERVAL duration_minutes minute) >= ? );";
         //Still have to check if planned time plus duration is not overlapping the already planned movies
 
-        SqlRowSet rs = jdbc.queryForRowSet(query, moviePlan.getTheater_room_id(), Timestamp.valueOf(moviePlan.getDate_time()), Timestamp.valueOf(moviePlan.getDate_time()), Timestamp.valueOf(moviePlan.getDate_time()), moviePlan.getMovie().getMovieDetails().getDuration_minutes());
+        SqlRowSet rs = jdbc.queryForRowSet(query, moviePlan.getTheater_room_id(), Timestamp.valueOf(moviePlan.getDate_time()), Timestamp.valueOf(moviePlan.getDate_time()));
         return rs.first();
     }
 
