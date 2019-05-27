@@ -64,7 +64,7 @@ public class MovieController {
      */
 
     @GetMapping("/movie/{id}")
-    public String showMovie(@PathVariable("id") int id, Model model) throws Exception {
+    public String showMovie(@PathVariable("id") int id, Model model) {
         Movie movie = movieRepo.findMovie(id);
         model.addAttribute("movie", movie);
         List<MoviePlan> moviePlanList = moviePlanRepo.findMoviePlanByMovieId(id);
@@ -82,7 +82,7 @@ public class MovieController {
      */
 
     @GetMapping("/movies/{genre}")
-    public String showMovieByGender(@PathVariable("genre") String genre, Model model) throws Exception {
+    public String showMovieByGender(@PathVariable("genre") String genre, Model model) {
         List<Movie> movieList = movieRepo.findMovieByGender(genre);
         model.addAttribute("movies", movieList);
         String genreText = "'" + genre.substring(0, 1).toUpperCase() + genre.substring(1) + "'";

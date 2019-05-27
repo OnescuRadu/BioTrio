@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableAutoConfiguration
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     DataSource dataSource;
@@ -22,6 +22,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * The authentication configuration that selects the users and their roles from the database
+     * Default format for role is 'ROLE_' + 'YOURROLE'
+     */
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource)
@@ -32,16 +36,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     }
 
 
+    /**
+     * HTTP Security Configuration that selects which user roles can see which pages
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
+        http.csrf().disable(); //enables post mapping
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index", "/movies/**", "/select-seats", "/create-booking", "/booking-confirmation", "/contact", "/send-contact-email", "/about-us", "/faq", "/movie/**", "/css/**", "/images/**", "/save-movie/**", "/find-booking-by-customer", "/view-booking-by-customer", "/delete-booking-by-customer/**", "/search-movie:**" , "/search-movie-post", "/404", "/403").permitAll()
+                .antMatchers("/", "/index", "/movies/**", "/select-seats", "/create-booking", "/booking-confirmation", "/contact", "/send-contact-email", "/about-us", "/faq", "/movie/**", "/css/**", "/images/**", "/save-movie/**", "/find-booking-by-customer", "/view-booking-by-customer", "/delete-booking-by-customer/**", "/search-movie:**", "/search-movie-post", "/404", "/403").permitAll()
                 .antMatchers("/control-panel/**").hasAnyRole("MANAGER", "EMPLOYEE")
                 .antMatchers(
-                        "/theater-room", "/delete-theater-room/**", "/add-theater-room", "/add-theater-room/save","/edit-theater-room/**",
-                "/users", "/delete-user/**", "/add-user", "/add-user/save", "/edit-user/**", "/edit-user/save", "/edit-user-password/**"
+                        "/theater-room", "/delete-theater-room/**", "/add-theater-room", "/add-theater-room/save", "/edit-theater-room/**",
+                        "/users", "/delete-user/**", "/add-user", "/add-user/save", "/edit-user/**", "/edit-user/save", "/edit-user-password/**"
                 ).hasRole("MANAGER")
                 .antMatchers("/**").hasAnyRole("MANAGER", "EMPLOYEE")
                 .anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()

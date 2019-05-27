@@ -3,7 +3,6 @@ package dk.kea.dat18i.teamsix.biotrio.controllers;
 import dk.kea.dat18i.teamsix.biotrio.models.Movie;
 import dk.kea.dat18i.teamsix.biotrio.models.MoviePlan;
 import dk.kea.dat18i.teamsix.biotrio.models.TheaterRoom;
-import dk.kea.dat18i.teamsix.biotrio.models.User;
 import dk.kea.dat18i.teamsix.biotrio.repositories.MoviePlanRepository;
 import dk.kea.dat18i.teamsix.biotrio.repositories.MovieRepository;
 import dk.kea.dat18i.teamsix.biotrio.repositories.TheaterRoomRepository;
@@ -57,12 +56,12 @@ public class MoviePlanController {
         Movie movie = movieRepo.findMovie(moviePlan.getMovie_id()); //initializes the movie object that is going to be planned
         moviePlan.setMovie(movie); //sets the Movie object inside the MoviePlan
 
-        if(moviePlanRepo.checkIfMoviePlanIsAvailable(moviePlan))
+        if(moviePlanRepo.checkIfMoviePlanIsAvailable(moviePlan)) //checks if the movie plan is overlapping an existing one
         {
             model.addAttribute("error", "There is already a movie scheduled for that time.");
             return "/error";
         }
-        moviePlanRepo.insertMoviePlan(moviePlan);
+        moviePlanRepo.insertMoviePlan(moviePlan); //inserts the movie plan in the database if it does not already exists
         return "redirect:/movie-plans";
     }
 

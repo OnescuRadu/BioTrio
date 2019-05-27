@@ -168,7 +168,7 @@ public class TicketRepository {
 
         //Iterate the list of already booked seats
         for (int i = 0; i < reservedSeats.size(); i++) {
-            //Iterate the list of selected seats
+            //Iterates the list of selected seats
             for (int j = 0; j < selectedSeats.size(); j++) {
                 //If one of the already booked seats is the same of one the selected seats it returns false
                 if (reservedSeats.get(i).getSeat_number().equals(selectedSeats.get(j).getSeat_number()))

@@ -52,31 +52,31 @@ public class BookingController {
      * <p>
      * Eg: If there is a booked seat with the number "05-04" then array[5][4] will be TRUE
      *
-     * @param request
+     * @param request HttpServletRequest that is used for retrieving data from the view
      * @param model   represents the bridge between the controller and the view
      * @return the 'select-seats' view
      */
     @PostMapping("/select-seats")
     public String selectSeats(HttpServletRequest request, Model model) {
-        int movie_plan_id = Integer.parseInt(request.getParameter("movie_plan_id"));
-        MoviePlan moviePlan = movieRepo.findMoviePlan(movie_plan_id);
+        int movie_plan_id = Integer.parseInt(request.getParameter("movie_plan_id")); //get's the movie plan's id from the view
+        MoviePlan moviePlan = movieRepo.findMoviePlan(movie_plan_id); //initializes a MoviePlan object based on the movie plan id
 
-        int rows = moviePlan.getTheaterRoom().getRows_no();
-        int cols = moviePlan.getTheaterRoom().getColumns_no();
+        int rows = moviePlan.getTheaterRoom().getRows_no(); //theater room's number of rows
+        int cols = moviePlan.getTheaterRoom().getColumns_no(); //theater room's number of columns
 
-        boolean[][] reservedSeats = new boolean[rows][cols];
+        boolean[][] reservedSeats = new boolean[rows][cols]; //boolean 2D array with the same number of rows and cols as the theater room
 
-        List<Ticket> reservedSeatsList = ticketRepo.findSeatsByBooking(movie_plan_id);
+        List<Ticket> reservedSeatsList = ticketRepo.findSeatsByBooking(movie_plan_id); //List of ticket objects that are already booked for the given movie plan
 
-        Booking.findBookedSeats(reservedSeats, rows, cols, reservedSeatsList);
+        Booking.findBookedSeats(reservedSeats, rows, cols, reservedSeatsList); //populating the boolean 2D array based on the list of booked tickets
 
 
-        Booking booking = new Booking();
+        Booking booking = new Booking(); //instantiates a Booking object
 
-        booking.setMoviePlan(moviePlan);
+        booking.setMoviePlan(moviePlan); //set the MoviePlan object inside the Booking object
 
-        model.addAttribute("newBooking", booking);
-        model.addAttribute("reservedSeats", reservedSeats);
+        model.addAttribute("newBooking", booking); //Adding the booking object in a model
+        model.addAttribute("reservedSeats", reservedSeats); //Adding the populated 2D boolean array in a model
         return "/select-seats";
     }
 
@@ -130,10 +130,10 @@ public class BookingController {
 
 
         //inserting tickets into the database
-        for (int i = 0; i < ticketList.size(); i++) {
+        for (Ticket ticket : ticketList) {
 
-            ticketList.get(i).setBooking_id(booking.getBooking_id());
-            ticketRepo.insertTicket(ticketList.get(i));
+            ticket.setBooking_id(booking.getBooking_id());
+            ticketRepo.insertTicket(ticket);
 
         }
 
