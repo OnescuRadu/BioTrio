@@ -23,80 +23,84 @@
     <title>Bio Trio Cinema | Edit bookings</title>
 </head>
 <body>
-<!--Insert header fragment-->
-<div th:insert="~{/fragments/header :: header}"></div>
+<div class="d-flex flex-column sticky-footer-wrapper">
+    <!--Insert header fragment-->
+    <div th:insert="~{/fragments/header :: header}"></div>
 
-<div class="container">
-    <!--Section: Contact v.2-->
-    <section class="mb-4">
+    <div class="container flex-fill">
+        <!--Section: Contact v.2-->
+        <section class="mb-4">
 
-        <!--Section heading-->
-        <h2 class="h1-responsive font-weight-bold text-center my-4">Edit Booking</h2>
-        <div class="row contact_form">
+            <!--Section heading-->
+            <h2 class="h1-responsive font-weight-bold text-center my-4">Edit Booking</h2>
+            <div class="row contact_form">
 
-            <!--Grid column-->
-            <div class="col-md-12 mb-md-0 mb-5">
-                <form th:action="@{'/edit-booking/save'}" method="post" th:object="${editedBooking}" id="myForm">
+                <!--Grid column-->
+                <div class="col-md-12 mb-md-0 mb-5">
+                    <form th:action="@{'/edit-booking/save'}" method="post" th:object="${editedBooking}" id="myForm">
 
-                    <!--Grid row-->
-                    <div class="row">
+                        <!--Grid row-->
+                        <div class="row">
 
-                        <input type="hidden" id="booking_id" th:field="${editedBooking.booking_id}" name="id">
+                            <input type="hidden" id="booking_id" th:field="${editedBooking.booking_id}" name="id">
 
-                        <!--Grid column-->
-                        <div class="col-md-6" style="margin-bottom: 2%">
-                            <div class="md-form mb-0">
-                                <label for="phone_number" class="">Phone Number</label>
-                                <input th:field="${editedBooking.phone_number}" type="tel" id="phone_number" name="phone_number" class="form-control">
+                            <!--Grid column-->
+                            <div class="col-md-6" style="margin-bottom: 2%">
+                                <div class="md-form mb-0">
+                                    <label for="phone_number" class="">Phone Number</label>
+                                    <input th:field="${editedBooking.phone_number}" type="tel" id="phone_number" name="phone_number" class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <!--Grid column-->
+                            <!--Grid column-->
 
-                        <!--Grid column-->
-                        <div class="col-md-6" style="margin-bottom: 2%">
-                            <div class="md-form mb-0">
-                                <label for="email" class="">Email</label>
-                                <input th:field="${editedBooking.email}" type="email" id="email" name="email" class="form-control">
+                            <!--Grid column-->
+                            <div class="col-md-6" style="margin-bottom: 2%">
+                                <div class="md-form mb-0">
+                                    <label for="email" class="">Email</label>
+                                    <input th:field="${editedBooking.email}" type="email" id="email" name="email" class="form-control">
+                                </div>
                             </div>
+
                         </div>
+                        <!--Grid row-->
 
-                    </div>
-                    <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row">
 
-                    <!--Grid row-->
-                    <div class="row">
-
-                        <!--Grid column-->
-                        <div class="col-md-6" style="margin-bottom: 2%">
-                            <div class="md-form mb-0">
-                                <label for="paid" class="">Paid</label>
-                                <input th:field="${editedBooking.paid}" type="checkbox" id="paid" name="paid" class="form-control">
+                            <!--Grid column-->
+                            <div class="col-md-6" style="margin-bottom: 2%">
+                                <div class="md-form mb-0">
+                                    <h6>Paid</h6>
+                                    <label class="switch" for="enabled">
+                                        <input type="checkbox" id="enabled" name="a" th:field="${editedBooking.paid}" class="form-control mb-4 switch">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
                             </div>
+
+
                         </div>
+                        <!--Grid row-->
 
 
-                    </div>
-                    <!--Grid row-->
+                        <div class="text-center">
+                            <button type="submit" class="empty-button btn btn-default">
+                                Edit
+                            </button>
+                        </div>
+                    </form>
 
-
-                    <div class="text-center">
-                        <button type="submit" class="empty-button btn btn-default">
-                            Edit
-                        </button>
-                    </div>
-                </form>
-
-                <div class="status"></div>
+                    <div class="status"></div>
+                </div>
+                <!--Grid column-->
             </div>
-            <!--Grid column-->
-        </div>
 
-    </section>
-    <!--Section: Contact v.2-->
+        </section>
+        <!--Section: Contact v.2-->
+    </div>
+    <!--Insert footer fragment-->
+    <div th:insert="~{/fragments/footer :: footer}"></div>
 </div>
-<!--Insert footer fragment-->
-<div th:insert="~{/fragments/footer :: footer}"></div>
-
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

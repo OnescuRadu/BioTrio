@@ -25,12 +25,26 @@ public class MovieController {
     @Autowired
     private MovieDetailsRepository movieDetailsRepo;
 
+    /**
+     * Method retrieves all the movies from the database and sends them to the view through the model
+     *
+     * @param model represents the bridge between the controller and the view
+     * @return the 'index' view
+     */
+
     @GetMapping({"/", "/index"})
     public String showHome(Model model) {
         List<Movie> movieList = movieRepo.findAllMovies();
         model.addAttribute("movies", movieList);
         return "index";
     }
+
+    /**
+     * Method retrieves all the movies from the database and sends them to the view through the model
+     *
+     * @param model represents the bridge between the controller and the view
+     * @return the 'movies' view
+     */
 
     @GetMapping("/movies")
     public String showAllMovie(Model model) {
@@ -41,6 +55,14 @@ public class MovieController {
         return "/movies";
     }
 
+    /**
+     * Method retrieves the movie with the given id from the database and sends it to the view through the model
+     *
+     * @param id represents the given id
+     * @param model represents the bridge between the controller and the view
+     * @return the 'movie' view
+     */
+
     @GetMapping("/movie/{id}")
     public String showMovie(@PathVariable("id") int id, Model model) throws Exception {
         Movie movie = movieRepo.findMovie(id);
@@ -49,6 +71,15 @@ public class MovieController {
         model.addAttribute("moviePlans", moviePlanList);
         return "/movie";
     }
+
+    /**
+     * Method retrieves the genre from the link and initializes a list Movie objects that have the given genre
+     * populates it from the database and then sends the created Movie object list to the view using a model
+     *
+     * @param genre represents the movie's genre
+     * @param model            represents the bridge between the controller and the view
+     * @return the 'movies' view
+     */
 
     @GetMapping("/movies/{genre}")
     public String showMovieByGender(@PathVariable("genre") String genre, Model model) throws Exception {
@@ -59,57 +90,84 @@ public class MovieController {
         return "movies";
     }
 
+    /**
+     * Method shows the view
+     *
+     * @param model represents the bridge between the controller and the view
+     * @return the 'add-movie-page' view
+     */
+
     @GetMapping("/add-movie-page")
-    public String addMovie(Model m) {
-        m.addAttribute("movieForm", new Movie());
+    public String addMovie(Model model) {
+        model.addAttribute("movieForm", new Movie());
         return "add-movie-page";
     }
 
+    /**
+     * Method shows the view
+     *
+     * @param model represents the bridge between the controller and the view
+     * @return the 'add-movie-page2' view
+     */
+
     @GetMapping("/add-movie-page-using-details")
-    public String addMovieUsingDetails(Model m) {
-        m.addAttribute("movie", new Movie());
+    public String addMovieUsingDetails(Model model) {
+        model.addAttribute("movie", new Movie());
 
         List<MovieDetails> movieDetailsList = movieDetailsRepo.findAllMovieDetails();
-        m.addAttribute("movieDetailsList", movieDetailsList);
+        model.addAttribute("movieDetailsList", movieDetailsList);
         return "add-movie-page2";
     }
 
-    @PostMapping("/save-movie")
-    public String saveMovie(@ModelAttribute Movie movie, @RequestParam("release-date") String releaseDate, @ModelAttribute("a") String type) {
-        movie.getMovieDetails().setRelease_date(LocalDate.parse(releaseDate));
-        if(type.isEmpty())
-            movie.setType(false);
-        else
-            movie.setType(true);
+    /**
+     * Method creates the movie using the provided information and stores it in the database
+     *
+     * @param movie represents the movie populated by the view
+     * @param releaseDate   represents the movie's release date which is converted to LocalDate type
+     * @return redirects to the '/see-all-movies' mapping
+     */
 
-        Movie movieInserted = movieRepo.saveMovie(movie);
+    @PostMapping("/save-movie")
+    public String saveMovie(@ModelAttribute Movie movie, @RequestParam("release-date") String releaseDate) {
+        movie.getMovieDetails().setRelease_date(LocalDate.parse(releaseDate));
+
+        movieRepo.saveMovie(movie);
         return "redirect:/see-all-movies";
     }
 
-    @PostMapping("/save-movie-using-details")
-    public String saveMovieUsingExistingDetails(@ModelAttribute Movie movie, @ModelAttribute("a") String type) {
-        if(type.isEmpty())
-            movie.setType(false);
-        else
-            movie.setType(true);
+    /**
+     * Method creates the movie using the existing movie details and stores it in the database
+     *
+     * @param movie represents the movie populated by the view
+     * @return redirects to the '/see-all-movies' mapping
+     */
 
+    @PostMapping("/save-movie-using-details")
+    public String saveMovieUsingExistingDetails(@ModelAttribute Movie movie) {
         movieRepo.insertMovieUsingDetails(movie);
         return "redirect:/see-all-movies";
     }
 
+    /**
+     * Method retrieves all the movies from the database and sends them to the view through the model
+     *
+     * @param model represents the bridge between the controller and the view
+     * @return the 'see-movies' view
+     */
+
     @GetMapping("/see-all-movies")
-    public String showAllMovieCP(Model m) {
+    public String showAllMovieCP(Model model) {
         List<Movie> movies = movieRepo.findAllMovies();
-        m.addAttribute("movie", movies);
+        model.addAttribute("movie", movies);
         return "see-movies";
     }
 
-    @GetMapping("/delete-movies")
-    public String deleteMoviesCP(Model m) {
-        List<Movie> movies = movieRepo.findAllMovies();
-        m.addAttribute("movie", movies);
-        return "delete-movie";
-    }
+    /**
+     * Method retrieves the id from the link sent by the view and deletes the movie that has the given id.
+     *
+     * @param id represents the id of the movie that was sent by the view through the link
+     * @return redirects to the '/see-all-movies' mapping
+     */
 
     @GetMapping("/delete-movie/{id}")
     public String deleteMovie(@PathVariable("id") int id) {
@@ -117,27 +175,34 @@ public class MovieController {
         return "redirect:/see-all-movies";
     }
 
-    @GetMapping("/edit-all-movies")
-    public String editAllMovies(Model m) {
-        List<Movie> movies = movieRepo.findAllMovies();
-        m.addAttribute("movie", movies);
-        return "edit-all-movies";
-    }
+    /**
+     * Method retrieves the id from the link and initializes a Movie object that has the given id and populates it from the database
+     * and then sends this object to the view through the model
+     *
+     * @param id    represents the movie's id
+     * @param model represents the bridge between the controller and the view
+     * @return the 'edit-movie-page' view
+     */
 
     @GetMapping("/edit-movie/{id}")
-    public String editMovie(Model m, @PathVariable("id") int id) {
+    public String editMovie(Model model, @PathVariable("id") int id) {
         Movie movieToEdit = movieRepo.findMovie(id);
-        m.addAttribute("movieForm", movieToEdit);
+        model.addAttribute("movieForm", movieToEdit);
         return "/edit-movie-page";
     }
 
+    /**
+     * Method retrieves the Movie object from the model and updates it's information in the database
+     *
+     * @param movie represents the Movie object
+     * @param releaseDate represents the movie's release date which is converted to LocalDate type
+     * @return redirects to the '/see-all-movies' mapping
+     */
+
     @PostMapping("update-movie")
-    public String saveEditMovie(@ModelAttribute Movie movie, @RequestParam("release-date") String releaseDate, @ModelAttribute("a") String type){
+    public String saveEditMovie(@ModelAttribute Movie movie, @RequestParam("release-date") String releaseDate){
         movie.getMovieDetails().setRelease_date(LocalDate.parse(releaseDate));
-        if(type.isEmpty())
-            movie.setType(false);
-        else
-            movie.setType(true);
+
         movieRepo.updateMovie(movie);
         return "redirect:/see-all-movies";
     }
