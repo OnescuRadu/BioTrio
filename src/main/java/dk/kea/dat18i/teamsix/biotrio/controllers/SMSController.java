@@ -17,7 +17,7 @@ public class SMSController {
                         "Your booking has been successfully made: \n" +
                         "Email: " + booking.getEmail() + "\n" +
                         "Phone no.: " + booking.getPhone_number() + "\n" +
-                        "Confirmation Code: " + booking.getConfirmation_code() + "\n"
+                        "Confirmation Code: " + booking.getConfirmation_code()
         ).create();
     }
 }

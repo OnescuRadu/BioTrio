@@ -1,7 +1,5 @@
 package dk.kea.dat18i.teamsix.biotrio.controllers;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
 
@@ -26,6 +24,7 @@ public class EmailController {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    //retrieves the data from the contact form and calls sendContactFormEmail() method using the right parameters
     @PostMapping("/send-contact-email")
     public String sendContactEmail(@RequestParam("name") String name, @RequestParam("email") String email,@RequestParam("subject") String subject,@RequestParam("message") String message, Model m) {
         try {
