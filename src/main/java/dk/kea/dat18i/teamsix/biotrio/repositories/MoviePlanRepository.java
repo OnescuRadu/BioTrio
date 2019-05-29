@@ -8,6 +8,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -237,10 +238,19 @@ public class MoviePlanRepository {
                 "on movie.movie_id = movie_plan.movie_id\n" +
                 "inner join movie_details\n" +
                 "on movie_details.movie_details_id = movie.movie_details_id\n" +
-                "where theater_room_id = ? && (date_time = ? || DATE_ADD(date_time, INTERVAL duration_minutes minute) >= ? );";
-        //Still have to check if planned time plus duration is not overlapping the already planned movies
+                "where theater_room_id = ? && (\n" +
+                "date_time = ? \n" +
+                "|| date_time <= ? && ? <= DATE_ADD(date_time, INTERVAL duration_minutes minute)\n" +
+                "|| date_time <= DATE_ADD(?, INTERVAL ? minute) && DATE_ADD(?, INTERVAL ? minute) <= DATE_ADD(date_time, INTERVAL duration_minutes minute)\n" +
+                ");";
+        //Checks to see if it has the same theater room id AND
+        // have the same starting time
+        // or the moviePlan start time it's overlapping an on going movie (other movie start time <= moviePlan start time <= other movie start time + it's duration)
+        // or if moviePlan's movie + duration it's overlapping an on going movie (other movie start time <= moviePlan start time + duration <= other movie start time+ it's duration)
 
-        SqlRowSet rs = jdbc.queryForRowSet(query, moviePlan.getTheater_room_id(), Timestamp.valueOf(moviePlan.getDate_time()), Timestamp.valueOf(moviePlan.getDate_time()));
+        Timestamp moviePlanDate = Timestamp.valueOf(moviePlan.getDate_time());
+        int moviePlanDuration = moviePlan.getMovie().getMovieDetails().getDuration_minutes();
+        SqlRowSet rs = jdbc.queryForRowSet(query, moviePlan.getTheater_room_id(), moviePlanDate, moviePlanDate, moviePlanDate, moviePlanDate, moviePlanDuration, moviePlanDate, moviePlanDuration);
         return rs.first();
     }
 
