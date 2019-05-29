@@ -50,14 +50,14 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" th:href="'/movies/comedies'">Comedies</a>
+                        <a class="nav-link" th:href="'/movies/comedy'">Comedies</a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" th:href="'/movies/crime'">Crime</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="'/movies/documentaries'">Documentaries</a>
+                        <a class="nav-link" th:href="'/movies/documentary'">Documentaries</a>
                     </li>
 
                     <li class="nav-item">
@@ -75,14 +75,16 @@
                 </ul>
             </div>
         </nav>
-    <div class="container flex-fill">
-        <!--<div class="page-container">-->
-        <!-- Latest Released Movies Title and Divider -->
-        <h2 class="text-center orange-text" style="margin-top: 1.5rem"><span th:text="${moviesGenre}"> </span> Movies</h2>
-        <hr class="star-dark mb-5">
+
+    <!-- Movies and Divider -->
+    <h2 class="text-center orange-text" style="margin-top: 1.5rem"><span th:text="${moviesGenre}"> </span> Movies</h2>
+    <hr class="star-dark mb-5">
+    <div class="container container-movies flex-fill">
+
         <!--start movie container-->
         <!--style="padding-bottom: 15rem"-->
-        <div class="container container-movies flex-fill">
+        <div class="container container-movies
+">
             <!--movie-card-->
             <div class="movie-card" th:each="movie: ${movies}">
                 <div class="movie-header movieName" th:style="'background:url(' + ${movie.movieDetails.poster} + '); background-size: cover;'">
