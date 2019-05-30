@@ -61,7 +61,7 @@
         <!--movie-header-->
         <div class="movie-content">
             <div class="movie-content-header">
-                <a href="#">
+                <a th:href="'/movie/' + ${movie.movie_id}">
                     <h3 class="movie-title">
                         <span th:text="${movie.movieDetails.name}"></span>
                     </h3>

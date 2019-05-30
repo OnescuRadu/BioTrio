@@ -77,7 +77,7 @@
                     <!--duration_minutes-->
                     <div class="info-section">
                         <label>Duration</label>
-                        <span th:text="${movie.movieDetails.duration_minutes}"></span>
+                        <span th:text="${movie.movieDetails.duration_minutes}  + ' min'"></span>
                     </div>
                     <!--type-->
                     <div class="info-section">
@@ -96,7 +96,7 @@
                         <label>Select Date & Time</label>
                         <select name="movie_plan_id" class="form-control mb-4 select-css">
                             <option th:each="moviePlan: ${moviePlans}" th:value="${moviePlan.movie_plan_id}">
-                                <span th:text="${moviePlan.date_time}"></span>
+                                <span th:text="${#temporals.format(moviePlan.date_time, 'dd.MM.yyyy - HH:mm')}"></span>
                             </option>
                         </select>
                         <button type="submit" class="btn empty-button">Select seats</button>

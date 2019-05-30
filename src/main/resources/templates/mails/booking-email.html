@@ -8,7 +8,8 @@
 <body>
 Your booking has been successfully made. <br>
 Movie: <span th:text="${booking.moviePlan.movie.type} ? ${booking.moviePlan.movie.movieDetails.name} + ' : 3D' : ${booking.moviePlan.movie.movieDetails.name} + ' : 2D'">Movie</span><br>
-Date & Time: <span th:text="${booking.moviePlan.date_time}">Date & Time</span><br>
+Date & Time: <span th:text="${#temporals.format(booking.
+moviePlan.date_time, 'dd.MM.yyyy - HH:mm')}">Date & Time</span><br>
 Theater Room: <span th:text="${booking.moviePlan.theaterRoom.name}">Theater Room</span><br>
 Seat(s):
 <ul th:each="ticket : ${booking.ticketList}">

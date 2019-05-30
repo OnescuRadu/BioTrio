@@ -77,14 +77,15 @@
         </nav>
 
     <!-- Movies and Divider -->
+    <div class="container">
     <h2 class="text-center orange-text" style="margin-top: 1.5rem"><span th:text="${moviesGenre}"> </span> Movies</h2>
     <hr class="star-dark mb-5">
+    </div>
     <div class="container container-movies flex-fill">
 
         <!--start movie container-->
         <!--style="padding-bottom: 15rem"-->
-        <div class="container container-movies
-">
+        <div class="container container-movies">
             <!--movie-card-->
             <div class="movie-card" th:each="movie: ${movies}">
                 <div class="movie-header movieName" th:style="'background:url(' + ${movie.movieDetails.poster} + '); background-size: cover;'">
@@ -97,7 +98,7 @@
                 <!--movie-header-->
                 <div class="movie-content">
                     <div class="movie-content-header">
-                        <a href="#">
+                        <a th:href="'/movie/' + ${movie.movie_id}">
                             <h3 class="movie-title">
                                 <span th:text="${movie.movieDetails.name}"></span>
                             </h3>

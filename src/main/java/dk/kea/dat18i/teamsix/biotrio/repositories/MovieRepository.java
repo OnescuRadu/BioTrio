@@ -36,12 +36,35 @@ public class MovieRepository {
      * @return a list of Movie objects
      */
 
+
     public List<Movie> findAllMovies() {
         String query = "SELECT movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
                 "FROM movie \n" +
                 "INNER JOIN movie_details \n" +
                 "ON (movie.movie_details_id = movie_details.movie_details_id)\n" +
-                "ORDER BY release_date;";
+                "ORDER BY release_date DESC;";
+
+        List<Movie> movieList = new ArrayList<>();
+        SqlRowSet rs = jdbc.queryForRowSet(query);
+        return getMovieList(movieList, rs);
+    }
+
+    /**
+     * Method finds all the movies in the database that are currently in theaters
+     *
+     * @return a list of Movie objects
+     */
+
+
+    public List<Movie> findAllAvailableMovies() {
+        String query = "SELECT distinct movie.movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
+                "FROM movie\n" +
+                "INNER JOIN movie_details\n" +
+                "ON (movie.movie_details_id = movie_details.movie_details_id)\n" +
+                "INNER JOIN movie_plan\n" +
+                "on movie_plan.movie_id = movie.movie_id\n" +
+                "WHERE movie_plan.date_time >= curdate()\n" +
+                "ORDER BY release_date DESC;";
 
         List<Movie> movieList = new ArrayList<>();
         SqlRowSet rs = jdbc.queryForRowSet(query);
@@ -54,7 +77,6 @@ public class MovieRepository {
      * @param id represents the movie's id
      * @return a populated Movie object
      */
-
     public Movie findMovie(int id) {
         String query = "SELECT movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
                 "FROM movie \n" +
@@ -148,11 +170,15 @@ public class MovieRepository {
      */
 
     public List<Movie> findMovieByGender(String gender) {
-        String query = "SELECT movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer \n" +
-                "FROM movie\n" +
+        String query = "SELECT DISTINCT movie.movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer \n" +
+                "FROM movie \n" +
                 "INNER JOIN movie_details \n" +
                 "ON (movie.movie_details_id = movie_details.movie_details_id)\n" +
-                "WHERE (movie_details.genre) like ?";
+                "INNER JOIN movie_plan " +
+                "on movie_plan.movie_id = movie.movie_id " +
+                "WHERE (movie_details.genre) like ?" +
+                "&& movie_plan.date_time >= curdate()\n" +
+                "ORDER BY release_date DESC;";
 
         SqlRowSet rs = jdbc.queryForRowSet(query, "%" + gender + "%");
         List<Movie> movieList = new ArrayList<>();
@@ -167,11 +193,15 @@ public class MovieRepository {
      */
 
     public List<Movie> findMovieByName(String name) {
-        String query = "SELECT movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
+        String query = "SELECT DISTINCT movie.movie_id, movie.movie_details_id, type, name, genre, release_date, duration_minutes, description, language, poster, trailer\n" +
                 "FROM movie \n" +
                 "INNER JOIN movie_details \n" +
                 "ON (movie.movie_details_id = movie_details.movie_details_id)\n" +
-                "WHERE (movie_details.name) LIKE ?;";
+                "INNER JOIN movie_plan " +
+                "on movie_plan.movie_id = movie.movie_id " +
+                "WHERE (movie_details.name) LIKE ?" +
+                "&& movie_plan.date_time >= curdate()\n" +
+                "ORDER BY release_date DESC;";
         SqlRowSet rs = jdbc.queryForRowSet(query, "%" + name + "%");
         List<Movie> movieList = new ArrayList<>();
         return getMovieList(movieList, rs);

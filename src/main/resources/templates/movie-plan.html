@@ -54,7 +54,7 @@
                         <tr th:each="moviePlan: ${moviePlans}">
                             <td class="col-name" th:text="${moviePlan.movie.type} ? ${moviePlan.movie.movieDetails.name} + ' : 3D' : ${moviePlan.movie.movieDetails.name} + ' : 2D'"></td>
                             <td class="col-name" th:text="${moviePlan.theaterRoom.name}"></td>
-                            <td class="col-name" th:text="${moviePlan.date_time}"></td>
+                            <td class="col-name" th:text="${#temporals.format(moviePlan.date_time, 'dd.MM.yyyy - HH:mm')}"></td>
                             <td class="col-name" th:text="${moviePlan.price}"></td>
                             <td class="col-name" >
                                 <!-- Button edit -->

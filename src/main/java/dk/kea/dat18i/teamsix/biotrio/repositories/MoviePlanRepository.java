@@ -90,7 +90,8 @@ public class MoviePlanRepository {
                 "INNER JOIN movie\n" +
                 "ON (movie_plan.movie_id = movie.movie_id)\n" +
                 "INNER JOIN movie_details\n" +
-                "ON (movie.movie_details_id = movie_details.movie_details_id)";
+                "ON (movie.movie_details_id = movie_details.movie_details_id)" +
+                "ORDER BY date_time desc";
 
         SqlRowSet rs = jdbc.queryForRowSet(query);
         List<MoviePlan> moviePlanList = new ArrayList<>();

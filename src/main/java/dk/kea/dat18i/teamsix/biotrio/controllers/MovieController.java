@@ -34,7 +34,7 @@ public class MovieController {
 
     @GetMapping({"/", "/index"})
     public String showHome(Model model) {
-        List<Movie> movieList = movieRepo.findAllMovies();
+        List<Movie> movieList = movieRepo.findAllAvailableMovies();
         model.addAttribute("movies", movieList);
         return "index";
     }
@@ -48,7 +48,7 @@ public class MovieController {
 
     @GetMapping("/movies")
     public String showAllMovie(Model model) {
-        List<Movie> movieList = movieRepo.findAllMovies();
+        List<Movie> movieList = movieRepo.findAllAvailableMovies();
         model.addAttribute("movies", movieList);
         String genre = "All";
         model.addAttribute("moviesGenre", genre);
