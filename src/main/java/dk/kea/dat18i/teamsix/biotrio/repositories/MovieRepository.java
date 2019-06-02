@@ -110,7 +110,7 @@ public class MovieRepository {
         PreparedStatementCreator psc_movie_details = new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                PreparedStatement ps = connection.prepareStatement("INSERT INTO movie_details (description, genre, language, name, poster, trailer, duration_minutes, release_date)VALUES( ?, ?, ?, ?, ?, ?, ?, ?)", new String[]{"movie_details_id"});
+                PreparedStatement ps = connection.prepareStatement("INSERT INTO movie_details (description, genre, language, name, poster, trailer, duration_minutes, release_date) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)", new String[]{"movie_details_id"});
                 ps.setString(1, movie.getMovieDetails().getDescription());
                 ps.setString(2, movie.getMovieDetails().getGenre());
                 ps.setString(3, movie.getMovieDetails().getLanguage());

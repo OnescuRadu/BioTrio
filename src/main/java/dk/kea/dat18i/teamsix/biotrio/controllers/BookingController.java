@@ -141,8 +141,8 @@ public class BookingController {
         email.sendBookingConfirmation(booking);
 
         //Sending sms
-        //Method works but dont use it because it costs money per sms
-        //sms.sendBookingSMS(booking);
+        //Method costs money per sms
+        sms.sendBookingSMS(booking);
 
         //Adding the booking object into a model and returning the booking-confirmation template
         model.addAttribute("booking", booking);

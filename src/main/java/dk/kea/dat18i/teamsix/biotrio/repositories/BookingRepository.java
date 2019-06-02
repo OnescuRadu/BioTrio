@@ -301,22 +301,6 @@ public class BookingRepository {
         jdbc.update(psc);
     }
 
-    /**
-     * Method deletes the booking that has the given confirmation code
-     *
-     * @param confirmation_code
-     */
-    public void deleteBooking(String confirmation_code) {
-        PreparedStatementCreator psc = new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                PreparedStatement ps = connection.prepareStatement("DELETE from booking where confirmation_code = ?");
-                ps.setString(1, confirmation_code);
-                return ps;
-            }
-        };
-        jdbc.update(psc);
-    }
 
     /**
      * Method updates the information from the database of the given Booking object

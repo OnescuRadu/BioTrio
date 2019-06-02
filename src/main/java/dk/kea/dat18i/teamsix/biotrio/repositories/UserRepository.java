@@ -39,7 +39,7 @@ public class UserRepository {
      * @return a list of User objects
      */
     public List<User> findAllUser() {
-        String query = "SELECT * from user";
+        String query = "SELECT * FROM user";
 
         List<User> userList = new ArrayList<>();
         SqlRowSet rs = jdbc.queryForRowSet(query);

@@ -68,7 +68,7 @@ public class TicketRepository {
     }
 
     /**
-     * Method finds the seats assigned to the tickets that have a given booking id in the database
+     * Method finds the seats assigned to the tickets that have a given movie plan id in the database
      *
      * @param id booking id
      * @return a list of Ticket objects containing only seat numbers
