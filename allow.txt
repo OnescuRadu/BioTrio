@@ -1,3 +1,0 @@
-view-booking
-find-booking
-view-booking/delete/
