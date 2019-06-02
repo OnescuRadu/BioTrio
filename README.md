@@ -3,17 +3,17 @@ Developed by Team Six  <br>
 KEA University - Copenhagen, Denmark <br>
 Class: DAT18I <br>
 
-Notes: 
-Database scripts are included in the 'Database' folder.
+Notes: <br>
+Database scripts are included in the 'Database' folder.<br>
 
-Control Panel Accounts:
-Manager:
-Username: radu
-Password: radu
+Control Panel Accounts:<br>
+Manager:<br>
+Username: radu<br>
+Password: radu<br>
 
-Username: manager
-Password: manager
+Username: manager<br>
+Password: manager<br>
 
-Employee:
-Username: employee
-Password: employee
+Employee:<br>
+Username: employee<br>
+Password: employee<br>
