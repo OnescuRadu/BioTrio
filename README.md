@@ -8,6 +8,7 @@ Database scripts are included in the 'Database' folder.<br>
 
 Control Panel Accounts:<br>
 Manager:<br>
+<hr>
 Username: radu<br>
 Password: radu<br>
 
