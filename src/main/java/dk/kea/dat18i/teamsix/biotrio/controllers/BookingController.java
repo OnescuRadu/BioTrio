@@ -125,7 +125,6 @@ public class BookingController {
             return "/errors/error";
         }
 
-
         booking = bookingRepo.insertBooking(booking); //insert booking and return the object with updated id
 
 
@@ -137,13 +136,20 @@ public class BookingController {
 
         }
 
-        //Sending email
-        email.sendBookingConfirmation(booking);
+        try {
 
-        //Sending sms
-        //Method costs money per sms
-        sms.sendBookingSMS(booking);
 
+            //Sending email
+            email.sendBookingConfirmation(booking);
+
+            //Sending sms
+            //Method costs money per sms
+            sms.sendBookingSMS(booking);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         //Adding the booking object into a model and returning the booking-confirmation template
         model.addAttribute("booking", booking);
         return "/bookings/booking-confirmation";
