@@ -42,7 +42,7 @@ public class BookingController {
     public String showAllBooking(Model model) {
         List<Booking> bookingList = bookingRepo.findAllBooking();
         model.addAttribute("bookings", bookingList);
-        return "/bookings";
+        return "/bookings/bookings";
     }
 
     /**
@@ -77,7 +77,7 @@ public class BookingController {
 
         model.addAttribute("newBooking", booking); //Adding the booking object in a model
         model.addAttribute("reservedSeats", reservedSeats); //Adding the populated 2D boolean array in a model
-        return "/select-seats";
+        return "/bookings/select-seats";
     }
 
     /**
@@ -116,13 +116,13 @@ public class BookingController {
         //Checking the number of selected seats
         if (seats.length > 4 || seats.length == 0) {
             model.addAttribute("error", "Invalid number of seats. Maximum number is 4. Please try again!");
-            return "/error";
+            return "/errors/error";
         }
 
         //Checking if the selected seats are already booked
         if (!ticketRepo.checkIfSeatsAreAvailable(booking.getTicketList(), booking.getMovie_plan_id())) {
             model.addAttribute("error", "Seats are already booked. Please try again!");
-            return "/error";
+            return "/errors/error";
         }
 
 
@@ -146,7 +146,7 @@ public class BookingController {
 
         //Adding the booking object into a model and returning the booking-confirmation template
         model.addAttribute("booking", booking);
-        return "/booking-confirmation";
+        return "/bookings/booking-confirmation";
     }
 
     /**
@@ -168,7 +168,7 @@ public class BookingController {
      */
     @GetMapping("/find-booking-by-customer")
     public String findBookingByCustomer() {
-        return "/find-booking-by-customer";
+        return "/bookings/find-booking-by-customer";
     }
 
     /**
@@ -178,7 +178,7 @@ public class BookingController {
      */
     @GetMapping("/find-booking")
     public String findBooking() {
-        return "/find-booking";
+        return "/bookings/find-booking";
     }
 
     /**
@@ -212,10 +212,10 @@ public class BookingController {
         //If booking object is null (there is no record found in the database) it redirects to the error page with the provided message
         if (booking == null) {
             model.addAttribute("error", "There was no booking found with the provided information. Please try again!");
-            return "/error";
+            return "/errors/error";
         } else {
             model.addAttribute("booking", booking);
-            return "/view-booking";
+            return "/bookings/view-booking";
         }
     }
 
@@ -235,10 +235,10 @@ public class BookingController {
         //If booking object is null (there is no record found in the database) it redirects to the error page with the provided message
         if (booking == null) {
             model.addAttribute("error", "There was no booking found with the provided information. Please try again!");
-            return "/error";
+            return "/errors/error";
         } else {
             model.addAttribute("booking", booking);
-            return "/view-booking-cp";
+            return "/bookings/view-booking-cp";
         }
     }
 
@@ -255,7 +255,7 @@ public class BookingController {
     public String editBooking(@PathVariable("id") int id, Model model) {
         Booking booking = bookingRepo.findBooking(id);
         model.addAttribute("editedBooking", booking);
-        return "/edit-booking";
+        return "/bookings/edit-booking";
     }
 
     /**

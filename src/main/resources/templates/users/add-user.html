@@ -20,7 +20,7 @@
     <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css"/>
 
     <!-- Page Title -->
-    <title>Bio Trio Cinema | Add Theater Rooms</title>
+    <title>Bio Trio Cinema | Add User</title>
 </head>
 <body>
 <div class="d-flex flex-column sticky-footer-wrapper">
@@ -30,80 +30,82 @@
         <section class="mb-4">
 
             <!--Section heading-->
-            <h2 class="h1-responsive font-weight-bold text-center my-4">Add theater room</h2>
+            <h2 class="h1-responsive font-weight-bold text-center my-4">Add user</h2>
             <div class="row contact_form">
 
                 <!--Grid column-->
                 <div class="col-md-12 mb-md-0 mb-5">
-                    <form class="text-center border border-light p-5" method="post" action="/add-theater-room/save" th:object="${newTheaterRoom}">
+                    <form class="text-center border border-light p-5" method="post" action="/add-user/save" th:object="${newUser}">
 
-                        <!-- ID -->
-                        <input type="hidden" id="id" th:field="${newTheaterRoom.theater_room_id}" name="id">
+                        <input type="hidden" id="user_id" th:field="${newUser.user_id}" name="id">
 
                         <!--Grid row-->
                         <div class="row">
+                            <!-- Username -->
                             <!--Grid column-->
                             <div class="col-md-6" style="margin-bottom: 2%">
                                 <div class="md-form mb-0">
-                                    <label>Name</label>
-                                    <input type="text" id="reg" name="name" th:field="${newTheaterRoom.name}" class="form-control mb-4">
+                                    <label>Username</label>
+                                    <input type="text" id="username" name="username" th:field="${newUser.username}" class="form-control mb-4" required>
                                 </div>
                             </div>
                             <!--Grid column-->
 
+                            <!-- Password -->
                             <!--Grid column-->
                             <div class="col-md-6" style="margin-bottom: 2%">
                                 <div class="md-form mb-0">
-                                    <label>Number of rows</label>
-                                    <input type="text" id="brand" name="rows_no" th:field="${newTheaterRoom.rows_no}" class="form-control mb-4">
+                                    <label>Password</label>
+                                    <input type="password" id="password" name="password" th:field="${newUser.password}" class="form-control mb-4" required>
                                 </div>
                             </div>
+                            <!--Grid column-->
                         </div>
                         <!--Grid row-->
 
-
                         <!--Grid row-->
                         <div class="row">
+
                             <!--Grid column-->
                             <div class="col-md-6" style="margin-bottom: 2%">
                                 <div class="md-form mb-0">
-                                    <!-- No Cols -->
-                                    <label>Number of columns</label>
-                                    <input type="text" id="color" name="cols_no" th:field="${newTheaterRoom.columns_no}" class="form-control mb-4">
+                                    <!-- Role -->
+                                    <label>Role</label>
+                                    <select th:field="${newUser.role}" class="form-control mb-4">
+                                        <option value="ROLE_MANAGER"> MANAGER</option>
+                                        <option value="ROLE_EMPLOYEE"> EMPLOYEE</option>
+                                    </select>
                                 </div>
                             </div>
                             <!--Grid column-->
 
                             <!--Grid column-->
                             <div class="col-md-6" style="margin-bottom: 2%">
-                                    <!--<label>3D Capability</label>-->
-                                    <!--<input type="checkbox" id="checkbox" name="capability_3d" th:field="${newTheaterRoom.capability_3d}" class="form-control mb-4">-->
-                                    <h6>3D: Capability</h6>
-
+                                <div class="md-form mb-0">
+                                    <!-- Enabled -->
+                                    <h6>Enabled</h6>
                                     <label class="switch" for="enabled">
                                         <!--<input th:="${movieForm.type}" type="checkbox">-->
-                                        <input type="checkbox" id="enabled" name="a" value="3D" class="form-control mb-4 switch">
+                                        <!--<input type="checkbox" id="enabled" name="a" value="3D" class="form-control mb-4 switch">-->
+                                        <input type="checkbox" id="enabled" name="a" th:field="${newUser.enabled}" class="form-control mb-4 switch">
                                         <span class="slider round"></span>
                                     </label>
+                                </div>
                             </div>
                             <!--Grid column-->
                         </div>
                         <!--Grid row-->
 
                         <!-- Send button -->
-                        <div class="text-center">
-                            <button type="submit" class="empty-button btn btn-default">
-                                Save
-                            </button>
-                        </div>
+                        <button type="submit" class="empty-button btn btn-default">Save</button>
                     </form>
                 </div>
             </div>
         </section>
     </div>
 
-    <!--Insert footer fragment-->
-    <div th:insert="~{/fragments/footer :: footer}"></div>
+<!--Insert footer fragment-->
+<div th:insert="~{/fragments/footer :: footer}"></div>
 </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -49,7 +49,7 @@
                         <div class="col-md-6" style="margin-bottom: 2%">
                             <div class="md-form mb-0">
                                 <label for="name" class="">Your name</label>
-                                <input type="text" id="name" name="name" class="form-control">
+                                <input type="text" id="name" name="name" class="form-control" required>
                             </div>
                         </div>
                         <!--Grid column-->
@@ -58,7 +58,7 @@
                         <div class="col-md-6">
                             <div class="md-form mb-0">
                                 <label for="email" class="">Your email</label>
-                                <input type="text" id="email" name="email" class="form-control">
+                                <input type="text" id="email" name="email" class="form-control" required>
                             </div>
                         </div>
                         <!--Grid column-->
@@ -71,7 +71,7 @@
                         <div class="col-md-12">
                             <div class="md-form mb-0">
                                 <label for="subject" class="">Subject</label>
-                                <input type="text" id="subject" name="subject" class="form-control">
+                                <input type="text" id="subject" name="subject" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -85,22 +85,22 @@
 
                             <div class="md-form" style="margin-bottom: 2%; margin-top: 2%">
                                 <label for="message">Your message</label>
-                                <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
+                                <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea" required></textarea>
                             </div>
 
                         </div>
                     </div>
                     <!--Grid row-->
 
-                </form>
+
 
                 <div class="text-center text-md-left">
-                    <button class="empty-button btn btn-default">
-                    <a onclick="document.getElementById('contact-form').submit();">Send</a>
-                    </button>
+                    <button type="submit" class="empty-button btn btn-default">Send</button>
                 </div>
                 <div class="status"></div>
+                </form>
             </div>
+
             <!--Grid column-->
 
             <!--Grid column-->

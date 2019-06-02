@@ -52,7 +52,7 @@ public class MovieController {
         model.addAttribute("movies", movieList);
         String genre = "All";
         model.addAttribute("moviesGenre", genre);
-        return "/movies";
+        return "/movies/movies";
     }
 
     /**
@@ -69,7 +69,7 @@ public class MovieController {
         model.addAttribute("movie", movie);
         List<MoviePlan> moviePlanList = moviePlanRepo.findMoviePlanByMovieId(id);
         model.addAttribute("moviePlans", moviePlanList);
-        return "/movie";
+        return "/movies/movie";
     }
 
     /**
@@ -87,7 +87,7 @@ public class MovieController {
         model.addAttribute("movies", movieList);
         String genreText = "'" + genre.substring(0, 1).toUpperCase() + genre.substring(1) + "'";
         model.addAttribute("moviesGenre", genreText);
-        return "movies";
+        return "/movies/movies";
     }
 
     /**
@@ -100,7 +100,7 @@ public class MovieController {
     @GetMapping("/add-movie-page")
     public String addMovie(Model model) {
         model.addAttribute("movieForm", new Movie());
-        return "add-movie-page";
+        return "/movies/add-movie-page";
     }
 
     /**
@@ -116,7 +116,7 @@ public class MovieController {
 
         List<MovieDetails> movieDetailsList = movieDetailsRepo.findAllMovieDetails();
         model.addAttribute("movieDetailsList", movieDetailsList);
-        return "add-movie-page2";
+        return "/movies/add-movie-page2";
     }
 
     /**
@@ -159,7 +159,7 @@ public class MovieController {
     public String showAllMovieCP(Model model) {
         List<Movie> movies = movieRepo.findAllMovies();
         model.addAttribute("movie", movies);
-        return "see-movies";
+        return "/movies/see-movies";
     }
 
     /**
@@ -188,7 +188,7 @@ public class MovieController {
     public String editMovie(Model model, @PathVariable("id") int id) {
         Movie movieToEdit = movieRepo.findMovie(id);
         model.addAttribute("movieForm", movieToEdit);
-        return "/edit-movie-page";
+        return "/movies/edit-movie-page";
     }
 
     /**

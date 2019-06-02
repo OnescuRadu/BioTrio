@@ -21,7 +21,7 @@ public class SearchController {
         List<Movie> movieList = movieRepo.findMovieByName(search);
         model.addAttribute("movies", movieList);
         model.addAttribute("searchtext", search);
-        return "/search";
+        return "/movies/search";
     }
 
     @RequestMapping("/search-movie-post")

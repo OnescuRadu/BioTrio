@@ -33,7 +33,7 @@ public class EmailController {
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute("exception", e);
-            return "/error";
+            return "/errors/error";
         }
     }
 

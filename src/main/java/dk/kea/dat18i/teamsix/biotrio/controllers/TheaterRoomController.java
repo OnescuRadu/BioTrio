@@ -19,7 +19,7 @@ public class TheaterRoomController {
     public String showAllTheaterRoom(Model model) throws Exception {
         List<TheaterRoom> theaterRoomList = theaterRepo.findAllTheaterRoom();
         model.addAttribute("theaterRooms", theaterRoomList);
-        return "/theater-room";
+        return "/theater-rooms/theater-room";
     }
 
 
@@ -33,7 +33,7 @@ public class TheaterRoomController {
     public String addTheaterRoom(Model m)
     {
         m.addAttribute("newTheaterRoom", new TheaterRoom());
-        return "/add-theater-room";
+        return "/theater-rooms/add-theater-room";
     }
 
     @PostMapping("/add-theater-room/save")
@@ -53,7 +53,7 @@ public class TheaterRoomController {
     {
         TheaterRoom theaterRoom = theaterRepo.findTheaterRoom(id);
         model.addAttribute("editedTheaterRoom", theaterRoom);
-        return "/edit-theater-room";
+        return "/theater-rooms/edit-theater-room";
     }
 
     @PostMapping("/edit-theater-room/save")

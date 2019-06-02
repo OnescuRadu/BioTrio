@@ -23,7 +23,7 @@ public class UserController {
     public String showAllUser(Model model) {
         List<User> userList = userRepo.findAllUser();
         model.addAttribute("users", userList);
-        return "/users";
+        return "/users/users";
     }
 
 
@@ -37,7 +37,7 @@ public class UserController {
     public String addUser(Model m)
     {
         m.addAttribute("newUser", new User());
-        return "/add-user";
+        return "/users/add-user";
     }
 
     @PostMapping("/add-user/save")
@@ -46,7 +46,7 @@ public class UserController {
         if(userRepo.checkIfUsernameExists(user.getUsername()))
         {
             model.addAttribute("error", "Username already exists. Please try again!");
-            return "/error";
+            return "/errors/error";
         }
         userRepo.insertUser(user);
         return "redirect:/users";
@@ -58,7 +58,7 @@ public class UserController {
     {
         User user = userRepo.findUser(id);
         model.addAttribute("editedUser", user);
-        return "/edit-user";
+        return "/users/edit-user";
     }
 
     @PostMapping("/edit-user/save")
@@ -67,7 +67,7 @@ public class UserController {
         if(userRepo.checkIfUsernameExistsWithId(user.getUsername(), user.getUser_id()))
         {
             model.addAttribute("error", "Username already exists. Please try again!");
-            return "/error";
+            return "/errors/error";
         }
         userRepo.editUser(user);
         return "redirect:/users";
@@ -78,7 +78,7 @@ public class UserController {
     {
         User user = userRepo.findUser(id);
         model.addAttribute("editedUserPass", user);
-        return "/edit-user-password";
+        return "/users/edit-user-password";
     }
 
     @PostMapping("/edit-user-password/save")

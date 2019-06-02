@@ -30,7 +30,7 @@ public class MoviePlanController {
     public String showMoviePlan(Model model) {
         List<MoviePlan> moviePlanList = moviePlanRepo.findAllMoviePlan();
         model.addAttribute("moviePlans", moviePlanList);
-        return "/movie-plan";
+        return "/movie-plans/movie-plan";
     }
 
     @GetMapping("/delete-movie-plan/{id}")
@@ -47,7 +47,7 @@ public class MoviePlanController {
         m.addAttribute("movies", movieList);
         List<TheaterRoom> theaterRoomList = theaterRoomRepo.findAllTheaterRoom();
         m.addAttribute("theaterRooms", theaterRoomList);
-        return "/add-movie-plan";
+        return "/movie-plans/add-movie-plan";
     }
 
     @PostMapping("/add-movie-plan/save")
@@ -59,7 +59,7 @@ public class MoviePlanController {
         if(moviePlanRepo.checkIfMoviePlanIsAvailable(moviePlan)) //checks if the movie plan is overlapping an existing one
         {
             model.addAttribute("error", "There is already a movie scheduled for that time.");
-            return "/error";
+            return "/errors/error";
         }
         moviePlanRepo.insertMoviePlan(moviePlan); //inserts the movie plan in the database if it does not already exists
         return "redirect:/movie-plans";
@@ -74,7 +74,7 @@ public class MoviePlanController {
         model.addAttribute("movies", movieList);
         List<TheaterRoom> theaterRoomList = theaterRoomRepo.findAllTheaterRoom();
         model.addAttribute("theaterRooms", theaterRoomList);
-        return "/edit-movie-plan";
+        return "/movie-plans/edit-movie-plan";
     }
 
     @PostMapping("/edit-movie-plan/save")

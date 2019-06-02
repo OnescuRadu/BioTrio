@@ -39,10 +39,9 @@
             <div class="row contact_form">
 
                 <!--Grid column-->
-                <div class="col-md-12 mb-md-0 mb-5">
+                <div class="col-md-12 mb-md-0 mb-5 align-items-center">
                     <form th:action="@{'/save-movie-using-details'}" method="post" th:object="${movie}">
-
-                        <div class="col-md-6" style="margin-bottom: 2%">
+                        <div class="col-md-12" style="margin-bottom: 2%">
                             <!-- Movie -->
                             <label>Movie Details</label>
                             <select th:field="${movie.movie_details_id}" class="form-control mb-4">
@@ -64,7 +63,6 @@
                             </label>
                         </div>
                         <!--Grid column-->
-
 
                         <div class="text-center">
                             <button type="submit" class="empty-button btn btn-default">

@@ -46,7 +46,7 @@
                         <div class="col-md-6" style="margin-bottom: 2%">
                             <div class="md-form mb-0">
                                 <label for="name" class="">Name</label>
-                                <input th:field="${movieForm.movieDetails.name}" type="text" id="name" name="name" class="form-control">
+                                <input th:field="${movieForm.movieDetails.name}" type="text" id="name" name="name" class="form-control" required>
                             </div>
                         </div>
                         <!--Grid column-->
@@ -55,7 +55,7 @@
                         <div class="col-md-6" style="margin-bottom: 2%">
                             <div class="md-form mb-0">
                                 <label for="genre" class="">Genre</label>
-                                <input th:field="${movieForm.movieDetails.genre}" type="text" id="genre" name="name" class="form-control">
+                                <input th:field="${movieForm.movieDetails.genre}" type="text" id="genre" name="name" class="form-control" required>
                             </div>
                         </div>
 
@@ -69,7 +69,7 @@
                         <div class="col-md-6" style="margin-bottom: 2%">
                             <div class="md-form mb-0">
                                 <label for="release-date1" class="">Release date</label>
-                                <input name="release-date" class="form-control" id="release-date1" type="date">
+                                <input name="release-date" class="form-control" id="release-date1" type="date" required>
                             </div>
                         </div>
                         <!--Grid column-->
@@ -78,7 +78,7 @@
                         <div class="col-md-6" style="margin-bottom: 2%">
                             <div class="md-form mb-0">
                                 <label for="duration-minutes" class="">Duration minutes</label>
-                                <input th:field="${movieForm.movieDetails.duration_minutes}" class="form-control" id="duration-minutes" type="text">
+                                <input th:field="${movieForm.movieDetails.duration_minutes}" class="form-control" id="duration-minutes" type="text" required>
                             </div>
                         </div>
                         <!--Grid column-->
@@ -92,7 +92,7 @@
                         <div class="col-md-6" style="margin-bottom: 2%">
                             <div class="md-form mb-0">
                                 <label for="language" class="">Language</label>
-                                <input th:field="${movieForm.movieDetails.language}" class="form-control" id="language" type="text">
+                                <input th:field="${movieForm.movieDetails.language}" class="form-control" id="language" type="text" required>
                             </div>
                         </div>
                         <!--Grid column-->
@@ -101,7 +101,7 @@
                         <div class="col-md-6" style="margin-bottom: 2%">
                             <div class="md-form mb-0">
                                 <label for="poster" class="">Poster</label>
-                                <input th:field="${movieForm.movieDetails.poster}" type="text" id="poster" name="name" class="form-control">
+                                <input th:field="${movieForm.movieDetails.poster}" type="text" id="poster" name="name" class="form-control" required>
                             </div>
                         </div>
                         <!--Grid column-->
@@ -116,7 +116,7 @@
                         <div class="col-md-6" style="margin-bottom: 2%">
                             <div class="md-form mb-0">
                                 <label for="trailer" class="">Trailer</label>
-                                <input th:field="${movieForm.movieDetails.trailer}" class="form-control" id="trailer" type="text">
+                                <input th:field="${movieForm.movieDetails.trailer}" class="form-control" id="trailer" type="text" required>
                             </div>
                         </div>
                         <!--Grid column-->
@@ -143,7 +143,7 @@
                             <div class="md-form mb-0">
                                 <label for="descripton" class="">Description</label>
                                 <!--<input th:field="*{movieForm.movieDetails.description}" type="text" id="descripton" name="name" class="form-control">-->
-                                <textarea th:field="${movieForm.movieDetails.description}" id="descripton" rows="5" cols="80" class="form-control" th:for="myForm"></textarea>
+                                <textarea th:field="${movieForm.movieDetails.description}" id="descripton" rows="5" cols="80" class="form-control" th:for="myForm" required></textarea>
                             </div>
                         </div>
                     </div>
